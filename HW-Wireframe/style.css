@@ -1,0 +1,94 @@
+body {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    color: #777;
+    background: #777;
+    width: 960px;
+    font-size: 18px;
+}
+
+.sectionformatting { 
+    background: #ebebeb; 
+    text-align: center;
+    width: 960px;
+	margin-left: 232.5px;
+}
+
+
+header {
+	/* all of my dark lines are from borders, is there a way to get margin or padding to do this ? It would probably be margin, can I set margin color? */
+	border-bottom: 15px solid #777 ;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+nav {
+ 	border-bottom: 15px solid #777 ;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+section {
+      /*maybe I can use px instead of % on width to allow room for margins. Might need to use an ID because it seems when I mess around with 
+      width at an element level, the class width: auto supersedes it. This might be fine because everythign is already in a <div> that
+      should have all of formatting it needs */
+   width: 495px;
+   float: left;
+   height: 300px;
+   background: #ebebeb; 
+   border-right: 15px solid #777;
+}
+
+aside {
+    width: 450px;
+    float: left;
+    height: 300px;
+	background: #ebebeb; 
+}   
+
+footer {
+	border-top: 15px solid #777;
+    content: "";
+    clear: both;
+    display: table;
+	padding-top: 5px;
+	padding-bottom: 5px;
+  
+}
+
+#article {
+    background-color: #777;
+	color: #ebebeb;
+	margin: 15px;
+
+}
+
+.flipped {
+    color: #ebebeb;
+	padding-top: 15px;
+}
+
+.flippedback {
+	background-color: #ebebeb;
+    border-right: 10px solid #777;
+    border-left: 10px solid #777;
+	height: 40px;
+    color: #777;
+
+}
+h1 {
+    color: #777; 
+}
+
+article h2 {
+    padding-top: 10px;
+    margin-bottom: 1px;
+    border-top: 10px solid #777;
+    border-bottom: 5px solid #777;
+}
+
+article p {
+    padding-top: 10px;
+    margin-top: 0px;
+    border-top: 5px solid #777;
+    border-bottom: 10px solid #777;
+}
