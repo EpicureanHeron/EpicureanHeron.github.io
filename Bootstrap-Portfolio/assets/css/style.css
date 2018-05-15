@@ -35,7 +35,7 @@
 }
 
 .bottomcolumn {
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 .custom-footer {
@@ -44,8 +44,8 @@
 	text-align: center;
 	color: #dddddd;
 	height: 40px;
-	
-	position: absolute;
+	bottom: 0px;
+	position: fixed;
 	width: 100%;
 	
 /*	position:absolute;
