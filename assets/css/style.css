@@ -1,0 +1,263 @@
+.mainContent {
+	width: 940px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #ffffff;
+	
+	margin-top: 30px;
+	margin-bottom: 30px;
+	/* height: 700px; */
+	padding: 10px; 
+	line-height: 1.5em;
+	font-size: 20px;
+	/* note: I'm making the assumpition that the padding on the left and right should be included in the 960 px calculation. So I am reducing the width to 940 to account for the addtional 10px on each side (total 20px) to make this section 960px*/
+}
+
+div {
+	width: 940px;
+	margin-left: auto;
+	margin-right: auto;
+
+	
+}
+
+header div {
+	width: 960px;
+}
+
+h1 {
+	font-family: 'Georgia', Times, Times New Roman, serif;
+	font-weight: bold;
+}
+ 
+a {
+	text-decoration: none;
+	color: #777777;
+}
+
+header {
+	background-color: #ffffff;
+	height: 75px;
+	border-bottom: 5px solid #cccccc;
+	
+}
+body {
+	background-color: rgba(221,221,221,0.5);
+	/*background-image: url("../images/what-the-hex.png");
+	background-repeat: repeat;	*/
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #777777;
+
+}
+
+html {
+
+	background: url(../images/what-the-hex.png) top left repeat;
+	
+	background-position: top left;
+	
+	
+	}
+
+.opacity {
+	background-color: #dddddd;
+}
+
+#PictureandText {
+	margin-top: 30px;
+
+}
+
+#indexPictureandText {
+	margin-top: 30px;
+ /*	height: 600px; */
+}
+
+.imgheadshot {
+	width: 150px;
+	height: auto;
+	float: left;
+	padding: 5px;
+	
+}
+
+.imgportfolio {
+	width: 350px;
+	height: auto;
+	padding: 20px;
+}
+
+.name {
+	float: left;
+	/*margin-left: auto; */
+	color: #ffffff;
+	background-color: #4aaaa5;
+	height: 50px;
+	font-size: 24px;
+	padding-top: 25px;
+	padding-right: 15px;
+	padding-left: 15px;
+	
+	/*border-left: 10px solid  #4aaaa5;
+	border-right: 10px solid  #4aaaa5; */
+}
+.headerlinks {
+	float: right;
+	font-size: 15px;
+	padding-top: 30px;
+	color: #cccccc;
+}
+.MainAboutMe {
+	color: #4aaaa5;
+	font-size: 24px;
+	height: 50px;
+	padding-right: 10px;
+	padding-top: 10px;
+	border-bottom: 2px solid #dddddd;
+}
+footer {	
+	background-color: #666666;	
+	height: 40px;
+	border-top: solid 5px #4aaaa5;
+	text-align: center;
+	color: #dddddd;
+	padding-top: 15px;
+	width: 100%;
+	/*below is for fixed footer */
+
+	/*position: absolute;
+	left: 0;
+	bottom: 0; */
+
+	/* below is for "sticky footer */
+
+	position: -webkit-sticky;
+    position: sticky;
+	left:0;
+	bottom: 0;
+  
+	
+
+}
+
+footer div p {
+	padding-top: 15px;
+}
+
+
+form {
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #777777;
+}
+
+input {
+	width: 940px;
+	
+}
+
+textarea {
+	width: 940px;
+	height: 300px;
+}
+
+.submitbutton {
+	height: 35px;
+	width: 95px;
+	background-color:  #4aaaa5;
+	color: #ffffff;
+	padding: 0;
+	border: none;
+	font-size: 15px;
+	
+}
+
+.floatingtitle {
+	color: #ffffff;
+	background-color: #4aaaa5;
+	height: 10px;
+	font-size: 24px;
+	padding-top: 25px;
+	padding-right: 15px;
+	padding-left: 15px;
+	width: 200px;
+	z-index: 2;
+	
+}
+
+.container {
+	position: relative;
+    text-align: left;
+    color: white;
+}
+
+.firstpic {
+	position: absolute;
+    top: 150px;
+    left: 20px;
+	font-size: 20px;
+	color: #ffffff;
+	background-color: #4aaaa5;
+	width: 350px;
+	text-align: center;
+	height: 35px;
+	padding-top: 10px;
+	
+}
+
+.secondpic {
+	position: absolute;
+    top: 150px;
+    left: 415.5px;
+	font-size: 20px;
+	color: #ffffff;
+	background-color: #4aaaa5;
+	width: 350px;
+	text-align: center;
+	height: 35px;
+	padding-top: 10px;
+	
+}
+
+.thirdpic {
+	position: absolute;
+    top: 395px;
+    left: 20px;
+	font-size: 20px;
+	color: #ffffff;
+	background-color: #4aaaa5;
+	width: 350px;
+	text-align: center;
+	height: 35px;
+	padding-top: 10px;
+	
+}
+
+.fourthpic {
+	
+	position: absolute;
+    top: 395px;
+    left: 415.5px;
+	font-size: 20px;
+	color: #ffffff;
+	background-color: #4aaaa5;
+	width: 350px;
+	text-align: center;
+	height: 35px;
+	padding-top: 10px;
+	
+}
+
+.fifthpic {
+	
+	position: absolute;
+    top: 640px;
+    left: 20px;
+	font-size: 20px;
+	color: #ffffff;
+	background-color: #4aaaa5;
+	width: 350px;
+	text-align: center;
+	height: 35px;
+	padding-top: 10px;
+	
+}
