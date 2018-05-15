@@ -40,11 +40,14 @@
 
 .custom-footer {
 	background-color: #666666;
-	border-top: solid 5px #4aaaa5;
+	border-top: solid 5px #2e9792;
 	text-align: center;
 	color: #dddddd;
 	height: 40px;
-	border-bottom: solid 5px #666666;
+	
+	position: absolute;
+	width: 100%;
+	
 /*	position:absolute;
 	bottom:0;*/
 		
@@ -62,7 +65,8 @@ a {
 }
 
 body {
-	background-color: rgba(221,221,221,0.5);
+	background-color: rgba(221,221,221,0.9);
+	background: url(../images/what-the-hex.png) top left repeat;
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	color: #777777;
 }
