@@ -43,8 +43,15 @@ header {
 }
 body {
 	/* background-color: rgba(221,221,221,0.5); */
-	background-image: url("../images/what-the-hex.png");
-	background-repeat: repeat;	
+	/* background-image: url("../images/what-the-hex.png");
+	background-repeat: repeat;	 */
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #777777;
+	background-color: yellow;
+
+}
+
+p {
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	color: #777777;
 
@@ -81,11 +88,6 @@ html {
 	
 }
 
-.imgportfolio {
-	width: 350px;
-	height: auto;
-	padding: 20px;
-}
 
 .name {
 	float: left;
@@ -171,29 +173,33 @@ textarea {
 	
 }
 
-.floatingtitle {
-	color: #ffffff;
-	background-color: #4aaaa5;
-	height: 10px;
-	font-size: 24px;
-	padding-top: 25px;
-	padding-right: 15px;
-	padding-left: 15px;
-	width: 200px;
-	z-index: 2;
-	
-}
 
-.container {
+/* .container {
 	position: relative;
     text-align: left;
     color: white;
+} */
+
+.portfolioStyle {
+	overflow:hidden;
+}
+.imgportfolio {
+	width: 350px;
+	height: auto;
+	/* padding: 20px; */
 }
 
-.firstpic {
-	position: absolute;
-    top: 150px;
-    left: 20px;
+
+.work {
+  float: left;
+  max-width:400px;
+  width: 45%;
+  /* margin: 20px 0 25px; */
+  overflow: auto;
+}
+
+.piclabel {
+	position: relative;
 	font-size: 20px;
 	color: #ffffff;
 	background-color: #4aaaa5;
@@ -201,149 +207,225 @@ textarea {
 	text-align: center;
 	height: 35px;
 	padding-top: 10px;
-	
+	bottom: 100px;
+	left: 0px;
 }
 
-.secondpic {
-	position: absolute;
-    top: 150px;
-    left: 415.5px;
-	font-size: 20px;
-	color: #ffffff;
-	background-color: #4aaaa5;
-	width: 350px;
-	text-align: center;
-	height: 35px;
-	padding-top: 10px;
-	
-}
 
-.thirdpic {
-	position: absolute;
-    top: 395px;
-    left: 20px;
-	font-size: 20px;
-	color: #ffffff;
-	background-color: #4aaaa5;
-	width: 350px;
-	text-align: center;
-	height: 35px;
-	padding-top: 10px;
-	
-}
-
-.fourthpic {
-	
-	position: absolute;
-    top: 395px;
-    left: 415.5px;
-	font-size: 20px;
-	color: #ffffff;
-	background-color: #4aaaa5;
-	width: 350px;
-	text-align: center;
-	height: 35px;
-	padding-top: 10px;
-	
-}
-
-.fifthpic {
-	
-	position: absolute;
-    top: 640px;
-    left: 20px;
-	font-size: 20px;
-	color: #ffffff;
-	background-color: #4aaaa5;
-	width: 350px;
-	text-align: center;
-	height: 35px;
-	padding-top: 10px;
-	
-}
 
 @media screen and (max-width: 980px) {
 	header {
 		width: 100%;
 	}
+	body {
+		background-color: blue;
+			/* overflow used to get rid of stupid horizontal scroll bar */
+		overflow-x: hidden;
+	
+	}
+	.container {
+		max-width: 768px;
+	}
 	.mainContent  {
-		width: 75%;
+		max-width: 620px;
 		position: relative;
 		margin-left: 3%;
 	}
+	.headerlinks {
+		padding-right: 30px;
+	}
 
 	.MainAboutMe {
-		width: 60%;
+		max-width: 600px;
 	}
 	.indexPictureandText, p {
-		width: 60%;
+		max-width: 600px;
 	}
-
-	.headerlinks {
+	footer {
+		width:100%;
+		text-align: center;
+	}
+	
+	footer p {
+		margin-right: 384px; 
+	}
+	/* .name {
+		max-margin-left: 3%;
+	} */
+		
+	/* .headerlinks {
 		position: relative;
-		/* use to have this as margin-left: -400px; but the float right seems to work better */
+		/* use to have this as margin-left: -400px; but the float right seems to work better 
 		
 		margin-left: 20%;
 
-	}	
+	}	 */
 	.name {
 		position: relative;
 		margin-left: 3%;
 	}
+	
+	textarea {
+		width: 400px;
+	}
+	
+	input {
+		width: 390px;
+	}
 
-	footer {
+	/* footer {
 		width: 100%; 	
+	} */
+
+	.imgportfolio {
+		width: 250px;
+		height: auto;
+		padding: 20px;
+	}
+
+	.piclabel {
+		width: 250px;
+		left: 20px; 	
 	}
 
 	}
 
 @media screen and (max-width: 768px) {
-	header {
-
-	}
+	
 	body {
-		background-color: blue;
+		background-color: red;
 	}
 	.mainContent {
 	
 	margin-left: auto;
 	margin-right: auto;
-	width: 90%
+	width: 95%%
 	}
 
 	.imgheadshot {
-		width: 250px;
+		width: 200px;
 		height: auto;
 	}
-
-	.MainAboutMe{
-
-	}
-	.indexPictureandText, p {
-
+	.container {
+		max-width: 600px;
 	}
 
-	.headerlinks {
-
+	.MainAboutMe, .indexPictureandText, p {
+		max-width: 580px;
 	}
-	.name {
-
+	
+	textarea {
+		width: 520px;
 	}
-	footer {
-
+	
+	input {
+		width: 470px;
 	}
+
+	.imgportfolio {
+		width: 230px;
+		height: auto;
+		padding: 20px;
+	}
+
+	.piclabel {
+		width: 230px;
+		left: 20px; 
+		font-size: 16px;	
+		height: 25px;
+		padding-bottom: 5px;
+	}
+	
 }
 
 @media screen and (max-width: 640px) {
 	.name {
 		width: 100%;
+		margin: 0px;
+		text-align: left;
+		border-left: solid 15px #4aaaa5;
 	}
-	.imgheadshot {
-		width: 540px;
+
+	container {
+		/* width: 90%; */
+		max-width: 440px;
+	
 	}
+
+	.imgheadshot{
+		width: 95%;
+		max-width: 430px;
+
+	}
+ 	.mainContent, .MainAboutMe {
+		max-width: 430px;
+	}
+	.mainContent {
+		margin-top: 130px;
+	}
+	/*.MainAboutMe {
+		width: 90%;
+		max-width: 430px;
+	} */
+	
+	textarea {
+		width: 400px;
+	}
+	input {
+		width: 350px;
+	}
+	
 	.headerlinks{
+	/*	width: 640px;*/
 		width: 100%;
 		text-align: center;
-		position: bottom;
+		position: relative;
+		bottom: 0;
+		background-color: #ffffff;
+		padding-top: 20px;
+		padding-bottom: 30px;
+		padding-right: 200px;
+		
+		
+	}
+	 p {
+		max-width: 430px;
+	}
+	
+	body {
+		background-color: green;
+	}
+	
+	header {
+		position: relative;
+		width: 100%;
+	}
+
+	.work {
+		float:none;
+		margin-left: 0px;
+		margin-right: 0px;
+		width: 90%;
+		
+	}
+	.portfolioStyle {
+		width: 600px;
+	}
+	.imgportfolio {
+	
+		width: 360px;
+		height: auto;
+		padding: 20px;
+		
+	}
+	.indexPictureandText {
+		width: 400px;
+	}
+	.piclabel {
+		width: 360px;
+		left: 20px; 
+		font-size: 16px;	
+		height: 25px;
+		padding-bottom: 5px;
 	}
 }
