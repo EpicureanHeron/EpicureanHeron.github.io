@@ -45,6 +45,7 @@ body {
 	/* background-color: rgba(221,221,221,0.5); */
 	background-image: url("../images/what-the-hex.png");
 	background-repeat: repeat;	
+	/* background-size: cover;   */
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	color: #777777;
 	/* background-color: yellow; */
@@ -221,6 +222,7 @@ textarea {
 		/* background-color: blue; */
 			/* overflow used to get rid of stupid horizontal scroll bar */
 		overflow-x: hidden;
+		max-width: 980px;
 	
 	}
 	.container {
@@ -295,6 +297,10 @@ textarea {
 	/* body {
 		background-color: red;
 	} */
+
+	body {
+		max-width: 768px;
+	}
 	.mainContent {
 	
 	margin-left: auto;
@@ -345,7 +351,9 @@ textarea {
 		text-align: left;
 		border-left: solid 15px #4aaaa5;
 	}
-
+	body {
+		max-width: 640px;
+	}
 	container {
 		/* width: 90%; */
 		max-width: 440px;
