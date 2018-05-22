@@ -1,26 +1,36 @@
+
+// Initalizes the userGuess variable which will be assigned after a letter key is pressed
 var userGuess;
 
+// Empty array which will have userGuess added to it 
 var guessedByUser = [];
 
-var computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley"];
+// Array from which the computer choses its mystery word
+var computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
 
-var computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+// Initalizes the computerGuess, which will store a value from the computerGuessArray 
+var computerGuess;
 
-var guessState = [];
+//intilizes the variable guessState which will be updated to an empty array in the makeGuessPopulateGuessState() 
+var guessState;
 
+//State of the game
 var wonTheGame = false;
 
+//Will be switched to true once a guess is made, will be switched back after a defeat or a correct answer
+var computerMadeGuess = false;
+
+//Keeps track of all wrong letter guesses
 var wrongGuesses = 0;
 
-for (i = 0; i < computerGuess.length; i++) {
-    guessState.push(" _ ");
-}
- 
+//Correct words guessed
+var wordsGuessed = 0;
+
 //NEEDS TO BE ADDED:
 //Do not increase wrongGuesses if the guess has been made before
-//Need to create "user score" variable 
+//Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
 //Need to create a limit to guesses
-//Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though
+//Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though...need to reset the guessedByUser array
 
 
 
@@ -28,13 +38,27 @@ for (i = 0; i < computerGuess.length; i++) {
 document.onkeyup = function newGuess(event) {
 //checks to see if a lowercase letter was pressed
     if (event.keyCode >= 65 && event.keyCode <= 90) {
+        if (computerMadeGuess === false) {
+            makeGuessPopulateGuessState();
+        }
         userGuess = event.key;
         guessedByUser.push(userGuess);
         console.log(event.keyCode);
         checkGuess(userGuess);
     }
-
-
+    else {
+        alert("That's not a letter!!!");
+    }
+}
+// creates a computer guess from the array and populates the guess state. 
+function makeGuessPopulateGuessState(){
+    computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+    console.log(computerGuess);
+    guessState = [];
+    for (i = 0; i < computerGuess.length; i++) {
+        guessState.push(" _ ");
+    }
+    computerMadeGuess = true;
 }
 
 //Updates the guess state with the user's guess
@@ -88,11 +112,15 @@ function checkGuess(letter){
 }
 
 
-// Checks the computer's guess against the guessState to determine if user has won.
+// Checks the computer's guess against the guessState to determine if user has won, reset variables and chose a new word.
 function wonGame() {
     if (computerGuess === guessState.join("")) {
         wonTheGame = true;
+        computerMadeGuess = false;
         console.log("You win! ")
+        wordsGuessed = wordsGuessed + 1;
+        guessedByUser = [];
+        makeGuessPopulateGuessState();
     }
 }
 
@@ -106,6 +134,7 @@ function updatePage() {
     document.getElementById("guessedByUser").innerHTML = displayLettersGuessed;
     document.getElementById("numberOfGuesses").innerHTML = wrongGuesses;
     document.getElementById("gameStatus").innerHTML = wonTheGame;
+    document.getElementById("wordsGuessed").innerHTML = wordsGuessed;
    
 }
 
