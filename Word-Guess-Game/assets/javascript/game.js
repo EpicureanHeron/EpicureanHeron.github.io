@@ -26,6 +26,9 @@ var wrongGuesses = 0;
 //Correct words guessed
 var wordsGuessed = 0;
 
+//array to store the correct guesses 
+var computerGuessCorrect = [];
+
 //NEEDS TO BE ADDED:
 //Do not increase wrongGuesses if the guess has been made before
 //Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
@@ -118,6 +121,7 @@ function wonGame() {
         wonTheGame = true;
         computerMadeGuess = false;
         console.log("You win! ")
+        computerGuessCorrect.push(computerGuess)
         wordsGuessed = wordsGuessed + 1;
         guessedByUser = [];
         makeGuessPopulateGuessState();
@@ -128,13 +132,17 @@ function wonGame() {
 //Updates the page with the current state of the game
 function updatePage() {
     var displayGuesses = guessState.join("");
-    var displayLettersGuessed = guessedByUser.join(" ")
+    var displayLettersGuessed = guessedByUser.join(" ");
+    var displayGuessCorrect = computerGuessCorrect.join(" ");
     // document.getElementById("computersGuess").innerHTML = computerGuess;
     document.getElementById("currentState").innerHTML =  displayGuesses;
     document.getElementById("guessedByUser").innerHTML = displayLettersGuessed;
     document.getElementById("numberOfGuesses").innerHTML = wrongGuesses;
     document.getElementById("gameStatus").innerHTML = wonTheGame;
     document.getElementById("wordsGuessed").innerHTML = wordsGuessed;
+    //This should probably be nestled in an if statement checking to see if the computerGuessCorrect array is greater than 0.
+    document.getElementById("correctWords").innerHTML = displayGuessCorrect;
+
    
 }
 
