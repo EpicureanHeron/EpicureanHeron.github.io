@@ -1,0 +1,21 @@
+body {
+    background-color: #000000;
+}
+
+.side {
+    background-color: #a71313;
+    /* height: 800px; */
+    /* background-color: #c1c730; 
+    background-color: #2b53a7;
+    background-color: #d6a444; */
+}
+
+h2 {
+    color: #c1c730;
+}
+
+img {
+    width: 90%;
+    position: center;
+    
+}
