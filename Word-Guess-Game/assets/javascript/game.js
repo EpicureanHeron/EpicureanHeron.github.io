@@ -1,8 +1,8 @@
 
 //NEEDS TO BE ADDED:
 //Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
-//Need to create a limit to guesses
-//Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though...need to reset the usedLettersArr array
+//DONE: Need to create a limit to guesses
+//DONE: Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though...need to reset the usedLettersArr array
 
 
 //THINGS TO CLEAN UP/IMPROVEMENTS
@@ -11,11 +11,12 @@
 //3. Could use the forEach thing instead of all these darn for loops
 
 //WISHLIST
-//Add pictures for each element in the computerGuessArray for the characters, use jQuery to update the photos on the screen
+// STARTED: Add pictures for each element in the computerGuessArray for the characters, use jQuery to update the photos on the screen
 //Play a sound clips
 //"Shield Strength" as a counter
 //CSS animation of the whole screen shaking at 10%, lights flash 
 //Make this an object
+//DONE: How many guesses ? 6 
 
 
 //VARIABLES
@@ -60,6 +61,8 @@ var pictureDictionary = {
     "Worf": "assets/images/Worf.jpg",
     "Yar": "assets/images/Yar.jpg"
 }
+//playAgain is set to false intitally, this comes into play in the reset function
+var playAgain = false;
 
 //FUNCTIONS
 
@@ -76,7 +79,7 @@ $(document).keyup(function newGuess(event) {
         }
         userGuess = event.key;
         //usedLettersArr.push(userGuess);
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
         checkGuess(userGuess);
     }
     else {
@@ -87,11 +90,30 @@ $(document).keyup(function newGuess(event) {
 function makeGuessPopulateGuessState(){
     computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
     console.log(computerGuess);
+
+    //WORK ON THE BELOW 5/24/2018
+
+    //This should remove the computers guess from the array, so going forward it won't come again
+    //However, right now it takes the index of whatever the computer guess is and deletes everything after that in the array...which is not what I want.
+
+    // var index = computerGuessArray.indexOf(computerGuess);
+    // console.log(index);
+    // console.log("this is your current array for guesses" + computerGuessArray)
+    // if (index > -1) {
+    //     computerGuessArray.splice(index);
+    //     console.log("removal fired");
+    // }
+
+
+    //Sets the guessState to empty array
     guessState = [];
+    //Populates the array with underscores the total length of the computerGuess
     for (i = 0; i < computerGuess.length; i++) {
         guessState.push(" _ ");
     }
     computerMadeGuess = true;
+
+   
 }
 
 //checks to see if an element passed to it equals the user's guess, returns true or false
@@ -128,24 +150,36 @@ function checkGuess(letter){
     //local variable which determines if the guess letter exists in the usedLettersArr, is set to true or false
     var hasNotBeenGuessedBefore = validateGuess(letter);
 
-    //if the isMatching returns true, then the updateGuessState function is called, also switches the isMatched to true which allows it to bypass the if statement lower in this function
-    for (j = 0; j < computerGuess.length; j++) {
-        if (isMatching(computerGuessArray[j])) {
-            updateGuessState(j);
-            isMatched = true
-        }   
-    }
+    //Checks to see if guesses are remaining
+    if (wrongGuesses < 5 ) {
+            for (j = 0; j < computerGuess.length; j++) {
+                //if the isMatching returns true, then the updateGuessState function is called, also switches the isMatched to true which allows it to bypass the if statement lower in this function
 
-    //if the letter does not match and has not been used before it counts against the user's guesses
-    if (isMatched === false && hasNotBeenGuessedBefore === false) {
+                if (isMatching(computerGuessArray[j])) {
+                updateGuessState(j);
+                isMatched = true
+            }   
+        }
+
+        //if the letter does not match and has not been used before it counts against the user's guesses
+        if (isMatched === false && hasNotBeenGuessedBefore === false) {
+            wrongGuesses = wrongGuesses + 1;
+        }
+
+        //calls the wonGame function at the end of function to see if the game is over
+        wonGame();
+
+        //calls the updatePage function
+        updatePage();
+    }
+    //Tells the user if they lose
+    else {
         wrongGuesses = wrongGuesses + 1;
+        updatePage();
+        playAgain = confirm("You lost! Want to play again?");
+        reset(playAgain);
     }
-
-    //calls the wonGame function at the end of function to see if the game is over
-    wonGame();
-
-    //calls the updatePage function
-    updatePage();
+    
 }
 //Checks to see if user has guessed this letter previously and adds it to the usedLetterArr if they have not, if they have used it, it lets them know
 function validateGuess(element){
@@ -184,16 +218,33 @@ function updatePicture(element) {
 
 }
 
+function reset(someBoolean) {
+    if (someBoolean) {
+        guessState = [];
+        usedLettersArr = [];
+        wrongGuesses = 0;
+        computerGuessCorrect = []
+        wordsGuessed = 0;
+        //need to update picture as well;
+        updatePage();
+        $("#pictureOfLastGuessed").attr("src", "assets/images/placeholder.png");
+    }
+    else {
+        alert("You suck");
+    }
+}
+
 
 function updatePage() {
 
     var displayGuesses = guessState.join("");
     var displayLettersGuessed = usedLettersArr.join(" ");
     var displayGuessCorrect = computerGuessCorrect.join(" ");
-   
+    var displayGuessesRemaining = 6 - wrongGuesses;
+
     $("#currentState").html(displayGuesses);
     $("#guessedByUser").html(displayLettersGuessed);
-    $("#numberOfGuesses").html(wrongGuesses);  
+    $("#numberOfGuesses").html(displayGuessesRemaining);  
     $("#wordsGuessed").html(wordsGuessed);
     //This should probably be nestled in an if statement checking to see if the computerGuessCorrect array is greater than 0.   
     $("#correctWords").html(displayGuessCorrect);
