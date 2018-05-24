@@ -4,6 +4,9 @@
             <meta charset="UTF-8">
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+            <!--imports jQuery-->
+            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            <!--Logic for word guess game-->
             <script src="assets/javascript/game.js"></script>
            
         </head>
@@ -24,12 +27,15 @@
                     <div class="col-md-2 side"></div>
                     <div class="col-md-8">
                             <!-- <p>Computer's Guess: <span id="computersGuess"></span></p> -->
-                            <p>To begin game, make your first guess with a lower case letter</p>
-                            <h2>Current State: <span id="currentState"></span></h2>
+                            <p>Welcome to Star Trek Hangman</p>
+                            <p>To start a game, guess a Letters</p>
+                            <h1>Current Game: <span id="currentState"></span></h1>
+                            <br>
+                            <br>
                             <h2>Letters Guessed: <span id="guessedByUser"></span></h2>
                             <h2>And you have made <span id="numberOfGuesses">0</span> incorrect guesses</h2>
-                            <h2>Have you have won the game? <span id="gameStatus"></span></h2>
-                            <h2>You have guessed <span id="wordsGuessed">0</span> correctly</h2>
+                            <!-- <h2>Have you have won the game? <span id="gameStatus"></span></h2> -->
+                            <h2>You have guessed <span id="wordsGuessed">0</span> words correctly</h2>
                             <h2>The words you have guessed correctly are: <span id="correctWords">none!</span></h2>
                     </div>
                     <div class="col-md-2 side"></div>
