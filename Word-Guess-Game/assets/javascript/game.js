@@ -50,6 +50,17 @@ var wordsGuessed = 0;
 //array to store the correct guesses 
 var computerGuessCorrect = [];
 
+//Dictionary to hold the pictures associated with each guess
+
+var pictureDictionary = {
+    "Data": "assets/images/Data.jpg",
+    "Troi": "assets/images/Troi.jpg",
+    "Picard": "assets/images/Picard.jpg",
+    "Riker": "assets/images/Riker.jpg",
+    "Worf": "assets/images/Worf.jpg",
+    "Yar": "assets/images/Yar.jpg"
+}
+
 //FUNCTIONS
 
 // Updates guess and adds it to the usedLettersArr array and calls the checkGuess function
@@ -156,12 +167,23 @@ function wonGame() {
         computerGuessCorrect.push(computerGuess)
         wordsGuessed = wordsGuessed + 1;
         usedLettersArr = [];
+        updatePicture(computerGuess);
         makeGuessPopulateGuessState();
     }
 }
 
 
 //Updates the page with the current state of the game
+
+function updatePicture(element) {
+    //this checks to see if the element being passed (which should be the computer's last guess) is in the dictionary pictureDictionary
+    if (element in pictureDictionary) {
+        //this updates the img tag with the id  of pictureOfLastGuessed to change the src to be the value associated with the key 
+        $("#pictureOfLastGuessed").attr("src", pictureDictionary[element]);
+    }
+
+}
+
 
 function updatePage() {
 
