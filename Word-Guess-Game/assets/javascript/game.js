@@ -1,6 +1,7 @@
+//TODO 
 
 //NEEDS TO BE ADDED:
-//Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
+//DONE: Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
 //DONE: Need to create a limit to guesses
 //DONE: Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though...need to reset the usedLettersArr array
 
@@ -28,7 +29,7 @@ var userGuess;
 var usedLettersArr = [];
 
 // Array from which the computer choses its mystery word
-var computerGuessArray = ["Betazoid", "Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
+var computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
 
 // Initalizes the computerGuess, which will store a value from the computerGuessArray 
 var computerGuess;
@@ -59,7 +60,18 @@ var pictureDictionary = {
     "Picard": "assets/images/Picard.jpg",
     "Riker": "assets/images/Riker.jpg",
     "Worf": "assets/images/Worf.jpg",
-    "Yar": "assets/images/Yar.jpg"
+    "Yar": "assets/images/Yar.jpg",
+    "Geordi": "assets/images/Geordi.jpg",
+    "Lwaxana": "assets/images/Lwaxana.jpg",
+    "Borg" : "assets/images/Borg.jpg", 
+    "Caradassians" : "assets/images/Caradassians.jpg",
+    "Klingons": "assets/images/Klingons.jpg",
+    "Vulcans": "assets/images/Vulcans.jpg",
+    "Enterprise" : "assets/images/Enterprise.jpg",
+    "Crusher" : "assets/images/Crusher.jpg",
+    "Wesley" : "assets/images/Wesley.jpg", 
+    "Romulans" : "assets/images/Romulans.jpg",
+    "Guinan" : "assets/images/Guinan.jpg"
 }
 //playAgain is set to false intitally, this comes into play in the reset function
 var playAgain = false;
@@ -77,6 +89,7 @@ $(document).keyup(function newGuess(event) {
         if (computerMadeGuess === false) {
             makeGuessPopulateGuessState();
         }
+        
         userGuess = event.key;
         //usedLettersArr.push(userGuess);
         // console.log(event.keyCode);
@@ -89,6 +102,7 @@ $(document).keyup(function newGuess(event) {
 // creates a computer guess from the array and populates the guess state. 
 function makeGuessPopulateGuessState(){
     computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+    
     console.log(computerGuess);
 
     //WORK ON THE BELOW 5/24/2018
@@ -96,13 +110,14 @@ function makeGuessPopulateGuessState(){
     //This should remove the computers guess from the array, so going forward it won't come again
     //However, right now it takes the index of whatever the computer guess is and deletes everything after that in the array...which is not what I want.
 
-    // var index = computerGuessArray.indexOf(computerGuess);
-    // console.log(index);
-    // console.log("this is your current array for guesses" + computerGuessArray)
-    // if (index > -1) {
-    //     computerGuessArray.splice(index);
-    //     console.log("removal fired");
-    // }
+    var index = computerGuessArray.indexOf(computerGuess);
+    console.log(index);
+    
+    console.log("this is your current array for guesses" + computerGuessArray + " " + computerGuessArray.length)
+    if (index > -1) {
+        computerGuessArray.splice(index, 1);
+        console.log("removal fired " + computerGuessArray + " " + computerGuessArray.length);
+    }
 
 
     //Sets the guessState to empty array
@@ -222,9 +237,11 @@ function reset(someBoolean) {
     if (someBoolean) {
         guessState = [];
         usedLettersArr = [];
+        computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
         wrongGuesses = 0;
         computerGuessCorrect = []
         wordsGuessed = 0;
+        computerMadeGuess = false;
         //need to update picture as well;
         updatePage();
         $("#pictureOfLastGuessed").attr("src", "assets/images/placeholder.png");
