@@ -1,11 +1,5 @@
 //TODO 
 
-//NEEDS TO BE ADDED:
-//DONE: Create another array to store previous computer guesses, and IF the new comptuer guess is in that array, make a new guess
-//DONE: Need to create a limit to guesses
-//DONE: Need to create a "reset state" function to reset after a win that chooses a new word (cannot be a previous chosen word)...not sure about reseting guesses though...need to reset the usedLettersArr array
-
-
 //THINGS TO CLEAN UP/IMPROVEMENTS
 //1. Make variables and functions more unique to increase readability
 //2. Some functions are very multi purpose...which makes it a pain to read, be more concise 
@@ -29,7 +23,7 @@ var userGuess;
 var usedLettersArr = [];
 
 // Array from which the computer choses its mystery word
-var computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
+var computerGuessArray = [ "Lwaxana", "Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
 
 // Initalizes the computerGuess, which will store a value from the computerGuessArray 
 var computerGuess;
@@ -83,50 +77,69 @@ var playAgain = false;
 //document.onkeyup = function newGuess(event) {
 
 //This is jQuery handling the key event
+
 $(document).keyup(function newGuess(event) {
+
 //checks to see if a lowercase letter was pressed
+
     if (event.keyCode >= 65 && event.keyCode <= 90) {
         if (computerMadeGuess === false) {
             makeGuessPopulateGuessState();
         }
         
         userGuess = event.key;
+
         //usedLettersArr.push(userGuess);
         // console.log(event.keyCode);
+
         checkGuess(userGuess);
     }
     else {
         alert("That's not a letter!!!");
     }
 })
+
 // creates a computer guess from the array and populates the guess state. 
+
 function makeGuessPopulateGuessState(){
-    computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
     
-    console.log(computerGuess);
-
-    //WORK ON THE BELOW 5/24/2018
-
-    //This should remove the computers guess from the array, so going forward it won't come again
-    //However, right now it takes the index of whatever the computer guess is and deletes everything after that in the array...which is not what I want.
-
-    var index = computerGuessArray.indexOf(computerGuess);
-    console.log(index);
+    //checks to see if there are any guesses left to be had
     
-    console.log("this is your current array for guesses" + computerGuessArray + " " + computerGuessArray.length)
-    if (index > -1) {
-        computerGuessArray.splice(index, 1);
-        console.log("removal fired " + computerGuessArray + " " + computerGuessArray.length);
+    if (computerGuessArray.length > 0) {
+
+        // computer choses a random value from the established arr
+
+        computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+    
+        //This removes the computers guess from the array, so going forward it won't come again
+    
+        var index = computerGuessArray.indexOf(computerGuess);
+
+        if (index > -1) {
+            computerGuessArray.splice(index, 1);
+        }
+
+        //Sets the guessState to empty array
+        console.log(computerGuess);
+        guessState = [];
+
+        //Populates the array with underscores the total length of the computerGuess
+
+        for (i = 0; i < computerGuess.length; i++) {
+            guessState.push(" _ ");
+        }
+        computerMadeGuess = true;
     }
 
+    //asks the user if they want to play again then calls the reset function
 
-    //Sets the guessState to empty array
-    guessState = [];
-    //Populates the array with underscores the total length of the computerGuess
-    for (i = 0; i < computerGuess.length; i++) {
-        guessState.push(" _ ");
+    else {
+        
+        playAgain = confirm("You beat the whole game! Play again?");
+        
+        reset(playAgain);
+        
     }
-    computerMadeGuess = true;
 
    
 }
@@ -237,7 +250,7 @@ function reset(someBoolean) {
     if (someBoolean) {
         guessState = [];
         usedLettersArr = [];
-        computerGuessArray = ["Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
+        computerGuessArray = ["Lwaxana", "Troi", "Data", "Picard", "Riker", "Worf", "Crusher", "Enterprise", "Borg", "Caradassians", "Romulans", "Vulcans", "Geordi", "Wesley", "Yar", "Guinan", "Klingons"];
         wrongGuesses = 0;
         computerGuessCorrect = []
         wordsGuessed = 0;
