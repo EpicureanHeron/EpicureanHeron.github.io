@@ -7,7 +7,7 @@
 
 //WISHLIST
 // STARTED: Add pictures for each element in the computerGuessArray for the characters, use jQuery to update the photos on the screen
-//Play a sound clips
+//DONE: Play a sound clips
 //"Shield Strength" as a counter
 //CSS animation of the whole screen shaking at 10%, lights flash 
 //Make this an object
@@ -106,7 +106,7 @@ function makeGuessPopulateGuessState(){
     //checks to see if there are any guesses left to be had
     
     if (computerGuessArray.length > 0) {
-
+        playSoundEffect();
         // computer choses a random value from the established arr
 
         computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
@@ -263,6 +263,22 @@ function reset(someBoolean) {
         alert("You suck");
     }
 }
+
+
+   
+
+   // code to play sound effect. This is adapted from the in class captain planet code and I believe can be reduced more, but it currently works
+   function playSoundEffect() {
+
+
+       //creates a an an audio tag
+        var audioElement = document.createElement("audio");
+        //sets that audio tag's source to be the Make IT so mp3
+        audioElement.setAttribute("src", "assets/audio/makeItSo.mp3");
+        //plays the audio
+        audioElement.play();
+   }
+  
 
 
 function updatePage() {
