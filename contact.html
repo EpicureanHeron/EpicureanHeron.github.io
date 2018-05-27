@@ -1,61 +1,82 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <meta charset="UTF-8">
-            <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-            <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-            <title>Contact</title>
+        <meta charset="UTF-8">
+        <title>Contact</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/style.css">
     </head>
 
-    <body>
-        <header>
-            <div>
-                
-                    <h1 class="name">Joe Thor</h1>
-                
-                 <p class="headerlinks"><a href="index.html">About</a> | <a href="portfolio.html">Portfolio</a> |<a href="contact.html"> Contact</a></p>
-            
-            </div>
-        </header>
-        
-        <div class="mainContent">
-            <div>
-                <h1 class="MainAboutMe">Contact</h1>
-            </div>
-            
-            <div id="PictureandText">
-                <form>
-                    Name: <br>
-                    <input type="text" name="Name"><br>
-                    Email: <br>
-                    <input type="text" name="Email"><br>
-                    
-                    Message: <br>
-                    <textarea name="message"></textarea>
-                    
-                    <br>
-                    
-                    <input type="submit" class="submitbutton" value="Submit">
-                    
-                    
-                </form>
-            </div>
-        </div>
+        <body>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light nav-bar-custom">  
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                              </button>
+                      
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                
+                            <ul class="navbar-nav mr-auto ">
+                                <li >
+                                    <a class="nav-bar-logo" href="index.html">Joe Thor</a>
+                                </li>
+                           
+                                
+                            
+                            </ul>
 
-        <footer>
-            <div>
-            
-        
-        <p>Copyright &reg;</p>
-        
-            </div>
-        
-        </footer>
-   
-      
-   
+                            
+                            <ul class="nav navbar-nav  nav-bar-push">
+                                <li><a href="index.html">About</a> &nbsp;</li>
+                                <!-- <li>&nbsp;|&nbsp; </li> -->
+                                <li><a href="portfolio.html"> Portfolio </a>&nbsp; </li>
+                                <!-- <li>&nbsp;|&nbsp; </li> -->
+                                <li><a href="contact.html">Contact</a> </li>
+                            </ul>
+                        </div>
+                       
+                   
+                    </nav>
 
-    </body>
+                <div class="container-fluid">
+                    
 
+                    <div class="row topcolumn bottomcolumn">
+                            <div class="col-md-2"></div>
+                        <div class="col-md-8 mainContent">
+                                <h1 class="MainAboutMe">Contact</h1>
+                                <form>
+                                        Name: <br>
+                                        <input type="text" name="Name"><br>
+                                        Email: <br>
+                                        <input type="text" name="Email"><br>
+                                        
+                                        Message: <br>
+                                        <textarea name="message"></textarea>
+                                        
+                                        <br>
+                                        
+                                        <input type="submit" class="submitbutton" value="Submit">
+                                        
+                                        
+                                    </form>
+
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+                <footer class="footer custom-footer">
+
+                    <div class="container">
+              
+                     <span>Copyright</span>
+              
+                    </div>
+              
+                  </footer>
+        
+              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        </body>
 
 </html>
