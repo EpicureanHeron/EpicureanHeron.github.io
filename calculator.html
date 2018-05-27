@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Calculator</title>
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<!-- Jumbotron for Title -->
+<div class="jumbotron">
+    <h1 class="text-center">jQuery Calculator</h1>
+    <h3 class="text-center">Perform basic mathematic operations using the power of jQuery!</h3>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+      <!-- Calculator Panel -->
+      <div class="col-lg-4">
+        <div class="card">
+          <h3 class="card-header">Calculator</h3>
+
+          <div class="card-body">
+            <button id="button-1" class="btn btn-primary number" value="1"><h1>1</h1></button>
+            <button id="button-2" class="btn btn-primary number" value="2"><h1>2</h1></button>
+            <button id="button-3" class="btn btn-primary number" value="3"><h1>3</h1></button>
+            <button id="button-plus" class="btn btn-danger operator" value="plus"><h1>+</h1></button>
+            <br><br>
+            <button id="button-4" class="btn btn-primary number" value="4"><h1>4</h1></button>
+            <button id="button-5" class="btn btn-primary number" value="5"><h1>5</h1></button>
+            <button id="button-6" class="btn btn-primary number" value="6"><h1>6</h1></button>
+            <button id="button-minus" class="btn btn-danger operator" value="minus"><h1>&minus;</h1></button>
+            <br><br>
+            <button id="button-7" class="btn btn-primary number" value="7"><h1>7</h1></button>
+            <button id="button-8" class="btn btn-primary number" value="8"><h1>8</h1></button>
+            <button id="button-9" class="btn btn-primary number" value="9"><h1>9</h1></button>
+            <button id="button-multiply" class="btn btn-danger operator" value="times"><h1>&times;</h1></button>
+            <br><br>
+            <button id="button-0" class="btn btn-primary number" value="0"><h1>0</h1></button>
+            <button id="button-divide" class="btn btn-danger operator" value="divide"><h1>&divide;</h1></button>
+            <button id="button-power" class="btn btn-danger operator" value="power"><h1>^</h1></button>
+            <button id="button-equal" class="btn btn-success equal" value="equals"><h1>=</h1></button>
+            <br><br>
+            <button id="button-clear" class="btn btn-dark clear" value="clear"><h1>clear</h1></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Panel -->
+      <div class="col-lg-6">
+        <div class="card">
+          <h3 class="card-header">Result</h3>
+          <div class="card-body">
+            <h1 id="first-number"></h1>
+            <h1 id="operator"></h1>
+            <h1 id="second-number"></h1>
+            <hr>
+            <h1 id="result"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+// empty string, will be used to store the top number
+var firstNumber = "";
+
+//empty string, will be used to store the bottom number
+var secondNumber = "";
+
+//boolean to manage where numbers are written
+var firstNumberSelected = false;
+
+//initializes the result variable which will be used to display the results
+var result;
+
+// stores the operator based on the operator button
+var operator;
+
+// object to display the given operator
+var displayOperator = {
+  "plus": "+",
+  "minus" : "-",
+  "times" : "*",
+  "power" : "^",
+  "divide" : "/"
+}
+
+// this is jQuery magic, it listens on all .btn classes 
+  $(".btn").click(function() {
+   
+    //establishes the pressedButton as the value passed from the button
+    var pressedButton = $(this).attr("value")
+  
+    /////////////////////////////////////////////
+
+    // $(this) is a magic part of jquery which refers back to whatever the user is interacting with
+    // the line below is checking to see IF the thing being pressed has a class of number (check out the HTML for all the classes)
+
+    if ($(this).hasClass("number")) {
+    
+    //checks to see if the boolean value of the variable firstNumberSelected is false  
+      if (firstNumberSelected === false ){
+        //concatenates the pressed button to the firstNumber variable
+        firstNumber = firstNumber+pressedButton;
+        //the $("#first-number") is jQuery magic, it is grabbing the DOM element by the id first-number and updating the HTML between the html tags to be the variable firstNumber
+      $("#first-number").html(firstNumber);
+      }
+    //if firstNumberSelected is true (which is switched to true in the operator button)
+      else if (firstNumberSelected === true) {
+         //concatenates the pressed button to the secondNumber variable
+        secondNumber = secondNumber+pressedButton;
+        //more jQuery magic, grabbing a different DOM element and updating the html with the secondNumber
+        $("#second-number").html(secondNumber);
+      }
+      
+    }
+    /////////////////////////////////////////////
+
+    //$(this) is a magic part of jquery which refers back to whatever the user is interacting with
+    //the line below is checking to see IF the thing being pressed has a class of opereator (check out the HTML for all the classes)
+
+    else if ($(this).hasClass("operator")) {
+
+     if (firstNumber.length > 0) {
+      firstNumberSelected = true;
+     
+      operator = pressedButton;
+      
+      $("#operator").html(displayOperator[operator]);
+
+     }
+     else {
+       alert("Pick a number before you do an operation")
+     }
+
+     
+    }
+    /////////////////////////////////////////////
+
+
+    else if ($(this).hasClass("equal")) {
+      if (firstNumber.length > 0 && operator.length > 0 && secondNumber.length > 0 ) {
+
+      firstNumber = parseInt(firstNumber);
+      secondNumber = parseInt(secondNumber);
+
+      console.log(operator);
+
+     if (operator === "minus"){
+       result = firstNumber - secondNumber;
+       console.log(result)
+       $("#result").html(result)
+
+     }
+
+    else if (operator === "plus") {
+      result = firstNumber + secondNumber;
+      $("#result").html(result);
+    }
+
+     else if (operator === "times") {
+      result = firstNumber * secondNumber;
+      $("#result").html(result);
+    }
+
+    else if (operator === "divide") {
+      result = firstNumber / secondNumber;
+      $("#result").html(result);
+    }
+
+     else if (operator === "power") {
+      result = Math.pow(firstNumber, secondNumber);
+      $("#result").html(result);
+    }
+
+     }
+
+     else {
+       alert("You need two numbers and an operator displayed before you hit equals")
+     }
+    
+    }
+    /////////////////////////////////////////////
+
+    else if ($(this).hasClass("clear")) {
+    
+    console.log(pressedButton);
+    firstNumberSelected = false;
+    firstNumber = "";
+    secondNumber ="";
+    operator = "";
+
+    $("#first-number, #operator, #second-number, #result").empty();
+   }
+
+   
+  });
+
+});
+
+</script>
+
+</body>
+</html>
