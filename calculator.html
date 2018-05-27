@@ -84,10 +84,16 @@ var secondNumber = "";
 var firstNumberSelected = false;
 
 //initializes the result variable which will be used to display the results
-var result;
+var result = "";
 
 // stores the operator based on the operator button
 var operator;
+
+var resultSelected = false;
+
+var secondNumberSelected = false;
+
+var operatorSelected = false;
 
 // object to display the given operator
 var displayOperator = {
@@ -119,9 +125,10 @@ var displayOperator = {
       $("#first-number").html(firstNumber);
       }
     //if firstNumberSelected is true (which is switched to true in the operator button)
-      else if (firstNumberSelected === true) {
+      else if (firstNumberSelected === true && operatorSelected === true) {
          //concatenates the pressed button to the secondNumber variable
         secondNumber = secondNumber+pressedButton;
+        secondNumberSelected = true;
         //more jQuery magic, grabbing a different DOM element and updating the html with the secondNumber
         $("#second-number").html(secondNumber);
       }
@@ -134,9 +141,25 @@ var displayOperator = {
 
     else if ($(this).hasClass("operator")) {
 
-     if (firstNumber.length > 0) {
+      
+     if (resultSelected) {
+      secondNumber = "";
+      firstNumber = result;
+      operatorSelected = true;
+      secondNumberSelected = false;
+
+      
+      operator = pressedButton;
+      $("#result").html("");
+      $("#second-number").html(" ");
+      $("#first-number").html(parseFloat(firstNumber));
+      $("#operator").html(displayOperator[operator]);
+
+     }
+
+     else if (firstNumber.length > 0) {
       firstNumberSelected = true;
-     
+      operatorSelected = true;
       operator = pressedButton;
       
       $("#operator").html(displayOperator[operator]);
@@ -152,15 +175,16 @@ var displayOperator = {
 
 
     else if ($(this).hasClass("equal")) {
-      if (firstNumber.length > 0 && operator.length > 0 && secondNumber.length > 0 ) {
-
-      firstNumber = parseInt(firstNumber);
-      secondNumber = parseInt(secondNumber);
-
-      console.log(operator);
+    
+      if (firstNumberSelected === true && secondNumberSelected === true && operatorSelected === true) {
+      resultSelected = true;
+      firstNumber = parseFloat(firstNumber);
+      secondNumber = parseFloat(secondNumber);
+      operatorSelected = false;
 
      if (operator === "minus"){
        result = firstNumber - secondNumber;
+
        console.log(result)
        $("#result").html(result)
 
@@ -202,6 +226,9 @@ var displayOperator = {
     firstNumber = "";
     secondNumber ="";
     operator = "";
+    resultSelected = false;
+    secondNumberSelected = false;
+    operatorSelected = false;
 
     $("#first-number, #operator, #second-number, #result").empty();
    }
