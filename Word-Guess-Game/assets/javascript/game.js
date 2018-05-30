@@ -121,6 +121,7 @@ function makeGuessPopulateGuessState(){
 
         //Sets the guessState to empty array
         console.log(computerGuess);
+        console.log(computerGuessArray)
         guessState = [];
 
         //Populates the array with underscores the total length of the computerGuess
@@ -140,9 +141,10 @@ function makeGuessPopulateGuessState(){
         reset(playAgain);
         
     }
+    }
 
    
-}
+
 
 //checks to see if an element passed to it equals the user's guess, returns true or false
 function isMatching(element){
@@ -260,7 +262,7 @@ function reset(someBoolean) {
         $("#pictureOfLastGuessed").attr("src", "assets/images/placeholder.png");
     }
     else {
-        alert("You suck");
+        alert("OK :( ");
     }
 }
 
