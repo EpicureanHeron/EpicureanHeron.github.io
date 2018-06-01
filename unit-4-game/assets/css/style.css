@@ -1,0 +1,57 @@
+.character {
+    height: 280px;
+    width: 210px;
+    float: left;
+    margin: 10px 10px 10px 10px;
+}
+
+.fighter1 {
+    background-color: red;
+}
+
+.fighter2 {
+    background-color: lightblue;
+}
+
+.fighter3 {
+  
+    background-color: yellow;
+   
+}
+
+.fighter4 {
+    background-color: green;
+}
+
+#chosenFighter {
+
+}
+
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+p {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dead {
+    display:none;
+}
+
+.newClass {
+    color: white;
+}
+
+.fighterImage {
+    position: relative;
+    margin: auto;
+}
+
+body {
+    background-image: url("../images/background.jpg");
+    background-repeat: repeat;
+} 

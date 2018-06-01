@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+            <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+            <!--imports jQuery-->
+            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            <!--Logic for word guess game-->
+            <script src="assets/javascript/game.js"></script>
+           
+        </head>
+        <body>
+            <div class ="main">
+                <div class="fighterDisplay">
+
+                    <div class="character fighter1 chooseable" fightersArrIndex="0"></div>
+                    <div class="character fighter2 chooseable" fightersArrIndex="1"></div>
+                    <div class="character fighter3 chooseable" fightersArrIndex="2"></div>
+                    <div class="character fighter4 chooseable" fightersArrIndex="3"></div>
+
+                </div>
+                <div class="group"></div>
+                    <h1>Your Character</h1>
+                <div id="chosenFighter"></div>
+                <div class="group"></div>
+                    <h1>Enemies to Select</h1>
+                <div id="enemiesToSelect"></div>
+                <div class="group"></div>
+                    <button type="button"class="attack">Click Me!</button>
+
+                    <h1>Current Enemy</h1>
+                <div id="chosenEnemy"></div>
+                <div class="group"></div>
+                    <p class="battleLog"></p>
+                    <p class="counterAttackLog"></p>
+
+                    <button type="button" class="reset">RESET</button>
+            </div>
+          
+           
+        </body>
+    </html>
