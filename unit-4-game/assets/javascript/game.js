@@ -2,9 +2,9 @@
 //1. DONE 5/27/2018 Make the selectedFighter not selectable again as an enemy...probably remove that class or something??? 
 //2. Winning is defeating all 3 enemeys, so need to add that as a criteria
 //3. DONE 5/28/2018 Reset button
-//4. Add pictures and stuff
+//4. DONE 6/2/2018 Add pictures and stuff
 //5. DONE 5/27/2018 Add an attribute to all fighters which allows for their attack power to increase 
-//6. Watch the demo again, it would print the battle out at the bottom, should be easy to do, just something I need to add 
+//6. DONE 6/2/2018 Watch the demo again, it would print the battle out at the bottom, should be easy to do, just something I need to add 
 //7. DONE 5/28/2018 Field which lists the battle info with attack strength and HP, is written each time. Also is cleared by the reset button
 
 
@@ -99,7 +99,7 @@ $(document).ready(function() {
             var imgSrc = fightersArr[i].imageSrc 
             newImg.attr("src", imgSrc);
             newImg.addClass("fighterImage");
-            $(fightersArr[i].displayArea).html("<p>"+ fightersArr[i].name + "<br>" +"HP: " + fightersArr[i].currentHP + "<br>" +"attack: " + fightersArr[i].currentAttack  + "<br>" + "</p>");
+            $(fightersArr[i].displayArea).html("<p class ='fighterStats'>"+ fightersArr[i].name + "<br>" +"HP: " + fightersArr[i].currentHP + "<br>" +"attack: " + fightersArr[i].currentAttack  + "<br>" + "</p>");
             $(fightersArr[i].displayArea).append(newImg);
             }
             //only triggers if both a fighter and an enemy is selected, it updates the battlelog and the counterattack log
@@ -146,10 +146,12 @@ $(document).ready(function() {
             
             //grabs the index number passed from the html 
             fightersArrIndex = $(this).attr("fightersArrIndex");
+
+            $(this).addClass("hero")
                      
             //grabs the object from the array based off of that piece of passed data
             selectedFighter = fightersArr[fightersArrIndex];
-           
+            
             //updates the screen by moving the clicked fighter to the chosen fighter area
             $("#chosenFighter").append($(this));
             //updates the screen by appending all the other characters to the enemiesToSelect area
@@ -169,6 +171,8 @@ $(document).ready(function() {
              //grabs the index number passed from the html 
             
             fightersArrIndex = $(this).attr("fightersArrIndex");
+
+            $(this).addClass("currentEnemy")
 
             //grabs the object from the array based off of that piece of passed data
             currentEnemy = fightersArr[fightersArrIndex];

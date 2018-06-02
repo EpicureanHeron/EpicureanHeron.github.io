@@ -1,10 +1,24 @@
 .character {
-    height: 280px;
-    width: 210px;
+    height: 200px;
+    width: 180px;
     float: left;
+    text-align: center;
     margin: 10px 10px 10px 10px;
+    background-color: #D3D3D3;	
+    border: 1px solid black;
 }
 
+.character img {
+    height: 130px;
+    width: auto;
+    border: 1px solid black;
+   
+}
+
+.fighterStats {
+    font-size: 16px;
+}
+/* 
 .fighter1 {
     background-color: red;
 }
@@ -21,10 +35,14 @@
 
 .fighter4 {
     background-color: green;
+} */
+
+.hero {
+    background-color: green;
 }
 
-#chosenFighter {
-
+.currentEnemy {
+    background-color:red;
 }
 
 .group:after {
@@ -55,3 +73,9 @@ body {
     background-image: url("../images/background.jpg");
     background-repeat: repeat;
 } 
+
+.fightDisplay {
+    color: white;
+    
+    font-size: 20px;
+}
