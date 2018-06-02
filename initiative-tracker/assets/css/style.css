@@ -1,0 +1,23 @@
+.character {
+    height: 280px;
+    width: 210px;
+    float: left;
+    margin: 10px 10px 10px 10px;
+    background-color: lightblue;
+}
+
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .enemy {
+      
+      height: 280px;
+      width: 210px;
+      float: left;
+      margin: 10px 10px 10px 10px;
+      background-color: red;
+
+  }
