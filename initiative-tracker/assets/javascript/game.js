@@ -12,34 +12,42 @@
 var dinty = {
     name: "Dinty",
     playerID: "#dinty",
+    img: "assets/images/dinty.jpg",
     init: 0,
 }
 
 var dymby = {
     name: "Dymby",
     playerID: "#dymby",
+    img: "assets/images/dymby.jpg",
     init: 0
 }
 
 var tarkus = {
     name: "Tarkus",
     playerID: "#tarkus",
+    img: "assets/images/tarkus.jpeg",
     init: 0
 }
 
 var magthar = {
     name: "Magthar",
     playerID: "#magthar",
+    img: "assets/images/magthar.jpg",
     init: 0
 }
 
 var sheldon = {
     name: "Sheldon",
     playerID: "#sheldon",
+    img: "assets/images/sheldon.png",
     init: 0
 }
 
 //array featuring just the PC objects
+
+
+var monsterArr = ["assets/images/warg.png", "assets/images/goblin.jpeg", "assets/images/troll.jpeg"]
 
 var playerArr = [dinty, dymby, tarkus, magthar, sheldon]
 
@@ -98,8 +106,9 @@ $(document).ready(function() {
         //constructs a new enemy based on the class Enemy
 
         var uniqueID = "enemy" + enemyCounter;
-
-        var Enemy = new NewEnemy(newname, init, uniqueID);
+        var indexForImage = Math.floor(Math.random() * monsterArr.length); 
+        var randomImage  = monsterArr[indexForImage]
+        var Enemy = new NewEnemy(newname, init, uniqueID, randomImage);
         
         playerArr.push(Enemy)
 
@@ -115,7 +124,9 @@ $(document).ready(function() {
 
         newDiv.attr("id", uniqueID);
 
-        newDiv.html(Enemy.name +"<br>" +Enemy.init);
+        
+
+        newDiv.html("<p>" + Enemy.name +"<br> init: " +Enemy.init + "</p> <img src='"+ Enemy.img +"'>")
 
         $("#fighterDisplay").append(newDiv);
 
@@ -133,15 +144,16 @@ $(document).ready(function() {
 function documentWrite() {
   
         for (i = 0; i < playerArr.length; i++) {
-            $(playerArr[i].playerID).html("<p>"+ playerArr[i].name + "<br>" +"init: " + playerArr[i].init + "</p>");
+            $(playerArr[i].playerID).html("<p>"+ playerArr[i].name + "<br>" +"init: " + playerArr[i].init + "</p>" + "<img src='"+playerArr[i].img+"'>");
     }
    
 }
 //this is a SHOULD be a class
-function NewEnemy(name, init, playerID) {
+function NewEnemy(name, init, playerID, randomImage) {
     this.name = name;
     this.init = init;
     this.playerID = "#" + playerID;
+    this.img = randomImage;
     
 }
 

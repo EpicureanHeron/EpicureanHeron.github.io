@@ -1,9 +1,17 @@
 .character {
-    height: 280px;
-    width: 210px;
+    height: 200px;
+    width: 200px;
     float: left;
     margin: 10px 10px 10px 10px;
-    background-color: lightblue;
+    background-color: gray;
+    text-align: center;
+    opacity: 0.65;
+    border: darkred 2px solid;
+    font-size: 20px;
+}
+
+h1{
+    color: red;
 }
 
 .group:after {
@@ -14,10 +22,31 @@
 
   .enemy {
       
-      height: 280px;
-      width: 210px;
+      height: 200px;
+      width: 200px;
       float: left;
       margin: 10px 10px 10px 10px;
       background-color: red;
+      text-align: center;
+      opacity: 0.7;
+      font-size: 20px;
 
+  }
+
+  .enemy img {
+    height: 130px;
+    width: auto;
+    border: 2px solid black
+
+  }
+
+  .character img {
+      height: 130px;
+      width: auto;
+      border: 2px solid black
+      
+  }
+
+  body {
+    background-image: url("../images/background.jpg");
   }
