@@ -47,7 +47,7 @@ var sheldon = {
 //array featuring just the PC objects
 
 
-var monsterArr = ["assets/images/warg.png", "assets/images/goblin.jpeg", "assets/images/troll.jpeg"]
+var monsterArr = ["assets/images/warg.png", "assets/images/goblin.jpeg", "assets/images/troll.jpeg", "assets/images/dragon.jpg",'assets/images/skeleton.jpg', 'assets/images/minotaur.jpg', "assets/images/golem.jpg", "assets/images/treant.jpg"]
 
 var playerArr = [dinty, dymby, tarkus, magthar, sheldon]
 
@@ -91,7 +91,7 @@ $(document).ready(function() {
         sortPressed = true;
         sortByInit();
         console.log(playerArr)
-
+        
         populateOrder()
         // documentWrite()
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
         var newDiv = $("<div>");
 
-        newDiv.addClass("enemy");
+        newDiv.addClass("enemy chooseable");
 
         
 
@@ -170,13 +170,18 @@ function sortByInit() {
 //updates the state of the screen so whoever is in the index[1] spot of the screen is moved to the [0] spot and the index [0] is moved to the back
 function nextCharacter() {
     var currentTop = playerArr[0]
+
+    $(currentTop.playerID).removeClass("active")
     
    
     playerArr.splice(0,1)
     playerArr.push(currentTop)
+    $(playerArr[0].playerID).addClass("active")
     $("#fighterDisplay").append($(currentTop.playerID))
 
     console.log(playerArr[0])
+
+
 
     
    
@@ -197,6 +202,7 @@ function newEnemy(name, init) {
 function populateOrder() {
     //method which reverses the order of the array
     playerArr.reverse()
+    $(playerArr[0].playerID).addClass("active");
     for (i = 0; i < playerArr.length; i++) {
         
         var divToMove = $(playerArr[i].playerID)

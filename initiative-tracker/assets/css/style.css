@@ -12,6 +12,7 @@
 
 h1{
     color: red;
+    font-size: 30px;
 }
 
 .group:after {
@@ -29,6 +30,7 @@ h1{
       background-color: red;
       text-align: center;
       opacity: 0.7;
+      border: black 2px solid;
       font-size: 20px;
 
   }
@@ -49,4 +51,9 @@ h1{
 
   body {
     background-image: url("../images/background.jpg");
+  }
+
+  .active {
+      background-color: gold;
+     
   }
