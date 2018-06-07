@@ -1,11 +1,12 @@
 .character {
-    height: 200px;
-    width: 180px;
+    height: 170px;
+    width: 150px;
     float: left;
     text-align: center;
     margin: 10px 10px 10px 10px;
     background-color: #D3D3D3;	
     border: 1px solid black;
+    font-size: 28px;
 }
 
 .character img {
@@ -38,11 +39,12 @@
 } */
 
 .hero {
-    background-color: green;
+    background-color: white;
 }
 
 .currentEnemy {
-    background-color:red;
+    background-color:black;
+    color: white;
 }
 
 .group:after {
@@ -75,7 +77,9 @@ body {
 } 
 
 .fightDisplay {
-    color: white;
-    
+    color: white;  
     font-size: 20px;
+}
+#enemiesToSelect div {
+    background-color: rgb(126, 5, 29)
 }
