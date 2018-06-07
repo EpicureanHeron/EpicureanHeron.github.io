@@ -1,12 +1,12 @@
-//  Variable that will hold our setInterval that runs the stopwatch
+//TODOS
+//1. Create a buffer page between questions
+	//This may need its own setInterval() thing...not sure yet, perhaps a while loop within the count function to delay updating the screen which is switched when the setInterval returns a certain value to proceed?
+//2. Rewatch the video
 
-
-// prevents the clock from being sped up unnecessarily
-//updated each time a quesiton is created
 var questionNumber = 0;
-//timer
+
 var timerValue = 30
-//variablse to be used after the answer is submitted
+//variable to be used after the answer is submitted
 var correctGuesses = 0;
 
 var incorrectGuesses = 0;
@@ -22,6 +22,8 @@ var question2 = createQuestionObj("Which of the following is NOT a free city of 
 var question3 = createQuestionObj("Who killed Jon Arryn?", ["Peter 'Littlefinger' Baelish", "Varys", "Ceresi Lannister", "Lysa Arryn"], 3)
 
 var question4 = createQuestionObj("Which character has never been a eunuch?", ["Theon Greyjoy", "Varys", "Grey Worm", "Tyrion Lannister"], 3)
+
+
 
 
 var questionArray = [question0, question1, question2, question3, question4]
@@ -45,7 +47,7 @@ function count() {
 	if (timerValue === 25) {
 		whichRadioChecked()
 		currentQuestion ++
-		
+	
 		$("form").empty()
 		timerValue = 30;
 
@@ -99,6 +101,8 @@ function whichRadioChecked() {
 	else {
 		incorrectGuesses ++
 		$(".result").html("You guessed poorly! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
+
+		//would be good to add logic here to see if NO option was checked...but not necessary
 	}
 	
 }
