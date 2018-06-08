@@ -154,18 +154,30 @@ function renderAnswer(question, clickValue, timer) {
 	clearInterval(interval);
 	//sets up the delay
 	delay = setInterval(function() {
-		timerValue = 15
-		//restarts the interval after 3 seconds 
-		interval = setInterval(count, 1000);
-		//calls updates page which also clears the interval on delay
-		updatePage(questionArray[currentQuestion])
-	}, 3000)
-	
-
+		if (currentQuestion === 10 ){
+			renderEndGame()
+		}
+		else { 
+			timerValue = 15
+			//restarts the interval after 3 seconds 
+			interval = setInterval(count, 1000);
+			//calls updates page which also clears the interval on delay
+			updatePage(questionArray[currentQuestion])
+		}
 		
-	
+	}, 3000)
+			
 }
 
+function renderEndGame() {
+	clearInterval(delay)
+	$("#displayOptions").empty();
+	$(".timer").empty()
+	$(".result").empty()
+	$(".question").empty()
+	$(".result").html("Final Score! <br> You have guessed " + correctGuesses +  " correctly <br> You have guessed " + incorrectGuesses + " incorrectly. " );
+	$(".timer").append("<div id='start'> Click Here to Play Again</div>")
+}
 
 
 
