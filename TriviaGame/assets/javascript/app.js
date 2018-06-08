@@ -2,10 +2,16 @@
 //1. Create a buffer page between questions
 	//This may need its own setInterval() thing...not sure yet, perhaps a while loop within the count function to delay updating the screen which is switched when the setInterval returns a certain value to proceed?
 //2. Rewatch the video
+	//1. not radio buttons, but DIVs that are clickable, probably with sometype of attr data-value which I need to check (see notes from 6/7/2018)
+		//A. these divs are clickable which are probably an onclick object which then checks if the question is right or wrong
+		//B. further logic to check if timer is at 0 
+	//2 Start screen and a "start button" which kicks offs the game ( main timer). AFter a click start ANOTHER timer before calling the next question (probably 3 seconds) then loads next question
+	//3 show the correct answer and appropriate message (time's up! or You're right! Or You're Wrong! )
+	//4 svstart over resets the game
 
 var questionNumber = 0;
 
-var timerValue = 30
+var timerValue = 15
 //variable to be used after the answer is submitted
 var correctGuesses = 0;
 
@@ -31,6 +37,13 @@ var questionArray = [question0, question1, question2, question3, question4]
 var currentQuestion = 0
 
 
+//starts the magic of jquery
+$( document ).ready(function() {
+    //forces jquery to listen to the whole body any time a .choices is clicked (helpful because I empty the questions area every question)
+	 $('body').on('click', '.choices', function ()  {
+		console.log($(this).attr("value"))
+	});
+});
 
 //starts the timer which calls the count function 
 function startTimer() {
@@ -44,12 +57,12 @@ function count() {
 	timerValue = timerValue-1
 	$(".timer").html(timerValue)
 	
-	if (timerValue === 25) {
+	if (timerValue === 0) {
 		whichRadioChecked()
 		currentQuestion ++
 	
-		$("form").empty()
-		timerValue = 30;
+		$("#displayOptions").empty()
+		timerValue = 15;
 
 		//passes the current question (as selected by the question array) to the update page function 
 		updatePage(questionArray[currentQuestion])
@@ -82,8 +95,8 @@ function updatePage(question) {
 	//displays all options
 	for (i = 0; i < question.options.length; i ++) {		
 		//updates the optionNumber
-		var optionNumber = i 
-		$("form").append("<input type='radio' name='option' value='" + i + "' class='" + optionNumber + "'>" + question.options[i] + "<br>")	
+		
+		$("#displayOptions").append("<div class='choices' value='" + question.options[i] + "'>" + question.options[i] + "</div")	
 	}
 } 
 
@@ -106,6 +119,8 @@ function whichRadioChecked() {
 	}
 	
 }
+
+
 
 
 startTimer()
