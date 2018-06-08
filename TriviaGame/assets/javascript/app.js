@@ -97,6 +97,7 @@ function createQuestionObj(questionString, guessArr, correctGuessIndex) {
 }
  //takes a question (which needs to be an object) as a parameter and writes it to the page
 function updatePage(question) {
+	$("#displayOptions").empty();
 	//have to clearInterval here for delay because it is called within that delay function
 	clearInterval(delay)
 	//displays question
@@ -110,9 +111,10 @@ function updatePage(question) {
 } 
 
 function renderAnswer(question, clickValue, timer) {
-	
 	$("#displayOptions").empty();
 	$("#displayOptions").append(question.correctOption);
+	$("#displayOptions").append("<img src='https://media.giphy.com/media/KEPQfFa3CtzCE/giphy.gif'>");
+	
 	
 	if (timer === "expired") {
 		
@@ -131,12 +133,15 @@ function renderAnswer(question, clickValue, timer) {
 		
 		}
 	}
+		
 	currentQuestion ++;
 	timerValue = 15
+
 	//stops the timerValue
 	clearInterval(interval);
 	//sets up the delay
 	delay = setInterval(function() {
+		
 		//restarts the interval after 3 seconds 
 		interval = setInterval(count, 1000);
 		//calls updates page which also clears the interval on delay
