@@ -1,13 +1,23 @@
 .choices {
     background-color: black;
     color: white;
-	margin: 10px 10px 10px 10px;
-	height: 30%;
+	/*margin: 10px; */
+	height: 200px;
 	width: 50%;
 	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	
 }
 .choices:hover { 
     background-color: yellow;
 }
-/* need to do some on hover stuff */
+
+body {
+	background-color: black;
+}
+
+#mainContent {
+	background-color: gray;
+	text-align: center;
+}

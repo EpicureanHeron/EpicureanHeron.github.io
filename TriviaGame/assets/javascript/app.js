@@ -7,7 +7,8 @@
 		//B.DONE 6/8/2018  further logic to check if timer is at 0 
 	//2 DONE 6/8/2018 Start screen and a "start button" which kicks offs the game ( main timer). AFter a click start ANOTHER timer before calling the next question (probably 3 seconds) then loads next question
 	//3 DONE 6/8/2018 show the correct answer and appropriate message (time's up! or You're right! Or You're Wrong! )
-	//4 svstart over resets the game
+	//4 start over resets the game
+		//A. Need to build a check on the currentQuestion which stops the interval and writes to the page with a div that asks "Click here to play again" and also displays their record
 
 var questionNumber = 0;
 
@@ -25,12 +26,21 @@ var question1 = createQuestionObj("Which of the following names is NOT one of th
 var question2 = createQuestionObj("Which of the following is NOT a free city of Essos ", ["Qohor", "Myr", "Lantum", "Lys"], 2);
 
 //http://gameofthrones.wikia.com/wiki/Assassination_of_Jon_Arryn
-var question3 = createQuestionObj("Who killed Jon Arryn?", ["Peter 'Littlefinger' Baelish", "Varys", "Ceresi Lannister", "Lysa Arryn"], 3);
+var question3 = createQuestionObj("Who killed Jon Arryn?", ["Petyr 'Littlefinger' Baelish", "Varys", "Ceresi Lannister", "Lysa Arryn"], 3);
 
 var question4 = createQuestionObj("Which character has never been a eunuch?", ["Theon Greyjoy", "Varys", "Grey Worm", "Tyrion Lannister"], 3);
 
+var question5 = createQuestionObj("Which character survived the Red Wedding?", ["Robb Stark", "Edmure Tully", "Catelyn Stark", "Grey Wind"], 1);
+//http://gameofthrones.wikia.com/wiki/Valyrian_steel
+var question6 = createQuestionObj("Who has never owned a Valyrian steel weapon?", ["Joffrey Lannister", " Petyr 'Littlefinger' Baelish", "Robb Stark", "Jaime Lannister"], 2);
+//http://gameofthrones.wikia.com/wiki/Dragons
+var question7 = createQuestionObj("Which is one of Daenerys Targaryen's dragons' name?", ["Rhaegal", "Dragon", "Vhagar", "Smaug"], 0);
+//http://gameofthrones.wikia.com/wiki/Cyvasse
+var question8 = createQuestionObj("Which is not a piece in cyvasse?", ["Elephant", "Queen", "King", "Trebuchet"], 1);
 
-var questionArray = [question0, question1, question2, question3, question4];
+var question9 = createQuestionObj("Which is a kingdom in Westeros?", ["The Westerlands", "The East", "Kingdom of the Flowers", "The Wall"], 0);
+
+var questionArray = [question0, question1, question2, question3, question4, question5, question6, question7, question8, question9 ];
 
 var currentQuestion = 0;
 
