@@ -1,6 +1,11 @@
 .choices {
     background-color: black;
     color: white;
+	margin: 10px 10px 10px 10px;
+	height: 30%;
+	width: 50%;
+	margin: auto;
+	
 }
 .choices:hover { 
     background-color: yellow;

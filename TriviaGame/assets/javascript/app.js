@@ -1,36 +1,36 @@
 //TODOS
-//1. Create a buffer page between questions
+//1.DONE 6/8/2018 Create a buffer page between questions
 	//This may need its own setInterval() thing...not sure yet, perhaps a while loop within the count function to delay updating the screen which is switched when the setInterval returns a certain value to proceed?
-//2. Rewatch the video
-	//1. not radio buttons, but DIVs that are clickable, probably with sometype of attr data-value which I need to check (see notes from 6/7/2018)
-		//A. these divs are clickable which are probably an onclick object which then checks if the question is right or wrong
-		//B. further logic to check if timer is at 0 
-	//2 Start screen and a "start button" which kicks offs the game ( main timer). AFter a click start ANOTHER timer before calling the next question (probably 3 seconds) then loads next question
-	//3 show the correct answer and appropriate message (time's up! or You're right! Or You're Wrong! )
+//2. DONE 6/8/2018 Rewatch the video
+	//1. DONE 6/8/2018 not radio buttons, but DIVs that are clickable, probably with sometype of attr data-value which I need to check (see notes from 6/7/2018)
+		//A. DONE 6/8/2018 these divs are clickable which are probably an onclick object which then checks if the question is right or wrong
+		//B.DONE 6/8/2018  further logic to check if timer is at 0 
+	//2 DONE 6/8/2018 Start screen and a "start button" which kicks offs the game ( main timer). AFter a click start ANOTHER timer before calling the next question (probably 3 seconds) then loads next question
+	//3 DONE 6/8/2018 show the correct answer and appropriate message (time's up! or You're right! Or You're Wrong! )
 	//4 svstart over resets the game
 
 var questionNumber = 0;
 
-var timerValue = 15
+var timerValue = 15;
 //variable to be used after the answer is submitted
 var correctGuesses = 0;
 
 var incorrectGuesses = 0;
 
-var question0 = createQuestionObj("Who was the king before Robert Baratheon?", ["Aerys Targaryen", "Jaehaerys II Targaryen", "Joffrey Lannister", "Aegon I Targaryen"], 0)
+var question0 = createQuestionObj("Who was the king before Robert Baratheon?", ["Aerys Targaryen", "Jaehaerys II Targaryen", "Joffrey Lannister", "Aegon I Targaryen"], 0);
 
-var question1 = createQuestionObj("Which of the following names is NOT one of the Stark children's direwolve? ", ["Ghost", "Spring", "Lady", "Grey Wind"], 1)
+var question1 = createQuestionObj("Which of the following names is NOT one of the Stark children's direwolve? ", ["Ghost", "Spring", "Lady", "Grey Wind"], 1);
 
 //https://awoiaf.westeros.org/index.php/Free_Cities
-var question2 = createQuestionObj("Which of the following is NOT a free city of Essos ", ["Qohor", "Myr", "Lantum", "Lys"], 2)
+var question2 = createQuestionObj("Which of the following is NOT a free city of Essos ", ["Qohor", "Myr", "Lantum", "Lys"], 2);
 
 //http://gameofthrones.wikia.com/wiki/Assassination_of_Jon_Arryn
-var question3 = createQuestionObj("Who killed Jon Arryn?", ["Peter 'Littlefinger' Baelish", "Varys", "Ceresi Lannister", "Lysa Arryn"], 3)
+var question3 = createQuestionObj("Who killed Jon Arryn?", ["Peter 'Littlefinger' Baelish", "Varys", "Ceresi Lannister", "Lysa Arryn"], 3);
 
-var question4 = createQuestionObj("Which character has never been a eunuch?", ["Theon Greyjoy", "Varys", "Grey Worm", "Tyrion Lannister"], 3)
+var question4 = createQuestionObj("Which character has never been a eunuch?", ["Theon Greyjoy", "Varys", "Grey Worm", "Tyrion Lannister"], 3);
 
 
-var questionArray = [question0, question1, question2, question3, question4]
+var questionArray = [question0, question1, question2, question3, question4];
 
 var currentQuestion = 0;
 
@@ -42,9 +42,13 @@ var delay = "";
 $( document ).ready(function() {
     //forces jquery to listen to the whole body any time a .choices is clicked (helpful because I empty the questions area every question)
 	 $('body').on('click', '.choices', function ()  {
-
-		renderAnswer(questionArray[currentQuestion], $(this).attr("value"), "null")
 	
+		renderAnswer(questionArray[currentQuestion], $(this).attr("value"), "null");
+		});
+	$('body').on('click', '#start', function ()  {
+
+		startTimer();
+
 		
 	});
 });
@@ -53,24 +57,18 @@ $( document ).ready(function() {
 function startTimer() {
 	//probably should set this to a variable so that I can refer back to it and reset it ? 
     interval = setInterval(count, 1000);
-	updatePage(question0)
+	updatePage(question0);
   }
   
 function count() {
 	//counts down and updates the screen
-	timerValue = timerValue-1
-	$(".timer").html(timerValue)
+	timerValue = timerValue - 1;
+	$(".timer").html(timerValue);
 	
 	if (timerValue === 0) {
-		var expired = "expired"
-		renderAnswer(questionArray[currentQuestion], "null", expired)
+		var expired = "expired";
+		renderAnswer(questionArray[currentQuestion], "null", expired);
 		
-	
-		
-
-
-		//passes the current question (as selected by the question array) to the update page function 
-		//updatePage(questionArray[currentQuestion])
 	}
 }
 
@@ -97,6 +95,8 @@ function createQuestionObj(questionString, guessArr, correctGuessIndex) {
 }
  //takes a question (which needs to be an object) as a parameter and writes it to the page
 function updatePage(question) {
+	$(".timer").html(timerValue);
+	$("#start").empty()
 	$("#displayOptions").empty();
 	//have to clearInterval here for delay because it is called within that delay function
 	clearInterval(delay)
@@ -112,22 +112,26 @@ function updatePage(question) {
 
 function renderAnswer(question, clickValue, timer) {
 	$("#displayOptions").empty();
-	$("#displayOptions").append(question.correctOption);
-	$("#displayOptions").append("<img src='https://media.giphy.com/media/KEPQfFa3CtzCE/giphy.gif'>");
+	$("#displayOptions").append("<p>" + question.correctOption + "</p>");
+	
 	
 	
 	if (timer === "expired") {
 		
 		$(".result").html("Out of time! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
-		
+		$("#displayOptions").append("<img src='https://media.giphy.com/media/KEPQfFa3CtzCE/giphy.gif'>");
 	}
 	
 	else {
 		if (clickValue === question.correctOption) {
 			correctGuesses++
+			// clapping renly
+			$("#displayOptions").append("<img src='https://media.giphy.com/media/1tGN00iMCj3Mc/giphy.gif'>");
 			$(".result").html("You guessed correctly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
 		}
 		else {
+			//no nothing gif
+			$("#displayOptions").append("<img src='https://media.giphy.com/media/KEPQfFa3CtzCE/giphy.gif'>");
 			incorrectGuesses ++
 			$(".result").html("You guessed incorrectly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
 		
@@ -135,28 +139,23 @@ function renderAnswer(question, clickValue, timer) {
 	}
 		
 	currentQuestion ++;
-	timerValue = 15
 
 	//stops the timerValue
 	clearInterval(interval);
 	//sets up the delay
 	delay = setInterval(function() {
-		
+		timerValue = 15
 		//restarts the interval after 3 seconds 
 		interval = setInterval(count, 1000);
 		//calls updates page which also clears the interval on delay
 		updatePage(questionArray[currentQuestion])
 	}, 3000)
 	
-	
 
-	//setTimeout(updatePage(questionArray[currentQuestion]), 3000);
-	//var correctImageScreen = setInterval(updatePage(questionArray[currentQuestion]), 3000);
 		
 	
 }
 
 
-startTimer()
 
 
