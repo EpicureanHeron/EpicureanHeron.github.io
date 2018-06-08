@@ -30,33 +30,29 @@ var question3 = createQuestionObj("Who killed Jon Arryn?", ["Peter 'Littlefinger
 var question4 = createQuestionObj("Which character has never been a eunuch?", ["Theon Greyjoy", "Varys", "Grey Worm", "Tyrion Lannister"], 3)
 
 
-
-
 var questionArray = [question0, question1, question2, question3, question4]
 
-var currentQuestion = 0
+var currentQuestion = 0;
 
+var interval = "";
+
+var delay = "";
 
 //starts the magic of jquery
 $( document ).ready(function() {
     //forces jquery to listen to the whole body any time a .choices is clicked (helpful because I empty the questions area every question)
 	 $('body').on('click', '.choices', function ()  {
-		if ($(this).attr("value") === questionArray[currentQuestion].correctOption) {
-			correctGuesses++
-			$(".result").html("You guessed correctly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " )
-		}
+
+		renderAnswer(questionArray[currentQuestion], $(this).attr("value"), "null")
+	
 		
-		else {
-			incorrectGuesses ++
-			$(".result").html("You guessed poorly! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
-		}
 	});
 });
 
 //starts the timer which calls the count function 
 function startTimer() {
 	//probably should set this to a variable so that I can refer back to it and reset it ? 
-    setInterval(count, 1000);
+    interval = setInterval(count, 1000);
 	updatePage(question0)
   }
   
@@ -66,15 +62,15 @@ function count() {
 	$(".timer").html(timerValue)
 	
 	if (timerValue === 0) {
-		incorrectGuesses ++
-		$(".result").html("OUT OF TIME! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
-		currentQuestion ++
+		var expired = "expired"
+		renderAnswer(questionArray[currentQuestion], "null", expired)
+		
 	
-		$("#displayOptions").empty()
-		timerValue = 15;
+		
+
 
 		//passes the current question (as selected by the question array) to the update page function 
-		updatePage(questionArray[currentQuestion])
+		//updatePage(questionArray[currentQuestion])
 	}
 }
 
@@ -101,16 +97,59 @@ function createQuestionObj(questionString, guessArr, correctGuessIndex) {
 }
  //takes a question (which needs to be an object) as a parameter and writes it to the page
 function updatePage(question) {
+	//have to clearInterval here for delay because it is called within that delay function
+	clearInterval(delay)
 	//displays question
-	$(".question").html(question.mainQuestion)
+	$(".question").html(question.mainQuestion);
 	//displays all options
 	for (i = 0; i < question.options.length; i ++) {		
 		//updates the optionNumber
 		
-		$("#displayOptions").append("<div class='choices' value='" + question.options[i] + "'>" + question.options[i] + "</div")	
+		$("#displayOptions").append("<div class='choices' value='" + question.options[i] + "'>" + question.options[i] + "</div");	
 	}
 } 
 
+function renderAnswer(question, clickValue, timer) {
+	
+	$("#displayOptions").empty();
+	$("#displayOptions").append(question.correctOption);
+	
+	if (timer === "expired") {
+		
+		$(".result").html("Out of time! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
+		
+	}
+	
+	else {
+		if (clickValue === question.correctOption) {
+			correctGuesses++
+			$(".result").html("You guessed correctly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
+		}
+		else {
+			incorrectGuesses ++
+			$(".result").html("You guessed incorrectly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
+		
+		}
+	}
+	currentQuestion ++;
+	timerValue = 15
+	//stops the timerValue
+	clearInterval(interval);
+	//sets up the delay
+	delay = setInterval(function() {
+		//restarts the interval after 3 seconds 
+		interval = setInterval(count, 1000);
+		//calls updates page which also clears the interval on delay
+		updatePage(questionArray[currentQuestion])
+	}, 3000)
+	
+	
+
+	//setTimeout(updatePage(questionArray[currentQuestion]), 3000);
+	//var correctImageScreen = setInterval(updatePage(questionArray[currentQuestion]), 3000);
+		
+	
+}
 
 
 startTimer()
