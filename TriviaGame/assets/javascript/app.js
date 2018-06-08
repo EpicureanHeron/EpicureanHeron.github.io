@@ -41,7 +41,15 @@ var currentQuestion = 0
 $( document ).ready(function() {
     //forces jquery to listen to the whole body any time a .choices is clicked (helpful because I empty the questions area every question)
 	 $('body').on('click', '.choices', function ()  {
-		console.log($(this).attr("value"))
+		if ($(this).attr("value") === questionArray[currentQuestion].correctOption) {
+			correctGuesses++
+			$(".result").html("You guessed correctly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " )
+		}
+		
+		else {
+			incorrectGuesses ++
+			$(".result").html("You guessed poorly! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
+		}
 	});
 });
 
@@ -58,7 +66,8 @@ function count() {
 	$(".timer").html(timerValue)
 	
 	if (timerValue === 0) {
-		whichRadioChecked()
+		incorrectGuesses ++
+		$(".result").html("OUT OF TIME! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
 		currentQuestion ++
 	
 		$("#displayOptions").empty()
@@ -81,7 +90,9 @@ function createQuestionObj(questionString, guessArr, correctGuessIndex) {
 		 //options for the quesiton
 		 options: guessArr,
 		 //sets the value for correct guess based of a passed in value, correctGuessIndex which refers back to the guessArr
-		 correctIndex: correctGuessIndex
+		 correctIndex: correctGuessIndex,
+		 //
+		 correctOption: guessArr[correctGuessIndex]
 	}
 	//updates the question number
 	questionNumber ++ 
@@ -99,27 +110,6 @@ function updatePage(question) {
 		$("#displayOptions").append("<div class='choices' value='" + question.options[i] + "'>" + question.options[i] + "</div")	
 	}
 } 
-
-function whichRadioChecked() {
-	//sets the correctAnswer to the current question's correct index number + the string 'optionNumber' so it looks like optionNumber1
-
-	var correctAnswer = "." + questionArray[currentQuestion].correctIndex
-	console.log("whichRadioChecked triggered " + correctAnswer)
-	//checks to see if optionNumber1
-	if ($(correctAnswer).prop("checked")) {
-		correctGuesses++
-		$(".result").html("You guessed correctly! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " )
-
-	}
-	else {
-		incorrectGuesses ++
-		$(".result").html("You guessed poorly! You have guessed " + correctGuesses + " correctly and " + incorrectGuesses + " incorrectly. " )
-
-		//would be good to add logic here to see if NO option was checked...but not necessary
-	}
-	
-}
-
 
 
 
