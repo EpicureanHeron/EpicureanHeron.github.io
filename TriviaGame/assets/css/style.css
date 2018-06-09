@@ -33,7 +33,7 @@ body {
 	background-image: url("../images/RedKeep.png");
 	/* background-color: red; */
 	text-align: center;
-	height: 750px;
+	height: 900px;
 }
 
 #start {
@@ -58,7 +58,7 @@ body {
 
 .result {
 	background-color: gray;
-	opacity: 0.7;
+	opacity: 0.9;
 	color: black;
 	width: 80%;
 	margin:auto;
