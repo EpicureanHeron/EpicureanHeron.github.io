@@ -24,6 +24,9 @@ $("#search").on("click", function() {
     else {
         endDateQuery = "&end_date=20180101"
     }
+    if (numberOfArticles.length === 0) {
+        numberOfArticles = 9;
+    }
 
     var fullURL = queryURLstem + apikey + mainSearchQuery + beginDateQuery + endDateQuery
 
@@ -40,14 +43,14 @@ $("#search").on("click", function() {
         // Open up the data key, then open up the 0th, element. Study the keys and how the JSON is structured.
         
           //headline 
-        $("#results").prepend("<p>"+ response.response.docs[i].headline.main + "</p>")
+        $("#results").append("<h1>"+ response.response.docs[i].headline.main + "</h1>")
           //publisher
-        $("#results").prepend("<p>"+ response.response.docs[i].source + "</p>")
+        $("#results").append("<p>"+ response.response.docs[i].source + "</p>")
           
           //date-time
-        $("#results").prepend("<p>"+ response.response.docs[i].pub_date + "</p>")
+        $("#results").append("<p>"+ response.response.docs[i].pub_date + "</p>")
 
-        $("#results").prepend("<p>"+ response.response.docs[i].web_url + "</p>")
+        $("#results").append("<a href='"+ response.response.docs[i].web_url +"' >Web Source</a>")
 
 
         }
