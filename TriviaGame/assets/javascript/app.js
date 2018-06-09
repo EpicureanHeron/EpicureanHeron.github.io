@@ -12,7 +12,7 @@
 
 var questionNumber = 0;
 
-var timerValue = 15;
+var timerValue = 30;
 //variable to be used after the answer is submitted
 var correctGuesses = 0;
 
@@ -20,7 +20,7 @@ var incorrectGuesses = 0;
 
 var question0 = createQuestionObj("Who was the king before Robert Baratheon?", ["Aerys Targaryen", "Jaehaerys II Targaryen", "Joffrey Lannister", "Aegon I Targaryen"], 0);
 
-var question1 = createQuestionObj("Which of the following names is NOT one of the Stark children's direwolve? ", ["Ghost", "Spring", "Lady", "Grey Wind"], 1);
+var question1 = createQuestionObj("Which of the following names is NOT one of the Stark children's direwolves? ", ["Ghost", "Spring", "Lady", "Grey Wind"], 1);
 
 //https://awoiaf.westeros.org/index.php/Free_Cities
 var question2 = createQuestionObj("Which of the following is NOT a free city of Essos ", ["Qohor", "Myr", "Lantum", "Lys"], 2);
@@ -56,7 +56,7 @@ $( document ).ready(function() {
 		renderAnswer(questionArray[currentQuestion], $(this).attr("value"), "null");
 		});
 	$('body').on('click', '#start', function ()  {
-
+		$("#start").addClass("hide")
 		startTimer();
 
 		
@@ -73,7 +73,7 @@ function startTimer() {
 function count() {
 	//counts down and updates the screen
 	timerValue = timerValue - 1;
-	$(".timer").html(timerValue);
+	$(".timer").html("Time Left: " + timerValue);
 	
 	if (timerValue === 0) {
 		var expired = "expired";
@@ -105,8 +105,9 @@ function createQuestionObj(questionString, guessArr, correctGuessIndex) {
 }
  //takes a question (which needs to be an object) as a parameter and writes it to the page
 function updatePage(question) {
-	$(".timer").html(timerValue);
+	$(".timer").html("Time Left: " + timerValue);
 	$("#start").empty()
+	$(".result").empty()
 	$("#displayOptions").empty();
 	//have to clearInterval here for delay because it is called within that delay function
 	clearInterval(delay)
@@ -122,12 +123,12 @@ function updatePage(question) {
 
 function renderAnswer(question, clickValue, timer) {
 	$("#displayOptions").empty();
-	$("#displayOptions").append("<p>" + question.correctOption + "</p>");
+	$("#displayOptions").append("<h2> The correct answer is: " + question.correctOption + "</h2>");
 	
 	
 	
 	if (timer === "expired") {
-		
+		incorrectGuesses ++
 		$(".result").html("Out of time! You have guessed " + correctGuesses +  " correctly and " + incorrectGuesses + " incorrectly. " );
 		$("#displayOptions").append("<img src='https://media.giphy.com/media/KEPQfFa3CtzCE/giphy.gif'>");
 	}
@@ -154,11 +155,11 @@ function renderAnswer(question, clickValue, timer) {
 	clearInterval(interval);
 	//sets up the delay
 	delay = setInterval(function() {
-		if (currentQuestion === 10 ){
+		if (currentQuestion === 1 ){
 			renderEndGame()
 		}
 		else { 
-			timerValue = 15
+			timerValue = 30
 			//restarts the interval after 3 seconds 
 			interval = setInterval(count, 1000);
 			//calls updates page which also clears the interval on delay
@@ -171,12 +172,15 @@ function renderAnswer(question, clickValue, timer) {
 
 function renderEndGame() {
 	clearInterval(delay)
+	$("#start").removeClass("hide");
+	$("#start").append("<h1>Thanks for playing!</h1>")
+	$("#start").append("<h2>Click here to try again</h2>")
 	$("#displayOptions").empty();
 	$(".timer").empty()
 	$(".result").empty()
 	$(".question").empty()
 	$(".result").html("Final Score! <br> You have guessed " + correctGuesses +  " correctly <br> You have guessed " + incorrectGuesses + " incorrectly. " );
-	$(".timer").append("<div id='start'> Click Here to Play Again</div>")
+
 }
 
 
