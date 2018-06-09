@@ -155,7 +155,7 @@ function renderAnswer(question, clickValue, timer) {
 	clearInterval(interval);
 	//sets up the delay
 	delay = setInterval(function() {
-		if (currentQuestion === 1 ){
+		if (currentQuestion === 10 ){
 			renderEndGame()
 		}
 		else { 
