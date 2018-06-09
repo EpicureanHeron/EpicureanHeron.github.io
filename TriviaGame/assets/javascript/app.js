@@ -171,6 +171,7 @@ function renderAnswer(question, clickValue, timer) {
 }
 
 function renderEndGame() {
+	currentQuestion = 0;
 	clearInterval(delay)
 	$("#start").removeClass("hide");
 	$("#start").append("<h1>Thanks for playing!</h1>")
