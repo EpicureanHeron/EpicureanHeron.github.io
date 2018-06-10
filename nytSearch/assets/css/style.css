@@ -1,12 +1,36 @@
-
 .form-group {
-width: 50%;
+    width: 50%;
 }
-
 .box1 {
-margin-left: 50px;
+    margin-left: 50px;
+}
+.box2 {
+    margin-left: 50px;
 }
 
-.box2 {
-margin-left: 50px;
+.label {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+#trontext1 {
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.1em;
+    font-family: 'Faster One', cursive;
+}
+
+#trontext2 {
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.1em;
+}
+
+.jumbotron {
+background-image: url("C:/Users/Mike/Downloads/nyc5.jpg");
+background-size: center;
+background-repeat: no-repeat;
 }

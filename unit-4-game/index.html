@@ -45,3 +45,45 @@
            
         </body>
     </html>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4" id="trontext1">NYT Article Search</h1>
+          <p class="lead" id="trontext2">API article search that will return results based on keywords.</p>
+        </div>
+      </div>
+      
+      <div class="box1">
+      <form>
+            <div class="form-group">
+              <label for="formGroupExampleInput" class="label">Search Term:</label>
+              <input type="text" class="form-control" id="search1" placeholder="" width: 50%;>
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2" class="label">Number of Records to Retrieve:</label>
+              <input type="text" class="form-control" id="search2" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2" class="label">Start Year (Optional):</label>
+                <input type="text" class="form-control" id="search3" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2" class="label">End Year (Optional):</label>
+                <input type="text" class="form-control" id="search4" placeholder="">
+            </div>
+          </form>
+        <button type="button" class="btn btn-primary btn-sm" id="search">Search</button>
+        <button type="button" class="btn btn-primary btn-sm" id="clear">Clear Results</button>
+        </div> 
+        
+        <br><br>
+
+        <form>
+            <div class="form-group box2">
+                <label for="exampleFormControlTextarea1" class="label">Article Results</label>
+                <textarea class="form-control" id="results" rows="3"></textarea>
+            </div>
+        </form>
+<!-- Bootstrap -->
+</body>
+</html>

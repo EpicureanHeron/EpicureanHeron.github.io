@@ -3,7 +3,7 @@
 $("#search").on("click", function() {
     console.log("clicked")
     var searchParam = $("#search1").val().trim()
-    var numberOfArticles = $("#search2").val().trim()
+    var recordNumbers = $("#search2").val().trim()
     var beginYear = $("#search3").val().trim()
     var endYear = $("#search4").val().trim()
          
@@ -24,20 +24,37 @@ $("#search").on("click", function() {
     else {
         endDateQuery = "&end_date=20180101"
     }
-    if (numberOfArticles.length === 0) {
-        numberOfArticles = 9;
+    if (recordNumbers > 9 ) {
+     var division = recordNumbers/10
+     console.log(division)
+     var page = Math.floor(division);
+     console.log(page)
+     var pageQuery = "";
+      for (i = 0; i <= page; i ++) {
+        pageQuery = pageQuery + i
+      }
+     pageQuery = "&?page=" + pageQuery
+     var fullURL = queryURLstem + apikey + mainSearchQuery + beginDateQuery + endDateQuery + pageQuery
+     ajaxCall()
+     console.log(fullURL)   
+    }
+    else {
+      var pageQuery = "&?page=0"
+      var fullURL = queryURLstem + apikey + mainSearchQuery + beginDateQuery + endDateQuery + pageQuery
+      console.log(fullURL)
+      ajaxCall()
     }
 
-    var fullURL = queryURLstem + apikey + mainSearchQuery + beginDateQuery + endDateQuery
+    
 
-
+function ajaxCall() {
       $.ajax({
         url: fullURL,
         method: "GET"
       }).then(function(response) {
 
         console.log(response)
-        for (i = 0; i < numberOfArticles; i ++){
+        for (i = 0; i < recordNumbers; i ++){
 
        // Step 1: Run this file, click a button, and see what the response object looks like in the browser's console.
         // Open up the data key, then open up the 0th, element. Study the keys and how the JSON is structured.
@@ -58,4 +75,5 @@ $("#search").on("click", function() {
      
         
       });
+    }
     })

@@ -197,8 +197,7 @@ function renderAnswer(question, clickValue, timer) {
 function renderEndGame() {
 	//resets the currentQuestion, correctGuesses, and incorrectGuesses
 	currentQuestion = 0;
-	correctGuesses = 0;
-	incorrectGuesses = 0;
+
 	//stops the delay
 	clearInterval(delay)
 	//displays the start again by removing the css class
@@ -210,6 +209,9 @@ function renderEndGame() {
 	$(".result").empty()
 	$(".question").empty()
 	$(".result").html("Final Score! <br> You have guessed " + correctGuesses +  " correctly <br> You have guessed " + incorrectGuesses + " incorrectly. " );
+
+	correctGuesses = 0;
+	incorrectGuesses = 0;
 
 }
 
