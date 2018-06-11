@@ -1,10 +1,8 @@
-//pausing gifs: https://github.com/EpicureanHeron/ClassActivities/blob/master/pastClasses/2018_06_09/pausing%20gifs/Unsolved/pausing-gifs.html
+//todos
+//1. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+//2. Under every gif, display its rating 
+//3. add style and formatting
 
-//adding buttons: https://github.com/EpicureanHeron/ClassActivities/blob/master/pastClasses/2018_06_07/MovieProject/WorkingMovieApp-Unsolved/Unsolved/working-movie-app-harder.html
-
-//buttons with attribute and searching: https://github.com/EpicureanHeron/ClassActivities/blob/master/pastClasses/2018_06_09/Unsolved-Movies/Unsolved/button-triggered-ajax.html
-
-//using gify: https://github.com/EpicureanHeron/ClassActivities/blob/master/pastClasses/2018_06_09/Unsolved-catButton/cat-button.html
 
 
 
