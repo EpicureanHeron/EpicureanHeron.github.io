@@ -1,7 +1,9 @@
 //todos
-//1. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-//2. Under every gif, display its rating 
-//3. add style and formatting
+//1. DONE When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+//2. DONE Above every gif, display its rating 
+//3. add style and formatting (BOOTSTRAP)
+//4. Last button hit is highlighted  (PROBABLY BOOTSTRAP)
+//5. Theme??? Sci Fi tv shows? 
 
 
 
@@ -66,8 +68,9 @@ $(document).ready(function() {
 	  var buttonName = $(this).attr("data-name")
 	  
 	  var ajaxURL = baseURL + apiKey + query + buttonName + limit
-
-	   
+		//clears the gifs if there are some there
+	  $("#images").empty()
+		
 	  //this is the jquery ajax call
 	  $.ajax({
 		//takes the URL which is our queryURL
@@ -78,6 +81,7 @@ $(document).ready(function() {
 	  //happens after the promise above is fullfilled
 		.then(function(response) {
 			console.log(response)
+			
 		//grabs the image URL from the response fullfilled in the promise, this format is dictated by the API
 		  for (i = 0; i < response.data.length; i++ ) {
 			  
@@ -104,10 +108,10 @@ $(document).ready(function() {
 		  //sets the alt to be " image"
 		  image.attr("alt", "image");
 		  //adds the cat image to ID on the page #images
-		  
-		  
 		  newDiv.prepend(image);
 		  newDiv.prepend(p)
+		 
+		 
 		  
 		  $("#images").prepend(newDiv)
 		  
