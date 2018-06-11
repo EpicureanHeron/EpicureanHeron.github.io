@@ -1,6 +1,11 @@
 .gifDisplay {
-	float: right;
-	width: auto;
-	height: 200px;
-	margin: 10px;
+	float: left;
+	width: 250px;
+	height: 250px;
+	margin: 5px;
+}
+
+.gifImage {
+	width: 250px;
+	height: auto;  
 }
