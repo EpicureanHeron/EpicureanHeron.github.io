@@ -56,7 +56,7 @@ $(document).ready(function() {
   
 
 		//base URL 
-	  var baseURL = "http://api.giphy.com/v1/gifs/search?"
+	  var baseURL = "https://api.giphy.com/v1/gifs/search?"
 	  //var baseURL = "https://api.giphy.com/v1/gifs/random?"
 	  //my API key
 	  var apiKey = "api_key=S1J3JVgAulmKTTWZ7ZBEKI7BK1MNDa0v"
