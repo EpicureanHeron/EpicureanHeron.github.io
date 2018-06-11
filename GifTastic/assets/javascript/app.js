@@ -9,7 +9,7 @@
 
 
     //when something with the ID cat Button is clicked, the funciton happens
-var buttonArr = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
+var buttonArr = ["Doctor Who", "Daleks", "Cybermen", "Weeping Angels", "Davros", "TARDIS"];
 
 
  function renderButtons() {
