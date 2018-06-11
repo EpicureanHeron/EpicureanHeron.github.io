@@ -54,16 +54,18 @@ $(document).ready(function() {
   
 
 		//base URL 
-
-	  var baseURL = "https://api.giphy.com/v1/gifs/random?"
+	  var baseURL = "http://api.giphy.com/v1/gifs/search?"
+	  //var baseURL = "https://api.giphy.com/v1/gifs/random?"
 	  //my API key
 	  var apiKey = "api_key=S1J3JVgAulmKTTWZ7ZBEKI7BK1MNDa0v"
 	  
-	  var query = "&tag=";
+	  var limit = "&limit=10"
+	  
+	  var query = "&q=";
 	  
 	  var buttonName = $(this).attr("data-name")
 	  
-	  var ajaxURL = baseURL + apiKey + query + buttonName
+	  var ajaxURL = baseURL + apiKey + query + buttonName + limit
 
 	   
 	  //this is the jquery ajax call
@@ -75,14 +77,19 @@ $(document).ready(function() {
 	  })
 	  //happens after the promise above is fullfilled
 		.then(function(response) {
+			console.log(response)
 		//grabs the image URL from the response fullfilled in the promise, this format is dictated by the API
-		  
-		  var imageStill =  response.data.images.original_still.url
-		  var imageAnimate = response.data.images.original.url
+		  for (i = 0; i < response.data.length; i++ ) {
+			  
+		  var newDiv = $("<div>")
+		  newDiv.addClass("gifDisplay")
+		  var imageStill =  response.data[i].images.fixed_height_still.url
+		  var imageAnimate = response.data[i].images.fixed_height.url
 		  
 		  //creates an image jquery object
 		  var image = $("<img>");
-		  
+		  var rating = response.data[i].rating;
+          var p = $("<p>").text("Rating: " + rating);
 		  image.addClass("gifImage");
 		  //assigns the intial data-state to still
 		  image.attr("data-state", "still");
@@ -97,9 +104,14 @@ $(document).ready(function() {
 		  //sets the alt to be " image"
 		  image.attr("alt", "image");
 		  //adds the cat image to ID on the page #images
-		  $("#images").prepend(image);
 		  
 		  
+		  newDiv.prepend(image);
+		  newDiv.prepend(p)
+		  
+		  $("#images").prepend(newDiv)
+		  
+		  }
 		});
 	// closes $("#cat-button").on("click", function() {
 	});
