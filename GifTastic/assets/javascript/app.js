@@ -22,7 +22,7 @@ var buttonArr = ["Doctor Who", "Daleks", "Cybermen", "Weeping Angels", "Davros",
           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = $("<button>");
           // Adds a class of movie to our button
-          a.addClass("getGif");
+          a.addClass("getGif btn btn-info");
           // Added a data-attribute
           a.attr("data-name", buttonArr[i]);
           // Provided the initial button text

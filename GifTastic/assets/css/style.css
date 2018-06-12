@@ -9,3 +9,136 @@
 	width: 250px;
 	height: auto;  
 }
+
+.btn-info {
+	margin: 5px;
+}
+
+.mainContent {
+	
+	background-color: #ffffff;
+	line-height: 1.5em;
+	font-size: 20px;
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #777777;
+}
+
+.nav-bar-custom {
+	background-color: #ffffff;
+	border-bottom: 5px solid #cccccc;
+}
+
+.topcolumn {
+	margin-top: 30px;
+}
+
+
+/* the classes .nav-bar-logo and .nav-bar-push aligns things nicely at full screen but breaks when the screen resizes */
+.nav-bar-logo {
+	background-color: #4aaaa5;
+	color: #ffffff;
+	font-size: 24px;
+	height: 100%;
+	padding: 12.5px;
+
+	/*to push everything to line up I have been using the px code below
+	/*margin-left: 365px;*/
+	/*margin-left: 17%; */
+}
+
+.nav-bar-push {
+	/*margin-right: 365px;*/
+}
+
+.bottomcolumn {
+	margin-bottom: 50px;
+}
+
+.custom-footer {
+	background-color: #666666;
+	border-top: solid 5px #2e9792;
+	text-align: center;
+	color: #dddddd;
+	height: 40px;
+	bottom: 0px;
+	position: fixed;
+	width: 100%;
+	
+/*	position:absolute;
+	bottom:0;*/
+		
+	 
+}
+
+h1 {
+	font-family: 'Georgia', Times, Times New Roman, serif;
+	font-weight: bold;
+}
+ 
+a {
+	text-decoration: none;
+	color: #777777;
+}
+
+body {
+	background-color: rgba(221,221,221,0.9);
+	background: url(../images/what-the-hex.png) top left repeat;
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	color: #777777;
+}
+
+html {
+	background: url(../images/what-the-hex.png) top left repeat;	
+	background-position: top left;
+	}
+
+
+#indexPictureandText {
+	margin-top: 30px;
+ /*	height: 600px; */
+}
+
+.MainAboutMe {
+	color: #4aaaa5;
+	font-size: 24px;
+	height: 50px;
+	padding-top: 15px;
+	border-bottom: 2px solid #dddddd;
+}
+
+input {
+	width: 90%;
+}
+
+textarea {
+	height: 500px;
+	width: 100%;
+}
+
+.submitbutton {
+	height: 35px;
+	width: 95px;
+	background-color:  #4aaaa5;
+	color: #ffffff;
+	padding: 0;
+	border: none;
+	font-size: 15px;
+	
+}
+
+/* the below code I found here: https://gist.github.com/petehouston/85dd33210c0764eeae55 and added some style to the caption */
+
+.thumbnail {
+    position: relative;
+	margin: 30px;
+}
+
+.caption {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    width: 100%;
+	background-color: #4aaaa5;
+	color: #ffffff;
+}
+
