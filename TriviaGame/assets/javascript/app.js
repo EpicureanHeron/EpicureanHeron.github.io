@@ -209,7 +209,7 @@ function renderEndGame() {
 	$(".result").empty()
 	$(".question").empty()
 	$(".result").html("Final Score! <br> You have guessed " + correctGuesses +  " correctly <br> You have guessed " + incorrectGuesses + " incorrectly. " );
-
+	timerValue = 30;
 	correctGuesses = 0;
 	incorrectGuesses = 0;
 
