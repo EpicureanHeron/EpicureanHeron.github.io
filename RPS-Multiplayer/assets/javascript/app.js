@@ -135,3 +135,14 @@ function renderResults() {
   $("#results").append(newP)
   // $("#results").prepend("<h3>Results</h3>")
 }
+$("#submit").on("click", function() {
+
+  event.preventDefault();
+  playerName = $("#playerName").val().trim()
+  console.log(playerName)
+  database.ref().push({
+    playerName: playerName,
+  })
+    
+
+})
