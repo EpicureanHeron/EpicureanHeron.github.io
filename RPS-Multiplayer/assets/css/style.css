@@ -3,4 +3,18 @@
     height: 200px;
     width: 200px;
     border: 1px solid black;
+    text-align: center;
+}
+
+.choice:hover { 
+    background-color: black;
+    color: white;
+}
+
+.choice {
+    font-size: 30px;
+}
+
+.currentPlayer {
+    border: 3px red solid;
 }

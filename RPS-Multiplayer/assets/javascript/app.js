@@ -59,13 +59,17 @@ function renderChoices() {
     newP.html(choicesArr[i]);
 
     if(activePlayer === 1) {
-      $("#player1").append(newP)
+      $("#player1").append(newP);
+      $("#player1").addClass("currentPlayer");
+      $("#player2").removeClass("currentPlayer")
       
       $("#player2").empty()
     }
     else{
       $("#player2").append(newP)
       $("#player1").empty()
+      $("#player2").addClass("currentPlayer");
+      $("#player1").removeClass("currentPlayer")
     }
   }
   // $("#player1").prepend("<h3>Player 1</h3>")
