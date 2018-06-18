@@ -24,7 +24,9 @@ var player1Wins = 0;
 
 var player2Wins = 0;
 
-var ties = 0
+var lastChatString = "";
+
+var ties = 0;
  
 renderChoices()
 
@@ -120,7 +122,20 @@ database.ref().on("child_added",function(childSnapshot) {
     choice2 = childSnapshot.val().choice
     decideWinner(choice1, choice2)
   }
+  console.log(childSnapshot.val().lastChat)
+  
+  
 })
+
+// database.ref().on("child_added",function(childSnapshot) {
+//   if(childSnapshot.val().playerNumber === 1) {
+//     choice1 = childSnapshot.val().choice
+//   }
+//   else if(childSnapshot.val().playerNumber === 2) {
+//     choice2 = childSnapshot.val().choice
+//     decideWinner(choice1, choice2)
+//   }
+// })
 
 function renderResults() {
   $("#results").empty()
@@ -144,5 +159,26 @@ $("#submit").on("click", function() {
     playerName: playerName,
   })
     
-
 })
+
+$("#chatSubmitBtn").on("click", function() {
+
+  event.preventDefault();
+  
+  chatSubmit = $("#chatSubmit").val().trim();
+  lastChatString = chatSubmit;
+  $("#chatDisplay").prepend("<p>" + chatSubmit + "</p>")
+  
+  // database.ref().set({
+  //   lastChat: chatSubmit
+  // })
+    
+})
+
+// database.ref().on("value", function(snapshot) {
+//   console.log(snapshot.val());
+  
+  
+// }, function(errorObject) {
+//   console.log("The read failed: " + errorObject.code);
+// });
