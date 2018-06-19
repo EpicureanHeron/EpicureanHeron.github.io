@@ -1,13 +1,18 @@
 .gifDisplay {
 	float: left;
 	width: 250px;
-	height: 250px;
+	height: 300px;
 	margin: 5px;
 }
 
 .gifImage {
 	width: 250px;
 	height: auto;  
+	margin-bottom: 5px;
+}
+
+.rating {
+	margin: 5px;
 }
 
 .btn-info {

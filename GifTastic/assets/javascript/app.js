@@ -9,7 +9,7 @@
 
 
     //when something with the ID cat Button is clicked, the funciton happens
-var buttonArr = ["Doctor Who", "Daleks", "Cybermen", "Weeping Angels", "Davros", "TARDIS"];
+var buttonArr = ["Doctor Who", "Daleks", "Cybermen", "Weeping Angels", "Davros", "TARDIS", "Gallifrey", "Rose Tyler", "River Song", "Clara Oswald"];
 
 
  function renderButtons() {
@@ -67,7 +67,9 @@ $(document).ready(function() {
 	  
 	  var buttonName = $(this).attr("data-name")
 	  
-	  var ajaxURL = baseURL + apiKey + query + buttonName + limit
+		var ajaxURL = baseURL + apiKey + query + buttonName + limit
+		
+		console.log(ajaxURL)
 		//clears the gifs if there are some there
 	  $("#images").empty()
 		
@@ -87,13 +89,15 @@ $(document).ready(function() {
 			  
 		  var newDiv = $("<div>")
 		  newDiv.addClass("gifDisplay")
-		  var imageStill =  response.data[i].images.fixed_height_still.url
+		  //var imageStill =  response.data[i].images.fixed_height_still.url
+		  //var imageAnimate = response.data[i].images.fixed_height.url
+			var imageStill =  response.data[i].images.fixed_height_still.url
 		  var imageAnimate = response.data[i].images.fixed_height.url
-		  
 		  //creates an image jquery object
 		  var image = $("<img>");
 		  var rating = response.data[i].rating;
-          var p = $("<p>").text("Rating: " + rating);
+			var p = $("<p>").text("Rating: " + rating);
+			p.addClass("rating")
 		  image.addClass("gifImage");
 		  //assigns the intial data-state to still
 		  image.attr("data-state", "still");
@@ -109,7 +113,7 @@ $(document).ready(function() {
 		  image.attr("alt", "image");
 		  //adds the cat image to ID on the page #images
 		  newDiv.prepend(image);
-		  newDiv.prepend(p)
+		  newDiv.append(p)
 		 
 		 
 		  
@@ -121,9 +125,11 @@ $(document).ready(function() {
 	});
 	
 	$("#submitButton").on("click", function(event) {
-        event.preventDefault();
+				event.preventDefault();
+				
         // This line of code will grab the input from the textbox
-        var newButton = $("#buttonInput").val().trim();
+				var newButton = $("#buttonInput").val().trim();
+				$('#buttonInput').val('');
         // The movie from the textbox is then added to our array
         buttonArr.push(newButton);
         // Calling renderButtons which handles the processing of our movie array
