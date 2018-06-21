@@ -40,6 +40,8 @@ var choice1, choice2;
 var player1Wins = 0;
 
 var player2Wins = 0;
+//inits the local player variables
+var localPlayer1, localPlayer2, dataBaseTurn
 
 var lastChatString = "";
 
@@ -47,7 +49,7 @@ var ties = 0;
 
 var playersOnline = 0
 
-var dataBaseTurn;
+
  
 // renderChoices()
 
@@ -57,7 +59,8 @@ $("#submitPlayer").on("click", function() {
   console.log(playerName)
 
   if (playersOnline === 0) {
-
+    
+    localPlayer1 = playerName;
     database.ref().set({
       players: {
         player1: {
@@ -72,7 +75,8 @@ $("#submitPlayer").on("click", function() {
 
 }
   else if (playersOnline === 1){
-    console.log('Check')
+    localPlayer2 = playerName
+    
     // How update works and this weird file path notation rather than the JSON notation above https://firebase.google.com/docs/database/admin/save-data
     database.ref().update({
       "players/player2/losses": 0,
@@ -91,22 +95,23 @@ $('body').on('click', '.choice ', function () {
  var whichClicked = $(this).attr("data-type");
 
 console.log("triggered")
+  if(dataBaseTurn === 1) {
+    database.ref().set({
+      "players/player1/choice": whichClicked
+    })
+  }
+  else if(databaseTurn === 2) {
+    database.ref().update({
+      "players/player1]2/choice": whichClicked
+    })
 
-//This sends up new data with a UID, I might want to structure this differently, SETTING the active player at some point so I can flip back and forth and hide things
-// database.ref().set({
-//   choice: whichClicked,
-//   playerNumber: activePlayer,
-//   dataAdded: firebase.database.ServerValue.TIMESTAMP
-// });
-//NEED TO UPDATE
+  //SHOULD DECIDE WINNER HERE
+}
 
-renderChoices()
-  console.log("active player is: " )
- console.log(whichClicked);
 })
 
 
-function renderChoices() {
+function renderChoices(turn) {
  
   for (i = 0; i < choicesArr.length; i++) {
     var newP = $("<p>");
@@ -114,7 +119,8 @@ function renderChoices() {
     newP.addClass("choice");
     newP.html(choicesArr[i]);
     //NEED TO UPDATE
-    if(dataBaseTurn === 1) {
+
+    if(turn === 1) {
       $("#player1").append(newP);
       $("#player1").addClass("currentPlayer");
       $("#player2").removeClass("currentPlayer")
@@ -128,7 +134,7 @@ function renderChoices() {
 
 
     }
-    else{
+    else if(turn ===2) {
       $("#player2").append(newP)
       $("#player1").empty()
       $("#player2").addClass("currentPlayer");
@@ -174,16 +180,30 @@ function decideWinner (choice1, choice2) {
 }
 //GOING TO NEED A LOT OF IF/ELSE STATEMENTS HERE TO GOVERN WHEN CERTAIN DATA COMES IN FROM THE DATABASE
     //SPECIFICALLY TURN NUMBER SHOULD BE GOVERNED HERE only IF player 1 has made a choice
-database.ref().on("value", function(snapshot) {
 
+
+database.ref().on("value", function(snapshot) {
+  //Grabs the current turn IF IT EXISTS
+  if(snapshot.child("turn").exists()){
+    dataBaseTurn = snapshot.child("turn").val()
+  }
 //https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot
   if(snapshot.child("players/player1").exists()) {
-    console.log("triggered!")
+    
     playersOnline = 1
-    console.log("this worked")
+    
   }
-  dataBaseTurn = snapshot.child("turn").val()
-  console.log("database turn is " + dataBaseTurn)
+  //if both players exist in the database, passes the databaseturn 
+  if(snapshot.child("players/player1").exists() && snapshot.child("players/player2").exists()) {
+    renderChoices(dataBaseTurn)
+  }
+
+  if(snapshot.child("players/player1/choice").exists()){
+    console.log(snapshot.child("players/player1/choice").val())
+  }
+  if(snapshot.child("players/player2/choice").exists()){
+    console.log(snapshot.child("players/player2/choice").val())
+  }
 })
 
 function renderResults() {
