@@ -10,6 +10,13 @@
     //the SNAPSHOT listening part will have a majority of the logic because that will be what is capturing the data changing 
     //Lots of different functions OUTISDE of the snapshot listening function will alter data, but not EVERYTHING needs to render based on that
     //That is to say, jquery rendering functions should trigger based on logic within that snapshot listen
+	
+	//How this may work
+		//first player navigates to page, enters their name, that generates a Player1 profile on the server.
+		//Locally, need to create a variable that is player1 and assign it their name (the name can be held on the server)
+		//second player navigates to page, enters their name, that generates a Player2 profile on the server.
+		//Locally, using that value.on snapshot function, we can check if player1 exists, if it does, we will set the local variable to player2 = whatever their name is 
+		//using the player1 and player2 local variable, we should be able to use that same data snapshot function to capture determine through some if/elses what gets displayed locally via updating through jquery
 
     
 
