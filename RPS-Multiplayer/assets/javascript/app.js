@@ -1,6 +1,21 @@
 
 ///sets up firebase
 
+// HOMEWORK NOTES: Could set up a variable that gets assigned upon clicking and SET  it to something like "active player"
+
+ //active has certain functions which render certain things (choices etc)
+
+ //inactive player cannot do anything 
+
+ //COULD BE A BOOLEAN or a 0/1
+
+ //conforms with whichever BOX is pressed as a trigger? so if the second person joins, they would HAVE to click the 2nd box 
+
+
+ //DIsconnect? 
+
+ //Remeber that snapshot thing runs on every cycle? 
+
 var config = {
     apiKey: "AIzaSyDodLNiFVaqhkd_Baj-raci3HdpDeu2Ens",
     authDomain: "rps-multiplayer-d57ed.firebaseapp.com",
@@ -27,26 +42,63 @@ var player2Wins = 0;
 var lastChatString = "";
 
 var ties = 0;
+
+var playersOnline = 0
  
-renderChoices()
+// renderChoices()
+
+$("#submitPlayer").on("click", function() {
+  event.preventDefault();
+  playerName = $("#playerName").val().trim()
+  console.log(playerName)
+
+  if (playersOnline === 0) {
+
+    database.ref().set({
+      players: {
+        player1: {
+          losses: 0,
+          name: playerName,
+          wins: 0
+        }
+      }
+      
+    })
+
+}
+  else if (playersOnline === 1){
+    console.log('Check')
+    // How update works and this weird file path notation rather than the JSON notation above https://firebase.google.com/docs/database/admin/save-data
+    database.ref().update({
+      "players/player2/losses": 0,
+      "players/player2/name": playerName, 
+      "players/player2/wins": 0
+    })
+  }
+
+})
+
 
 $('body').on('click', '.choice ', function () {
 
  var whichClicked = $(this).attr("data-type");
- database.ref().push({
-  choice: whichClicked,
-  playerNumber: activePlayer,
-  dataAdded: firebase.database.ServerValue.TIMESTAMP
-});
+
+console.log("triggered")
+
+//This sends up new data with a UID, I might want to structure this differently, SETTING the active player at some point so I can flip back and forth and hide things
+// database.ref().set({
+//   choice: whichClicked,
+//   playerNumber: activePlayer,
+//   dataAdded: firebase.database.ServerValue.TIMESTAMP
+// });
 
 if(activePlayer === 1) {
   activePlayer = 2
 }
 else{
  activePlayer = 1
-
 }
-renderChoices()
+
 
  console.log(whichClicked);
 })
@@ -74,10 +126,6 @@ function renderChoices() {
       $("#player1").removeClass("currentPlayer")
     }
   }
-  // $("#player1").prepend("<h3>Player 1</h3>")
-  // $("#player2").prepend("<h3>Player 2</h3>")
-  // $("#results").prepend("<h3>Results</h3>")
- 
 }
 
 function decideWinner (choice1, choice2) {
@@ -108,34 +156,27 @@ function decideWinner (choice1, choice2) {
   else if(choice1 === "scissors" && choice2 === "rock"){
     console.log("player2 wins!")
     player2Wins++
-
   }
-
   renderResults()
 }
 
-database.ref().on("child_added",function(childSnapshot) {
-  if(childSnapshot.val().playerNumber === 1) {
-    choice1 = childSnapshot.val().choice
-  }
-  else if(childSnapshot.val().playerNumber === 2) {
-    choice2 = childSnapshot.val().choice
-    decideWinner(choice1, choice2)
-  }
-  console.log(childSnapshot.val().lastChat)
+database.ref().on("value", function(snapshot) {
+  // if(childSnapshot.val().playerNumber === 1) {
+  //   choice1 = childSnapshot.val().choice
+  // }
+  // else if(childSnapshot.val().playerNumber === 2) {
+  //   choice2 = childSnapshot.val().choice
+  //   decideWinner(choice1, choice2)
+  // }
   
-  
-})
+//https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot
+  if(snapshot.child("players/player1").exists()) {
+    console.log("triggered!")
+    playersOnline = 1
+    console.log("this worked")
+  }
 
-// database.ref().on("child_added",function(childSnapshot) {
-//   if(childSnapshot.val().playerNumber === 1) {
-//     choice1 = childSnapshot.val().choice
-//   }
-//   else if(childSnapshot.val().playerNumber === 2) {
-//     choice2 = childSnapshot.val().choice
-//     decideWinner(choice1, choice2)
-//   }
-// })
+})
 
 function renderResults() {
   $("#results").empty()
@@ -150,16 +191,6 @@ function renderResults() {
   $("#results").append(newP)
   // $("#results").prepend("<h3>Results</h3>")
 }
-$("#submit").on("click", function() {
-
-  event.preventDefault();
-  playerName = $("#playerName").val().trim()
-  console.log(playerName)
-  database.ref().push({
-    playerName: playerName,
-  })
-    
-})
 
 $("#chatSubmitBtn").on("click", function() {
 
