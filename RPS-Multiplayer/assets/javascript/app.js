@@ -1,20 +1,17 @@
+//TODO
 
-///sets up firebase
+//1. Choice based on which user selected the choice needs to pushed to the respective user account on line
+//2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
+//3. Upon winning, it shows a winning screen and then it looks like it uses some type of set interval synced to the database?
+//4. Wins and Losses are pushed to the respective user account online
+//5. Chat feature works on "chat": last chat, probably a PUSH so it has a UID stored to the CHAT object that is created on the database
+//6. Disconnect terminates the player's record (probably need to look into documentation) and updates the chat with the disconnect messages. Everything resets from there
 
-// HOMEWORK NOTES: Could set up a variable that gets assigned upon clicking and SET  it to something like "active player"
+    //the SNAPSHOT listening part will have a majority of the logic because that will be what is capturing the data changing 
+    //Lots of different functions OUTISDE of the snapshot listening function will alter data, but not EVERYTHING needs to render based on that
+    //That is to say, jquery rendering functions should trigger based on logic within that snapshot listen
 
- //active has certain functions which render certain things (choices etc)
-
- //inactive player cannot do anything 
-
- //COULD BE A BOOLEAN or a 0/1
-
- //conforms with whichever BOX is pressed as a trigger? so if the second person joins, they would HAVE to click the 2nd box 
-
-
- //DIsconnect? 
-
- //Remeber that snapshot thing runs on every cycle? 
+    
 
 var config = {
     apiKey: "AIzaSyDodLNiFVaqhkd_Baj-raci3HdpDeu2Ens",
@@ -31,8 +28,6 @@ var database = firebase.database();
 
 var choicesArr = ["rock", "paper", "scissors"];
 
-var activePlayer = 1;
-
 var choice1, choice2;
 
 var player1Wins = 0;
@@ -44,6 +39,8 @@ var lastChatString = "";
 var ties = 0;
 
 var playersOnline = 0
+
+var dataBaseTurn;
  
 // renderChoices()
 
@@ -60,7 +57,8 @@ $("#submitPlayer").on("click", function() {
           losses: 0,
           name: playerName,
           wins: 0
-        }
+        },
+      
       }
       
     })
@@ -72,8 +70,10 @@ $("#submitPlayer").on("click", function() {
     database.ref().update({
       "players/player2/losses": 0,
       "players/player2/name": playerName, 
-      "players/player2/wins": 0
+      "players/player2/wins": 0,
+      "turn": 1
     })
+    renderChoices()
   }
 
 })
@@ -91,15 +91,10 @@ console.log("triggered")
 //   playerNumber: activePlayer,
 //   dataAdded: firebase.database.ServerValue.TIMESTAMP
 // });
+//NEED TO UPDATE
 
-if(activePlayer === 1) {
-  activePlayer = 2
-}
-else{
- activePlayer = 1
-}
-
-
+renderChoices()
+  console.log("active player is: " )
  console.log(whichClicked);
 })
 
@@ -111,23 +106,34 @@ function renderChoices() {
     newP.attr("data-type", choicesArr[i]);
     newP.addClass("choice");
     newP.html(choicesArr[i]);
-
-    if(activePlayer === 1) {
+    //NEED TO UPDATE
+    if(dataBaseTurn === 1) {
       $("#player1").append(newP);
       $("#player1").addClass("currentPlayer");
       $("#player2").removeClass("currentPlayer")
       
       $("#player2").empty()
+
+      database.ref().update({
+
+        "turn": 2
+      })
+
+
     }
     else{
       $("#player2").append(newP)
       $("#player1").empty()
       $("#player2").addClass("currentPlayer");
       $("#player1").removeClass("currentPlayer")
+      database.ref().update({
+
+        "turn": 1
+      })
     }
   }
 }
-
+//CHOICES WILL BE PUSHED UP TO THE PLAYER IN THE DATABASE 
 function decideWinner (choice1, choice2) {
   if(choice1 === choice2) {
     console.log("tie!")
@@ -159,23 +165,18 @@ function decideWinner (choice1, choice2) {
   }
   renderResults()
 }
-
+//GOING TO NEED A LOT OF IF/ELSE STATEMENTS HERE TO GOVERN WHEN CERTAIN DATA COMES IN FROM THE DATABASE
+    //SPECIFICALLY TURN NUMBER SHOULD BE GOVERNED HERE only IF player 1 has made a choice
 database.ref().on("value", function(snapshot) {
-  // if(childSnapshot.val().playerNumber === 1) {
-  //   choice1 = childSnapshot.val().choice
-  // }
-  // else if(childSnapshot.val().playerNumber === 2) {
-  //   choice2 = childSnapshot.val().choice
-  //   decideWinner(choice1, choice2)
-  // }
-  
+
 //https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot
   if(snapshot.child("players/player1").exists()) {
     console.log("triggered!")
     playersOnline = 1
     console.log("this worked")
   }
-
+  dataBaseTurn = snapshot.child("turn").val()
+  console.log("database turn is " + dataBaseTurn)
 })
 
 function renderResults() {
