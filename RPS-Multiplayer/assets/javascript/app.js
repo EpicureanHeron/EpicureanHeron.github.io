@@ -1,11 +1,12 @@
 //TODO
 
-//1. Choice based on which user selected the choice needs to pushed to the respective user account on line
-//2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
+//DONE 6/22/2018 1. Choice based on which user selected the choice needs to pushed to the respective user account on line
+//DONE 6/22/2018 2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
 //3. Upon winning, it shows a winning screen and then it looks like it uses some type of set interval synced to the database?
 //4. Wins and Losses are pushed to the respective user account online
 //5. Chat feature works on "chat": last chat, probably a PUSH so it has a UID stored to the CHAT object that is created on the database
 //6. Disconnect terminates the player's record (probably need to look into documentation) and updates the chat with the disconnect messages. Everything resets from there
+//7. Show user name upon entry, also clear out the submit value locally
 
     //the SNAPSHOT listening part will have a majority of the logic because that will be what is capturing the data changing 
     //Lots of different functions OUTISDE of the snapshot listening function will alter data, but not EVERYTHING needs to render based on that
@@ -61,6 +62,7 @@ $("#submitPlayer").on("click", function() {
   if (playersOnline === 0) {
     
     localPlayer = 1;
+    //this could all be done with the "object/object" notation rather than JSON for consistenscy and readablity
     database.ref().set({
       players: {
         player1: {
@@ -68,11 +70,8 @@ $("#submitPlayer").on("click", function() {
           name: playerName,
           wins: 0
         },
-      
       }
-      
     })
-
 }
   else if (playersOnline === 1){
     localPlayer = 2
@@ -84,9 +83,9 @@ $("#submitPlayer").on("click", function() {
       "players/player2/wins": 0,
       "turn": 1
     })
-    renderChoices()
+   
   }
-
+  
 })
 
 
@@ -101,15 +100,12 @@ console.log("triggered")
       "turn": 2
     })
   }
-  else if(databaseTurn === 2) {
+  else if(dataBaseTurn === 2) {
     database.ref().update({
       "players/player2/choice": whichClicked,
-      
+      "turn": 0
     })
-    decideWinner(choice1, choice2)
-  //SHOULD DECIDE WINNER HERE
-}
-
+  }
 })
 
 
@@ -159,6 +155,8 @@ function renderChoices(turn) {
 
 //CHOICES WILL BE PUSHED UP TO THE PLAYER IN THE DATABASE 
 function decideWinner (choice1, choice2) {
+
+
   if(choice1 === choice2) {
     console.log("tie!")
     ties ++
@@ -208,17 +206,22 @@ database.ref().on("value", function(snapshot) {
   if(snapshot.child("players/player1").exists() && snapshot.child("players/player2").exists()) {
     renderChoices(dataBaseTurn)
   }
-
+  
   if(snapshot.child("players/player1/choice").exists()){
     console.log(snapshot.child("players/player1/choice").val())
     choice1 = snapshot.child("players/player1/choice").val()
   }
   if(snapshot.child("players/player2/choice").exists()){
     console.log(snapshot.child("players/player2/choice").val())
-    choice2 = snapshot.child("players/player1/choice").val()
+    choice2 = snapshot.child("players/player2/choice").val()
+  }
+  if(snapshot.child("turn").val() === 0) {
+    console.log("Turn === 0 so should trigger the decideWinner function")
+    decideWinner(choice1, choice2)
   }
 })
-
+ 
+//NEED TO TO TIE THIS TO SOME "DECIDE WINNER PARAMETER PROBABLY"
 function renderResults() {
   $("#results").empty()
   var newP = $("<p>");
@@ -231,6 +234,10 @@ function renderResults() {
   newP.html("ties: " + ties)
   $("#results").append(newP)
   // $("#results").prepend("<h3>Results</h3>")
+  database.ref().update({
+    "turn": 1
+  })
+
 }
 
 $("#chatSubmitBtn").on("click", function() {
