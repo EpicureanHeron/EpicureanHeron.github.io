@@ -41,7 +41,7 @@ var player1Wins = 0;
 
 var player2Wins = 0;
 //inits the local player variables
-var localPlayer1, localPlayer2, dataBaseTurn
+var localPlayer, dataBaseTurn
 
 var lastChatString = "";
 
@@ -60,7 +60,7 @@ $("#submitPlayer").on("click", function() {
 
   if (playersOnline === 0) {
     
-    localPlayer1 = playerName;
+    localPlayer = 1;
     database.ref().set({
       players: {
         player1: {
@@ -75,7 +75,7 @@ $("#submitPlayer").on("click", function() {
 
 }
   else if (playersOnline === 1){
-    localPlayer2 = playerName
+    localPlayer = 2
     
     // How update works and this weird file path notation rather than the JSON notation above https://firebase.google.com/docs/database/admin/save-data
     database.ref().update({
@@ -96,15 +96,17 @@ $('body').on('click', '.choice ', function () {
 
 console.log("triggered")
   if(dataBaseTurn === 1) {
-    database.ref().set({
-      "players/player1/choice": whichClicked
+    database.ref().update({
+      "players/player1/choice": whichClicked,
+      "turn": 2
     })
   }
   else if(databaseTurn === 2) {
     database.ref().update({
-      "players/player1]2/choice": whichClicked
+      "players/player2/choice": whichClicked,
+      
     })
-
+    decideWinner(choice1, choice2)
   //SHOULD DECIDE WINNER HERE
 }
 
@@ -112,40 +114,49 @@ console.log("triggered")
 
 
 function renderChoices(turn) {
- 
+  //clears both areas
+  $("#player1").empty()
+  $("#player2").empty()
+  //runs through each choice
   for (i = 0; i < choicesArr.length; i++) {
     var newP = $("<p>");
     newP.attr("data-type", choicesArr[i]);
     newP.addClass("choice");
     newP.html(choicesArr[i]);
-    //NEED TO UPDATE
 
-    if(turn === 1) {
+
+
+
+    if(turn === 1 && localPlayer === 1) {
       $("#player1").append(newP);
       $("#player1").addClass("currentPlayer");
       $("#player2").removeClass("currentPlayer")
       
-      $("#player2").empty()
-
-      database.ref().update({
-
-        "turn": 2
-      })
 
 
     }
-    else if(turn ===2) {
+
+     if(turn ===2  && localPlayer === 2) {
       $("#player2").append(newP)
       $("#player1").empty()
       $("#player2").addClass("currentPlayer");
       $("#player1").removeClass("currentPlayer")
-      database.ref().update({
-
-        "turn": 1
-      })
     }
   }
+
+  if(turn === 1 && localPlayer ===2) {
+    var nonPlayerP = $("<p>")
+    nonPlayerP.html("Waiting for the other player!")
+    $("#player2").append(nonPlayerP)
+  }
+
+  if(turn === 2 && localPlayer === 1 ) {
+    var nonPlayerP = $("<p>")
+    nonPlayerP.html("Waiting for the other player!")
+    $("#player1").append(nonPlayerP)
+  }
 }
+
 //CHOICES WILL BE PUSHED UP TO THE PLAYER IN THE DATABASE 
 function decideWinner (choice1, choice2) {
   if(choice1 === choice2) {
@@ -200,9 +211,11 @@ database.ref().on("value", function(snapshot) {
 
   if(snapshot.child("players/player1/choice").exists()){
     console.log(snapshot.child("players/player1/choice").val())
+    choice1 = snapshot.child("players/player1/choice").val()
   }
   if(snapshot.child("players/player2/choice").exists()){
     console.log(snapshot.child("players/player2/choice").val())
+    choice2 = snapshot.child("players/player1/choice").val()
   }
 })
 
