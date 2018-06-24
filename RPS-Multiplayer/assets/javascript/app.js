@@ -200,10 +200,14 @@ database.ref().on("value", function(snapshot) {
   if(snapshot.child("players/player1").exists()) {
     
     playersOnline = 1
+    $("#player1Name").html(snapshot.child("players/player1/name").val())
     
   }
+
+  
   //if both players exist in the database, passes the databaseturn 
   if(snapshot.child("players/player1").exists() && snapshot.child("players/player2").exists()) {
+    $("#player2Name").html(snapshot.child("players/player2/name").val())
     renderChoices(dataBaseTurn)
   }
   
