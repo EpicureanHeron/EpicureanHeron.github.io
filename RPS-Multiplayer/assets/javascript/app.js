@@ -3,10 +3,11 @@
 //DONE 6/22/2018 1. Choice based on which user selected the choice needs to pushed to the respective user account on line
 //DONE 6/22/2018 2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
 //3. Upon winning, it shows a winning screen and then it looks like it uses some type of set interval synced to the database?
+    //3A Each player needs to have their own wins/losses displayed at the bottom of their DIVs
 //4. Wins and Losses are pushed to the respective user account online
 //5. Chat feature works on "chat": last chat, probably a PUSH so it has a UID stored to the CHAT object that is created on the database
 //6. Disconnect terminates the player's record (probably need to look into documentation) and updates the chat with the disconnect messages. Everything resets from there
-//7. Show user name upon entry, also clear out the submit value locally
+//7.DONE 6/23/2018  Show user name upon entry, also clear out the submit value locally
 
     //the SNAPSHOT listening part will have a majority of the logic because that will be what is capturing the data changing 
     //Lots of different functions OUTISDE of the snapshot listening function will alter data, but not EVERYTHING needs to render based on that
@@ -19,6 +20,11 @@
 		//Locally, using that value.on snapshot function, we can check if player1 exists, if it does, we will set the local variable to player2 = whatever their name is 
 		//using the player1 and player2 local variable, we should be able to use that same data snapshot function to capture determine through some if/elses what gets displayed locally via updating through jquery
 
+
+    //morning after notes
+    //need to push the wins/losses up to the server probably by leverging all the returns I added and assigning them to a vriable which then does one of two things based on what is passed
+    //The box that highlights the currnet player works, but the display for the choices is not jumping between boxes
+    //
     
 
 var config = {
@@ -58,19 +64,19 @@ $("#submitPlayer").on("click", function() {
   event.preventDefault();
   playerName = $("#playerName").val().trim()
   console.log(playerName)
-
+  $("#playerName").val("");
+  //if no players are online, update the database with the creation of player1. 
+  //playersOnline is triggered at the database snapshot listening portion by checking if player1 exists
   if (playersOnline === 0) {
-    
+    //sets the localplayer variable
     localPlayer = 1;
     //this could all be done with the "object/object" notation rather than JSON for consistenscy and readablity
-    database.ref().set({
-      players: {
-        player1: {
-          losses: 0,
-          name: playerName,
-          wins: 0
-        },
-      }
+    //
+    database.ref().update({
+      "players/player1/losses": 0,
+      "players/player1/name": playerName, 
+      "players/player1/wins": 0,
+      "turn": 1
     })
 }
   else if (playersOnline === 1){
@@ -114,43 +120,34 @@ function renderChoices(turn) {
   $("#player1").empty()
   $("#player2").empty()
   //runs through each choice
-  for (i = 0; i < choicesArr.length; i++) {
-    var newP = $("<p>");
-    newP.attr("data-type", choicesArr[i]);
-    newP.addClass("choice");
-    newP.html(choicesArr[i]);
 
-
-
-
-    if(turn === 1 && localPlayer === 1) {
-      $("#player1").append(newP);
-      $("#player1").addClass("currentPlayer");
-      $("#player2").removeClass("currentPlayer")
-      
-
-
-    }
-
-     if(turn ===2  && localPlayer === 2) {
-      $("#player2").append(newP)
-      $("#player1").empty()
-      $("#player2").addClass("currentPlayer");
-      $("#player1").removeClass("currentPlayer")
-    }
-  }
 
   if(turn === 1 && localPlayer ===2) {
     var nonPlayerP = $("<p>")
     nonPlayerP.html("Waiting for the other player!")
     $("#player2").append(nonPlayerP)
+  
   }
 
   if(turn === 2 && localPlayer === 1 ) {
     var nonPlayerP = $("<p>")
     nonPlayerP.html("Waiting for the other player!")
     $("#player1").append(nonPlayerP)
+  
   }
+
+  for (i = 0; i < choicesArr.length; i++) {
+    var newP = $("<p>");
+    newP.attr("data-type", choicesArr[i]);
+    newP.addClass("choice");
+    newP.html(choicesArr[i]);
+
+    if(turn === 1 && localPlayer === 1) {
+      $("#player1").append(newP);
+     
+    }
+
+}
 }
 
 //CHOICES WILL BE PUSHED UP TO THE PLAYER IN THE DATABASE 
@@ -159,52 +156,54 @@ function decideWinner (choice1, choice2) {
 
   if(choice1 === choice2) {
     console.log("tie!")
-    ties ++
+    //ties ++
+    return "tie "
   }
   else if(choice1 === "rock" && choice2 ==="scissors"){
     console.log("player1 Wins!")
-    player1Wins ++
+    //player1Wins ++
+    return "player1"
   }
   else if(choice1 === "rock" && choice2 ==="paper"){
     console.log("player2 wins!")
-    player2Wins ++
+    return "player2"
+
   }
   else if(choice1 === "paper" && choice2 ==="rock"){
     console.log("player1 wins!")
-    player1Wins ++
+     //player1Wins ++
+    return "player1"
   }
   else if(choice1 === "paper" && choice2 === "scissors"){
     console.log("player2 wins!")
-    player2Wins++
+    //player2Wins++
+    return "player2"
   }
   else if(choice1 === "scissors" && choice2 === "paper"){
     console.log("player1 wins!")
-    player1Wins++
+     //player1Wins ++
+    return "player1"
   }
   else if(choice1 === "scissors" && choice2 === "rock"){
     console.log("player2 wins!")
-    player2Wins++
+    //player2Wins++
+    return "player2"
   }
-  renderResults()
+  //renderResults()
 }
-//GOING TO NEED A LOT OF IF/ELSE STATEMENTS HERE TO GOVERN WHEN CERTAIN DATA COMES IN FROM THE DATABASE
-    //SPECIFICALLY TURN NUMBER SHOULD BE GOVERNED HERE only IF player 1 has made a choice
-
 
 database.ref().on("value", function(snapshot) {
   //Grabs the current turn IF IT EXISTS
-  if(snapshot.child("turn").exists()){
-    dataBaseTurn = snapshot.child("turn").val()
-  }
+
 //https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot
   if(snapshot.child("players/player1").exists()) {
     
     playersOnline = 1
     $("#player1Name").html(snapshot.child("players/player1/name").val())
-    
+    //Could be unnecessary if onDisconnect is figured out
+   
   }
 
-  
   //if both players exist in the database, passes the databaseturn 
   if(snapshot.child("players/player1").exists() && snapshot.child("players/player2").exists()) {
     $("#player2Name").html(snapshot.child("players/player2/name").val())
@@ -221,8 +220,24 @@ database.ref().on("value", function(snapshot) {
   }
   if(snapshot.child("turn").val() === 0) {
     console.log("Turn === 0 so should trigger the decideWinner function")
-    decideWinner(choice1, choice2)
+    //listen for the wins/losses on only one account ? 
+   decideWinner(choice1, choice2)
   }
+  else if(snapshot.child("turn").val() === 1) {
+    $("#player1").addClass("currentPlayer");
+    $("#player2").removeClass("currentPlayer")
+    console.log("turn 1 triggered!")
+  }
+  else if (snapshot.child("turn").val() === 2) {
+  $("#player2").addClass("currentPlayer");
+  $("#player1").removeClass("currentPlayer")
+  }
+
+
+  if(snapshot.child("turn").exists()){
+    dataBaseTurn = snapshot.child("turn").val()
+  }
+
 })
  
 //NEED TO TO TIE THIS TO SOME "DECIDE WINNER PARAMETER PROBABLY"
