@@ -61,7 +61,7 @@ $("#submitPlayer").on("click", function() {
   //if no players are online, update the database with the creation of player1. 
   //playersOnline is triggered at the database snapshot listening portion by checking if player1 exists
   if (playersOnline === 0) {
-    //sets the localplayer variable
+    //sets the localPlayer variable
     localPlayer = 1;
     //this could all be done with the "object/object" notation rather than JSON for consistenscy and readablity
     //
@@ -69,6 +69,8 @@ $("#submitPlayer").on("click", function() {
       "players/player1/losses": 0,
       "players/player1/name": playerName, 
       "players/player1/wins": 0,
+      "players/player1/onlineState": true,
+
       "turn": 1
     })
 }
@@ -80,6 +82,7 @@ $("#submitPlayer").on("click", function() {
       "players/player2/losses": 0,
       "players/player2/name": playerName, 
       "players/player2/wins": 0,
+      "players/player2/onlineState": true,
       "turn": 1
     })
    
@@ -286,6 +289,21 @@ database.ref().on("value", function(snapshot) {
 
 
 })
+//attempting ondisconnect stuff
+
+//this could be done by listening to WHICH player's online state is changed
+//once you know that, we can get rid of that branch on the server
+//set all scores to 0
+//this is probably some sort of "reset" function
+
+database.ref("players/player1").onDisconnect().update({
+ 
+   "onlineState": false,
+
+})
+
+
+
  
 //NEED TO TO TIE THIS TO SOME "DECIDE WINNER PARAMETER PROBABLY"
 function renderResults() {
@@ -317,7 +335,7 @@ $("#chatSubmitBtn").on("click", function() {
   // database.ref().set({
   //   lastChat: chatSubmit
   // })
-    
+  
 })
 
 // database.ref().on("value", function(snapshot) {
