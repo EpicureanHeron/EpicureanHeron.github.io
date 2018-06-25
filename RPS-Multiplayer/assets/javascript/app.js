@@ -1,5 +1,5 @@
 //TODO
-//5. Chat feature works on "chat": last chat, probably a PUSH so it has a UID stored to the CHAT object that is created on the database
+
 //6. Disconnect terminates the player's record (probably need to look into documentation) and updates the chat with the disconnect 
 //   messages. Everything resets from there
 //3. Upon winning, it shows a winning screen and then it looks like it uses some type of set interval synced to the database?
@@ -10,11 +10,8 @@
 //DONE 6/22/2018 2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
 //DONE 6/23/2018 7. Show user name upon entry, also clear out the submit value locally
 //DONE 6/24/2018 4.  Wins and Losses are pushed to the respective user account online
+//DONE 6/25/2018 5. Chat feature works on "chat": last chat, probably a PUSH so it has a UID stored to the CHAT object that is created on the database
 
-
-
-
-	
 
 var config = {
     apiKey: "AIzaSyDodLNiFVaqhkd_Baj-raci3HdpDeu2Ens",
@@ -49,6 +46,7 @@ var ties = 0;
 
 var playersOnline = 0
 
+var localPlayerServerPath;
 
  
 // renderChoices()
@@ -63,6 +61,8 @@ $("#submitPlayer").on("click", function() {
   if (playersOnline === 0) {
     //sets the localPlayer variable
     localPlayer = 1;
+    localPlayerServerPath = "players/player1"
+
     //this could all be done with the "object/object" notation rather than JSON for consistenscy and readablity
     //
     database.ref().update({
@@ -76,6 +76,7 @@ $("#submitPlayer").on("click", function() {
 }
   else if (playersOnline === 1){
     localPlayer = 2
+    localPlayerServerPath =  "players/player1"
     
     // How update works and this weird file path notation rather than the JSON notation above https://firebase.google.com/docs/database/admin/save-data
     database.ref().update({
@@ -289,6 +290,16 @@ database.ref().on("value", function(snapshot) {
 
 
 })
+
+database.ref("chat").on("child_added",function(childSnapshot) {
+var chat = childSnapshot.val().chat
+//apparenlty the time stamp from firebase returns MILLISECONDS, so I need to divide that value by 1000
+var timeStamp = childSnapshot.val().dataAdded/1000
+var time = moment.unix(timeStamp).format("MM/DD/YYYY, HH:MM");
+
+$("#chatDisplay").prepend("<p>"+ time + "       " + chat + "</p>")
+
+})
 //attempting ondisconnect stuff
 
 //this could be done by listening to WHICH player's online state is changed
@@ -296,11 +307,11 @@ database.ref().on("value", function(snapshot) {
 //set all scores to 0
 //this is probably some sort of "reset" function
 
-database.ref("players/player1").onDisconnect().update({
- 
-   "onlineState": false,
+//NEED TO TEST THIS
+//  database.ref().onDisconnect().set({
+//   "chat": "User disconnected!"
 
-})
+//  })
 
 
 
@@ -329,19 +340,19 @@ $("#chatSubmitBtn").on("click", function() {
   event.preventDefault();
   
   chatSubmit = $("#chatSubmit").val().trim();
-  lastChatString = chatSubmit;
-  $("#chatDisplay").prepend("<p>" + chatSubmit + "</p>")
+  $("#chatSubmit").val("")
   
-  // database.ref().set({
-  //   lastChat: chatSubmit
-  // })
   
-})
+  database.ref("chat").push({
+    chat: chatSubmit,
+    dataAdded: firebase.database.ServerValue.TIMESTAMP,
+  })
 
+})
 // database.ref().on("value", function(snapshot) {
 //   console.log(snapshot.val());
   
   
 // }, function(errorObject) {
 //   console.log("The read failed: " + errorObject.code);
-// });
+// })
