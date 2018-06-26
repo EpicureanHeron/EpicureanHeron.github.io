@@ -292,12 +292,13 @@ database.ref().on("value", function(snapshot) {
 })
 
 database.ref("chat").on("child_added",function(childSnapshot) {
-var chat = childSnapshot.val().chat
-//apparenlty the time stamp from firebase returns MILLISECONDS, so I need to divide that value by 1000
-var timeStamp = childSnapshot.val().dataAdded/1000
-var time = moment.unix(timeStamp).format("MM/DD/YYYY, HH:MM");
+  var chat = childSnapshot.val().chat
+  var whoSpoke = childSnapshot.val().playerChat
+  //apparenlty the time stamp from firebase returns MILLISECONDS, so I need to divide that value by 1000
+  var timeStamp = childSnapshot.val().dataAdded/1000
+  var convertedTime = moment.unix(timeStamp).format("MM/DD/YYYY, HH:mm:ss");
 
-$("#chatDisplay").prepend("<p>"+ time + "       " + chat + "</p>")
+  $("#chatDisplay").prepend("<p>"+ convertedTime + "       "+ whoSpoke +": " + chat + "</p>")
 
 })
 //attempting ondisconnect stuff
@@ -339,13 +340,15 @@ $("#chatSubmitBtn").on("click", function() {
 
   event.preventDefault();
   
-  chatSubmit = $("#chatSubmit").val().trim();
+  chatSubmit =  $("#chatSubmit").val().trim();
   $("#chatSubmit").val("")
+
   
   
   database.ref("chat").push({
     chat: chatSubmit,
     dataAdded: firebase.database.ServerValue.TIMESTAMP,
+    playerChat: playerName
   })
 
 })
