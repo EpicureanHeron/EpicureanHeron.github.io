@@ -52,10 +52,12 @@ var player1Name;
 
 var player2Name;
 
+
+
  
 // renderChoices()
 
-$("#submitPlayer").on("click", function() {
+$("#submitPlayer").on("click", function(event) {
   event.preventDefault();
   playerName = $("#playerName").val().trim()
   console.log(playerName)
@@ -399,7 +401,7 @@ function renderResults() {
 
 
 
-$("#chatSubmitBtn").on("click", function() {
+$("#chatSubmitBtn").on("click", function(event) {
 
   event.preventDefault();
   
