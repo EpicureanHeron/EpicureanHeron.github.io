@@ -312,11 +312,13 @@ database.ref().on("value", function(snapshot) {
   $("#player1").removeClass("currentPlayer")
   }
 
+  
+
 
 
 
 })
-
+//CHAT
 database.ref("chat").on("child_added",function(childSnapshot) {
   var chat = childSnapshot.val().chat
   var whoSpoke = childSnapshot.val().playerChat
@@ -337,27 +339,57 @@ database.ref("chat").on("child_added",function(childSnapshot) {
 //NEED TO TEST THIS
 
 //THIS CUOLD BE PAIRED WITH A LISTENING FUNCTION if Player1 but not player 2 and vice versa...?  Right now clears everytnhing out and both players have to leave
+
+function disconnected(localPlayer) {
+  if(localPlayer === 2) {
+    database.ref().onDisconnect().update({
+      "players/player1/losses": 0,
+      "players/player1/name": "", 
+      "players/player1/wins": 0,
+      chat: "",
+      turn: 0
+    });
+  }
+}
+//currenlty clears everything
 database.ref().onDisconnect().update({
   players: "",
+  turn: 1,
   chat: "",
-  turn: 0
-});
+  ties: 0
+})
 
+// database.ref().onDisconnect().push({
+//   "chat/chat": "Player Disconnected!",
+//   "chat/dataAdded": firebase.database.ServerValue.TIMESTAMP,
+// })
 
 
  
 //NEED TO TO TIE THIS TO SOME "DECIDE WINNER PARAMETER PROBABLY"
 function renderResults() {
+
   $("#results").empty()
+
   var newP = $("<p>");
-  newP.html("Player 1 wins: " + player1Wins)
+  newP.html(player1Name +  " chose " + choice1)
   $("#results").append(newP)
   var newP = $("<p>");
-  newP.html("Player 2 wins: " + player2Wins)
+  newP.html(player2Name +  " chose " + choice2)
+  $("#results").append(newP)
+ 
+
+  var newP = $("<p>");
+  newP.html(player1Name + "'s score:  " + player1Wins)
+  $("#results").append(newP)
+  var newP = $("<p>");
+  newP.html(player2Name + "'s score:  " + player2Wins)
   $("#results").append(newP)
   var newP = $("<p>");
   newP.html("ties: " + ties)
   $("#results").append(newP)
+ 
+
   // $("#results").prepend("<h3>Results</h3>")
   database.ref().update({
     "turn": 1
@@ -383,10 +415,3 @@ $("#chatSubmitBtn").on("click", function() {
   })
 
 })
-// database.ref().on("value", function(snapshot) {
-//   console.log(snapshot.val());
-  
-  
-// }, function(errorObject) {
-//   console.log("The read failed: " + errorObject.code);
-// })
