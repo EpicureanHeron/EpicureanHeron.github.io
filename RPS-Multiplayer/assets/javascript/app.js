@@ -1,10 +1,8 @@
-//TODO
+//TODOs LEFT as of 6/25/2018
 
-//6. Disconnect terminates the player's record (probably need to look into documentation) and updates the chat with the disconnect 
-//   messages. Everything resets from there
-//3. Upon winning, it shows a winning screen and then it looks like it uses some type of set interval synced to the database?
-    //3A Each player needs to have their own wins/losses displayed at the bottom of their DIVs
-
+//6. I played around with onDisconnect for a day, could not figure out how to make it trigger based on the client's number, so currently that is being left out...or I can clear the entire database.
+//3.Upon a win, an interval is used to time out the screen to show the winner. I attempted this but the interval was also hitting firebase, so it created 2000+ calls. Left function in but I do not call it
+    
 
 //DONE 6/22/2018 1. Choice based on which user selected the choice needs to pushed to the respective user account on line
 //DONE 6/22/2018 2. Jquery needs to render governed by TURN, so if it is player 1's turn, they have their options, etc. Need lots fo work currently
@@ -47,6 +45,12 @@ var ties = 0;
 var playersOnline = 0
 
 var localPlayerServerPath;
+
+var interval = "";
+
+var player1Name;
+
+var player2Name;
 
  
 // renderChoices()
@@ -112,7 +116,9 @@ $('body').on('click', '.choice ', function () {
 })
 
 
+
 function renderChoices(turn) {
+  //clearInterval(interval)
   //clears both areas
   $("#player1").empty()
   $("#player2").empty()
@@ -171,10 +177,10 @@ function decideWinner (choice1, choice2) {
     player2Losses ++
     database.ref().update({
       "players/player1/wins": player1Wins,
-      "turn": 1,
+     "turn": 1,
       "players/player2/losses": player2Losses
     })
-    
+   // setWinnerTimer(player1Name, choice1)
   }
   else if(choice1 === "rock" && choice2 ==="paper"){
     //player 2 should win
@@ -186,6 +192,7 @@ function decideWinner (choice1, choice2) {
       "turn": 1,
       "players/player1/losses": player1Losses
     })
+   // setWinnerTimer(player2Name, choice2)
   }
   else if(choice1 === "paper" && choice2 ==="rock"){
     //player 1 should win
@@ -197,7 +204,7 @@ function decideWinner (choice1, choice2) {
       "turn": 1,
       "players/player2/losses": player2Losses
     })
-    
+   // setWinnerTimer(player1Name, choice1)
   }
   else if(choice1 === "paper" && choice2 === "scissors"){
     //player 2 should win 
@@ -209,7 +216,7 @@ function decideWinner (choice1, choice2) {
       "turn": 1,
       "players/player1/losses": player1Losses
     })
-    
+   // setWinnerTimer(player2Name, choice2)
   }
   else if(choice1 === "scissors" && choice2 === "paper"){
     //player 1 should win
@@ -221,7 +228,7 @@ function decideWinner (choice1, choice2) {
       "turn": 1,
       "players/player2/losses": player2Losses
     })
-    
+   // setWinnerTimer(player1Name, choice1)
   }
   else if(choice1 === "scissors" && choice2 === "rock"){
       //player 2 should win 
@@ -232,9 +239,27 @@ function decideWinner (choice1, choice2) {
       "players/player2/wins": player2Wins,
       "turn": 1,
       "players/player1/losses": player1Losses
+      
     })
+    //setWinnerTimer(player2Name, choice2)
   }
   renderResults()
+}
+
+function setWinnerTimer(player, choice){
+  $("#results").empty()
+  var winnerH1 = $("<h1>")
+  winnerH1.html(player +" wins!")
+  var choiceP = $("<p>")
+  choiceP.html(choice)
+  
+  $("#results").append(winnerH1)
+  
+  $("#results").append(choiceP)
+  //COULD DO AN INTERVAL HERE, ATTEMPTED BUT IT JUST CONSTANTLY UPDATED MY FIREBASE.
+  
+
+
 }
 
 database.ref().on("value", function(snapshot) {
@@ -267,7 +292,8 @@ database.ref().on("value", function(snapshot) {
     choice2 = snapshot.child("players/player2/choice").val()
   }
   if(snapshot.child("turn").val() === 0) {
-  
+    player1Name = snapshot.child("players/player1/name").val()
+    player2Name = snapshot.child("players/player2/name").val()
     player1Wins = snapshot.child("players/player1/wins").val()
     player1Losses = snapshot.child("players/player1/losses").val()
     player2Wins = snapshot.child("players/player2/wins").val()
@@ -309,10 +335,13 @@ database.ref("chat").on("child_added",function(childSnapshot) {
 //this is probably some sort of "reset" function
 
 //NEED TO TEST THIS
-//  database.ref().onDisconnect().set({
-//   "chat": "User disconnected!"
 
-//  })
+//THIS CUOLD BE PAIRED WITH A LISTENING FUNCTION if Player1 but not player 2 and vice versa...?  Right now clears everytnhing out and both players have to leave
+database.ref().onDisconnect().update({
+  players: "",
+  chat: "",
+  turn: 0
+});
 
 
 
@@ -335,6 +364,8 @@ function renderResults() {
   })
 
 }
+
+
 
 $("#chatSubmitBtn").on("click", function() {
 
