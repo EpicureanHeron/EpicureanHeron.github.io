@@ -64,6 +64,10 @@ h1 {
 	color: #777777;
 }
 
+.buffer {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 body {
 	background-color: rgba(221,221,221,0.9);
 	background: url(../images/what-the-hex.png) top left repeat;
