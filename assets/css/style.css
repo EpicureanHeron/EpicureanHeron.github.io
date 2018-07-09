@@ -16,6 +16,10 @@
 	margin-top: 30px;
 }
 
+#overlapFix {
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
 /* the classes .nav-bar-logo and .nav-bar-push aligns things nicely at full screen but breaks when the screen resizes */
 .nav-bar-logo {
