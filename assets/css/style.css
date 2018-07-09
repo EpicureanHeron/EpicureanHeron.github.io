@@ -20,6 +20,11 @@
 	margin-left: 10px;
 	margin-right: 10px;
 }
+.icon {
+	width: 30px;
+	height: auto;
+	margin-left: 5px;
+}
 
 /* the classes .nav-bar-logo and .nav-bar-push aligns things nicely at full screen but breaks when the screen resizes */
 .nav-bar-logo {
