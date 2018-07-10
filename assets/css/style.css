@@ -23,8 +23,26 @@
 .icon {
 	width: 30px;
 	height: auto;
-	margin-left: 5px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
+.left {
+	margin-left: 15px;
+	margin-right: -15px;
+	color: white;
+}
+.right{
+	margin-left: -15px;
+	margin-right: 15px;
+	color: white;
+}
+
+
+.iconDiv:hover { 
+    background-color: #2e9792;
+}
+
 
 /* the classes .nav-bar-logo and .nav-bar-push aligns things nicely at full screen but breaks when the screen resizes */
 .nav-bar-logo {
@@ -39,9 +57,7 @@
 	/*margin-left: 17%; */
 }
 
-.nav-bar-push {
-	/*margin-right: 365px;*/
-}
+
 
 .bottomcolumn {
 	margin-bottom: 50px;
