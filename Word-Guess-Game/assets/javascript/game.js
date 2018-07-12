@@ -95,7 +95,7 @@ $(document).keyup(function newGuess(event) {
         checkGuess(userGuess);
     }
     else {
-        alert("That's not a letter!!!");
+      //  alert("That's not a letter!!!");
     }
 })
 

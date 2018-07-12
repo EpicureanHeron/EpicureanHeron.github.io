@@ -1,46 +1,86 @@
 .mainContent {
 	
-	background-color: #ffffff;
+	opacity: 0.9;
+	background-color: #f5f5f5;
 	line-height: 1.5em;
 	font-size: 20px;
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-	color: #777777;
+	color: #262626;
 }
 
 .nav-bar-custom {
-	background-color: #ffffff;
-	border-bottom: 5px solid #cccccc;
+	background-color: #262626;
+	border-bottom: 5px solid #3f3f3f;
 }
 
 .topcolumn {
 	margin-top: 30px;
 }
 
+.customCard{
+	background-color: #f5f5f5;
+}
+
+#overlapFix {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.icon {
+	width: 30px;
+	height: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.left {
+	margin-left: 15px;
+	margin-right: -15px;
+	color: white;
+}
+.right{
+	margin-left: -15px;
+	margin-right: 15px;
+	color: white;
+}
+
+
+
+
+.iconDiv:hover { 
+    background-color: #3f3f3f;
+}
+
 
 /* the classes .nav-bar-logo and .nav-bar-push aligns things nicely at full screen but breaks when the screen resizes */
 .nav-bar-logo {
-	background-color: #4aaaa5;
-	color: #ffffff;
+	background-color: #262626;
+	color: #f5f5f5;
 	font-size: 24px;
 	height: 100%;
 	padding: 12.5px;
+	text-decoration: none;
+	
+	
 
 	/*to push everything to line up I have been using the px code below
 	/*margin-left: 365px;*/
 	/*margin-left: 17%; */
 }
-
-.nav-bar-push {
-	/*margin-right: 365px;*/
+.nav-bar-logo:hover {
+	background-color: #f5f5f5;
+	color: #262626;
+	text-decoration: none;
 }
+
+
 
 .bottomcolumn {
 	margin-bottom: 50px;
 }
 
 .custom-footer {
-	background-color: #666666;
-	border-top: solid 5px #2e9792;
+	background-color: #262626;
+	border-top: solid 5px #dcdcdc;
 	text-align: center;
 	color: #dddddd;
 	height: 40px;
@@ -59,20 +99,24 @@ h1 {
 	font-weight: bold;
 }
  
-a {
+.nav-bar-push a {
 	text-decoration: none;
-	color: #777777;
+	color: #262626;
 }
 
+.buffer {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 body {
 	background-color: rgba(221,221,221,0.9);
-	background: url(../images/what-the-hex.png) top left repeat;
+	background: url(../images/spiration-dark.png) top left repeat;
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-	color: #777777;
+	color: #262626;
 }
 
 html {
-	background: url(../images/what-the-hex.png) top left repeat;	
+	background: url(../images/spiration-dark.png) top left repeat;	
 	background-position: top left;
 	}
 
@@ -83,11 +127,16 @@ html {
 }
 
 .MainAboutMe {
-	color: #4aaaa5;
+	color: #262626;
 	font-size: 24px;
 	height: 50px;
 	padding-top: 15px;
-	border-bottom: 2px solid #dddddd;
+	/* border-bottom: 2px solid  #f5f5f5; */
+	border-bottom: 5px solid #3f3f3f;
+}
+.custom-btn {
+	background-color: #262626;
+	color:  #f5f5f5;
 }
 
 input {
@@ -95,15 +144,15 @@ input {
 }
 
 textarea {
-	height: 500px;
+	height: 300px;
 	width: 100%;
 }
 
 .submitbutton {
 	height: 35px;
 	width: 95px;
-	background-color:  #4aaaa5;
-	color: #ffffff;
+	background-color:  #262626;
+	color: #f5f5f5;
 	padding: 0;
 	border: none;
 	font-size: 15px;
@@ -122,7 +171,7 @@ textarea {
     top: 60%;
     left: 0;
     width: 100%;
-	background-color: #4aaaa5;
-	color: #ffffff;
+	background-color: #dcdcdc;
+	color: #f5f5f5;
 }
 
