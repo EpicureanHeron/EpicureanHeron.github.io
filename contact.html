@@ -45,21 +45,22 @@
                             <div class="col-md-2"></div>
                         <div class="col-md-8 mainContent">
                                 <h1 class="MainAboutMe">Contact</h1>
-                                <form>
+                                <form class="formContact">
                                         Name: <br>
-                                        <input type="text" name="Name"><br>
+                                        <input type="text" id="name" name="Name"><br>
                                         Email: <br>
-                                        <input type="text" name="Email"><br>
+                                        <input type="text" id="email" name="Email"><br>
                                         
                                         Message: <br>
-                                        <textarea name="message"></textarea>
+                                        <textarea id="message" name="message"></textarea>
                                         
                                         <br>
+                                    </form>  
+                                        <button type="submit" id="contactSubmit"  class="btn btn-primary custom-btn formContact">Submit</button>
+                                    <p></p>
                                         
-                                        <input type="submit" class="submitbutton custom-btn" value="Submit">
                                         
-                                        
-                                    </form>
+                                    
 
                         </div>
                         <div class="col-md-2"></div>
@@ -76,8 +77,10 @@
                   </footer>
         
               <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+              <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
               <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        </body>
+              <script src="assets/javascript/app.js"></script>
+            </body>
 
 </html>
