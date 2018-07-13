@@ -3,6 +3,8 @@
 
 At a high level, I updated the background, color scheme, and layout of my portfolio. I also integrated Firebase for the contact page and redesigned the portfolio page.
 
+I also went through old projects and made them mobile friendly. 
+
 ## Languages and libraries used in the redesign:
 
 - Jquery
