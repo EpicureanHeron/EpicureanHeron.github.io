@@ -32,3 +32,18 @@ I capture the name, email, and message and push it to a firebase server set up s
 Upon submission, it clears the page with Jquery and directs the end user to check out my portfolio page. 
 
 ![Submit Confirmation](https://EpicureanHeron.github.io/assets/images/markdown/contactSubmitted.png)
+
+## Old Portfolio
+
+Original Index Page
+
+![Original Index](https://EpicureanHeron.github.io/assets/images/markdown/originalIndex.png)
+
+Original Portfolio Page
+
+![Original Portfolio](https://EpicureanHeron.github.io/assets/images/markdown/originalPort.png)
+
+Original Contact Page
+
+![Original Contact](https://EpicureanHeron.github.io/assets/images/markdown/originalContact.png)
+

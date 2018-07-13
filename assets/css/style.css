@@ -50,6 +50,7 @@
 	/* margin-top: 5px; */
 	margin-right: 5px;
 	margin-left: 5px;
+	padding: 5px;
 }
 
 .customMenu:hover {
@@ -63,7 +64,8 @@
 }
 
 .iconDiv:hover { 
-    background-color: #3f3f3f;
+	background-color: #3f3f3f;
+	
 }
 
 
