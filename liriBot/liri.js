@@ -83,15 +83,9 @@ function spotifySong(song){
 function movieInfo(movie){
     // replaces the spaces in the move with + so it is able to be put in the queryURL
     var apiMovie = movie.split(' ').join('+')
+    //creates a query URL to be used by the request function
     var queryUrl = "http://www.omdbapi.com/?t=" + apiMovie + "&y=&plot=short&apikey=trilogy";
 
-
-        // This line is just to help us debug against the actual URL.
-        console.log(queryUrl);
-
-
-        // Then create a request to the queryUrl
-        // ...
         request(queryUrl, function(error, response, body){
 
             if(!error && response.statusCode === 200) {
@@ -99,9 +93,14 @@ function movieInfo(movie){
             console.log("Movie Title: " + parsedBody.Title)
             console.log("Release Year: "+ parsedBody.Year)
             console.log("IMDB Rating: "+ parsedBody.imdbRating)
+
+            //checks to see if a Rotten Tomatoes score exists and then prints it
+            for(i = 0; i < parsedBody.Ratings.length; i ++){
+                if (parsedBody.Ratings[i].Source === "Rotten Tomatoes"){
+                    console.log("Rotten Tomatoes Score: " + parsedBody.Ratings[i].Value)
+                }
+            }
             
-            //Rotten tomatoes does exist for SOME movies, it is buried in a list
-            //try http://www.omdbapi.com/?t=Lord+of+The+Rings&y=&plot=short&apikey=trilogy to see it in the Ratings array
             console.log("Country where the movie was produced: " + parsedBody.Country)
             console.log("Language: " + parsedBody.Language)
             console.log("Plot: " + parsedBody.Plot)
