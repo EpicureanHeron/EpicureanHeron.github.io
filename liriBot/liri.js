@@ -62,13 +62,13 @@ function spotifySong(song){
         //for loop cycles through the artists in the track (could be multiple)
 
         for  (j = 0; j < data.tracks.items[i].album.artists.length; j++){
-            console.log(data.tracks.items[i].album.artists[j].name)
+            console.log("Artist name: " + data.tracks.items[i].album.artists[j].name)
         }
-        console.log(data.tracks.items[i].name)
+        console.log("Track name: " + data.tracks.items[i].name)
           
-        console.log(data.tracks.items[i].preview_url)
+        console.log("Preview of track: " + data.tracks.items[i].preview_url)
 
-        console.log(data.tracks.items[i].album.name)
+        console.log("Album name: " + data.tracks.items[i].album.name)
             
         console.log("-------------------------------------------------------")
       }
