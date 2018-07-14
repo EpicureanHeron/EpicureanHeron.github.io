@@ -25,7 +25,7 @@ switch (command) {
         break;
 
     case "movie-this":
-        movieInfo()
+        movieInfo(searchItem)
         break;
 
     case "do-what-it-says":
@@ -35,6 +35,7 @@ switch (command) {
 
 //FUNCTIONS
 
+//This will show your last 20 tweets and when they were created at in your terminal/bash window.
 function getTweets(){
 
    client.get('search/tweets', {q: 'IoEphe'}, function(error, tweets, response) {
@@ -47,6 +48,7 @@ function getTweets(){
         }
     });
 }
+
 //Artist(s), The song's name, A preview link of the song from Spotify, The album that the song is from
 function spotifySong(song){
     
@@ -54,22 +56,21 @@ function spotifySong(song){
         if (err) {
           return console.log('Error occurred: ' + err);
         }
-      
-       
-
+      //for loop cycles through all the tracks in the response
     for (i = 0; i < data.tracks.items.length; i ++){
+
+        //for loop cycles through the artists in the track (could be multiple)
+
         for  (j = 0; j < data.tracks.items[i].album.artists.length; j++){
             console.log(data.tracks.items[i].album.artists[j].name)
         }
-          console.log(data.tracks.items[i].name)
+        console.log(data.tracks.items[i].name)
           
-          console.log(data.tracks.items[i].preview_url)
+        console.log(data.tracks.items[i].preview_url)
 
-          console.log(data.tracks.items[i].album.name)
-         
-     
-          console.log("-------------------------------")
-          console.log("-------------------------------")
+        console.log(data.tracks.items[i].album.name)
+            
+        console.log("-------------------------------------------------------")
       }
     //   console.log(data.tracks.items[0].artists)
 
@@ -77,8 +78,37 @@ function spotifySong(song){
       });
 }
 
-function movieInfo(){
-    console.log("Movie Stuff")
+// Title of the movie, Year the movie came out, IMDB Rating of the movie, Rotten Tomatoes Rating of the movie, 
+//Ccountry where the movie was produced, Language of the movie, Plot of the movie ,Actors in the movie.
+function movieInfo(movie){
+    // replaces the spaces in the move with + so it is able to be put in the queryURL
+    var apiMovie = movie.split(' ').join('+')
+    var queryUrl = "http://www.omdbapi.com/?t=" + apiMovie + "&y=&plot=short&apikey=trilogy";
+
+
+        // This line is just to help us debug against the actual URL.
+        console.log(queryUrl);
+
+
+        // Then create a request to the queryUrl
+        // ...
+        request(queryUrl, function(error, response, body){
+
+            if(!error && response.statusCode === 200) {
+            var parsedBody = JSON.parse(body)
+            console.log("Movie Title: " + parsedBody.Title)
+            console.log("Release Year: "+ parsedBody.Year)
+            console.log("IMDB Rating: "+ parsedBody.imdbRating)
+            
+            //Rotten tomatoes does exist for SOME movies, it is buried in a list
+            //try http://www.omdbapi.com/?t=Lord+of+The+Rings&y=&plot=short&apikey=trilogy to see it in the Ratings array
+            console.log("Country where the movie was produced: " + parsedBody.Country)
+            console.log("Language: " + parsedBody.Language)
+            console.log("Plot: " + parsedBody.Plot)
+            console.log("Actors: " + parsedBody.Actors)
+
+            }
+        })
 }
 
 function liriSoRandom(){
