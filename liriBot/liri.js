@@ -6,31 +6,39 @@ var Spotify = require("node-spotify-api")
 var fs = require("fs")
 var request = require("request")
 
-//takes the command from the terminal 
-var command = process.argv[2];
-var searchItem = process.argv[3]
-
 //spotify and twitter credentials
 var client = new Twitter(keys.twitter);
-var spotify = new Spotify(keys.spotify); 
+var spotify = new Spotify(keys.spotify);
 
-//switch statement to govern which function is used
-switch (command) {
-    case "my-tweets":
-        getTweets()
-        break;
 
-    case "spotify-this-song":
-        spotifySong(searchItem)
-        break;
+//takes the command from the terminal 
+var command = process.argv[2];
+var dataToProcess = process.argv[3]
 
-    case "movie-this":
-        movieInfo(searchItem)
-        break;
+liriBotLogic(command, dataToProcess);
 
-    case "do-what-it-says":
-        liriSoRandom()
-        break;
+//This function governs which command is executed via switch
+function liriBotLogic(argument, searchItem){
+    //Logs whatever is passed to log.txt
+    log(argument, searchItem )
+    
+    switch (argument) {
+        case "my-tweets":
+            getTweets()
+            break;
+
+        case "spotify-this-song":
+            spotifySong(searchItem)
+            break;
+
+        case "movie-this":
+            movieInfo(searchItem)
+            break;
+
+        case "do-what-it-says":
+            liriSoRandom()
+            break;
+        }
 }
 
 //FUNCTIONS
@@ -51,6 +59,10 @@ function getTweets(){
 
 //Artist(s), The song's name, A preview link of the song from Spotify, The album that the song is from
 function spotifySong(song){
+    //if no song is base, it becomes the Ace of Base The Sign
+    if(!song){
+        var song = "Ace of Base The Sign"
+    }
     
     spotify.search({ type: 'track', query: song }, function(err, data) {
         if (err) {
@@ -78,11 +90,22 @@ function spotifySong(song){
       });
 }
 
-// Title of the movie, Year the movie came out, IMDB Rating of the movie, Rotten Tomatoes Rating of the movie, 
-//Ccountry where the movie was produced, Language of the movie, Plot of the movie ,Actors in the movie.
+//Using the request library and the OMDB API, it returns the following: 
+
+//Title of the movie, Year the movie came out, IMDB Rating of the movie, Rotten Tomatoes Rating of the movie, 
+//country where the movie was produced, Language of the movie, Plot of the movie ,Actors in the movie.
 function movieInfo(movie){
-    // replaces the spaces in the move with + so it is able to be put in the queryURL
-    var apiMovie = movie.split(' ').join('+')
+    //if movie is an actual value
+    if (movie){
+        // replaces the spaces in the move with + so it is able to be put in the queryURL
+
+        var apiMovie = movie.split(' ').join('+')
+    }
+    //if movie passed is not a value, we set it to Mr. Nobody
+    else{
+        var apiMovie = "Mr.+Nobody"
+    }
+   
     //creates a query URL to be used by the request function
     var queryUrl = "http://www.omdbapi.com/?t=" + apiMovie + "&y=&plot=short&apikey=trilogy";
 
@@ -110,6 +133,35 @@ function movieInfo(movie){
         })
 }
 
+//"random function" which then executes another command in the liriBotLogic function 
+//this is done by reading a "random.txt" file and executing the command and argument, which are separated by commas in the file
 function liriSoRandom(){
-    console.log("random")
+    //Reads the random.txt file
+    fs.readFile("random.txt", 'utf8', function(err,data) {
+        if (err) {
+           return err;
+        };
+        //splits the comma separated values 
+        var dataSplit = data.split(",")
+        //select a random number, have to be "-1" because the LENGTH is different than INDEX
+        var randomSelector = Math.floor(Math.random() * Math.floor(dataSplit.length - 1))
+        //to ensure that the code is always grabbing a command (which is always at  even index)
+        if(randomSelector%2 !== 0) {
+            randomSelector += 1
+        }
+     
+        //the parsed data gets passed to the liriBotLogic function so it can be acted upon
+        //the even selector is the command which is passed and the second argument is the parameter, which is always the odd index, hence the +1 to the randomSelector
+        liriBotLogic(dataSplit[randomSelector], dataSplit[randomSelector + 1])     
+    })
+}
+
+
+function log(commandToLog, dataToLog){
+
+    fs.appendFile("log.txt", commandToLog + " " + dataToLog +"\n", function(err,data) {
+        if (err) {
+            console.log(err);
+        };
+    });
 }
