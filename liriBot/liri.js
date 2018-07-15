@@ -47,8 +47,9 @@ function liriBotLogic(argument, searchItem){
 function getTweets(){
 
    client.get('search/tweets', {q: 'IoEphe'}, function(error, tweets, response) {
+       
         for(i = 0; i < tweets.statuses.length; i++){
-            
+            console.log(tweets.statuses[i].created_at)
             console.log(tweets.statuses[i].text)
     
             console.log("-------------------------------------------------------")

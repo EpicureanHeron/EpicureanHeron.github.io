@@ -12,3 +12,7 @@ do-what-it-says undefined
 movie-this "Fear and Loathing in Las Vegas"
 do-what-it-says undefined
 spotify-this-song "Rush 2112"
+my-tweets undefined
+my-tweets undefined
+movie-this Who Framed Roger Rabbit
+my-tweets undefined
