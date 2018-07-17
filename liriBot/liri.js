@@ -44,18 +44,18 @@ function liriBotLogic(argument, searchItem){
 //FUNCTIONS
 
 //This will show your last 20 tweets and when they were created at in your terminal/bash window.
-function getTweets(){
-
-   client.get('search/tweets', {q: 'IoEphe'}, function(error, tweets, response) {
-       
-        for(i = 0; i < tweets.statuses.length; i++){
-            console.log(tweets.statuses[i].created_at)
-            console.log(tweets.statuses[i].text)
-    
-            console.log("-------------------------------------------------------")
-    
+function getTweets() {
+    var params = { screen_name: 'IoEphe' };
+    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+        if (!error) {
+            for (i = 0; i < tweets.length; i++) {
+                console.log(tweets[i].created_at)
+                console.log(tweets[i].text)
+                console.log("-------------------------------------------------------")
+            }
         }
     });
+
 }
 
 //Artist(s), The song's name, A preview link of the song from Spotify, The album that the song is from
