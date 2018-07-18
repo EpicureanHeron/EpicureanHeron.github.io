@@ -74,3 +74,16 @@ do-what-it-says undefined
 movie-this "Fear and Loathing in Las Vegas"
 do-what-it-says undefined
 my-tweets "not used"
+my-tweets undefined
+spotify-this-song Hit me baby
+movie-this Yellow Submarine
+movie-this undefined
+spotify-this-song undefined
+do-what-it-says undefined
+spotify-this-song "Never Gonna Give You Up"
+
+do-what-it-says undefined
+movie-this "Fear and Loathing in Las Vegas"
+f undefined
+my-tweets undefined
+spotify-this-song undefined

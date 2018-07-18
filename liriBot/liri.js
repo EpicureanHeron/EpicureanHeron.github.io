@@ -38,6 +38,8 @@ function liriBotLogic(argument, searchItem){
         case "do-what-it-says":
             liriSoRandom()
             break;
+        default: 
+            console.log("I'm sorry, I do not understand. Please use one of the following commands: my-tweets, spotify-this-song <some song>, movie-this <some movie>, or do-what-it-says")
         }
 }
 
