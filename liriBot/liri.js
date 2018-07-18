@@ -13,7 +13,9 @@ var spotify = new Spotify(keys.spotify);
 
 //takes the command from the terminal 
 var command = process.argv[2];
-var dataToProcess = process.argv[3]
+//var dataToProcess = process.argv[3]
+
+var dataToProcess = process.argv.slice(3).join(" ")
 
 liriBotLogic(command, dataToProcess);
 

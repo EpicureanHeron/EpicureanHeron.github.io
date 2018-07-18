@@ -87,3 +87,9 @@ movie-this "Fear and Loathing in Las Vegas"
 f undefined
 my-tweets undefined
 spotify-this-song undefined
+spotify-this-song never
+spotify-this-so undefined
+spotify-this-song never gonna give you up
+movie-this milo and otis go west
+movie-this fear and loathing in las vegas
+movie-this fear and loathing in las vegas
