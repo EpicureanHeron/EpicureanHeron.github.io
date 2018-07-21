@@ -14,14 +14,15 @@ var letterConst = require("./letter.js")
 
 
 
-var Word = function () {
+var Word = function (currentWord) {
     var letterImport = new letterConst()
 
     letterImport.checkLetter("AAA")
+    this.currentWord = currentWord
+    this.currentWordArray = currentWord.split("")
 
-    this.wordValue = function () {
-        console.log("Word function works!")
-    }
+    this.
+
 }
 
 

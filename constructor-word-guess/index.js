@@ -18,14 +18,27 @@ var wordConst = require("./word.js")
 
 var wordImport = new wordConst()
 
+var wordArray = ["monster", "dark", "spooky"]
+
+var wordChosen = false;
+
 
 var count = 0;
 
 playGame()
 
 function playGame() {
-    //randomly choses a word
-    //pass word to word constructor
+      //randomly choses a word if a word has not been chosen 
+    if(!wordChosen){
+        var rand = myArray[Math.floor(Math.random() * wordArray.length)];
+
+        //pass word to word constructor
+        wordImport.setWord(wordArray[rand])
+    }
+  
+
+    
+    
     //guesses remaining ?
     if (count < 5) {
         inquirer.prompt([
