@@ -16,28 +16,38 @@
 var inquirer = require("inquirer")
 var wordConst = require("./word.js")
 
-var wordImport = new wordConst()
+
 
 var wordArray = ["monster", "dark", "spooky"]
 
 var wordChosen = false;
 
+var activeWord;
 
 var count = 0;
+
 
 playGame()
 
 function playGame() {
       //randomly choses a word if a word has not been chosen 
-    if(!wordChosen){
-        var rand = myArray[Math.floor(Math.random() * wordArray.length)];
+    if(!wordChosen){ 
+        //sets the wordChosen  
+        wordChosen = true  
+        var rand = Math.floor(Math.random() * wordArray.length);
 
+
+        var wordImport = new wordConst(wordArray[rand])
+        //was getting a async issue, so  assigned the word to a globabl
+        activeWord = wordImport
         //pass word to word constructor
-        wordImport.setWord(wordArray[rand])
+        wordImport.getLetters(wordArray[rand])
+        console.log(activeWord.currentWord)
+        console.log(JSON.stringify(activeWord.letterObjArray))
     }
   
 
-    
+    activeWord.displayString()
     
     //guesses remaining ?
     if (count < 5) {
@@ -54,6 +64,7 @@ function playGame() {
                 }
             }
         ]).then(function (answers) {
+            activeWord.checkGuess(answers.guess)
             count ++ 
             console.log(answers.guess)
             playGame()

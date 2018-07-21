@@ -15,13 +15,49 @@ var letterConst = require("./letter.js")
 
 
 var Word = function (currentWord) {
-    var letterImport = new letterConst()
+ 
+    
 
-    letterImport.checkLetter("AAA")
-    this.currentWord = currentWord
-    this.currentWordArray = currentWord.split("")
+//function with for loop ? that calls the letter.check then letter.guessed methods then console.logs them 
+//could be we split the word initially, then run through the letter.guessed (since everthing should default false)
+//
 
-    this.
+    this.currentWord = currentWord,
+    this.currentWordArray = currentWord.split(""),
+    this.letterObjArray = [],
+    
+    
+    this.getLetters = function(){
+        this.currentWordArray.forEach(element => {
+            var letterImport = new letterConst(element)
+            this.letterObjArray.push(letterImport)
+        });
+    }
+
+    this.displayString = function(){
+        var arrayToShow = []
+
+        this.letterObjArray.forEach(element => {
+            arrayToShow.push(element.guessed())
+        })
+
+        console.log(arrayToShow.join(" "))
+    }
+
+    this.checkGuess = function(userInput) {
+        this.letterObjArray.forEach(element => {
+            console.log(element.letter)
+            console.log(userInput)
+            //THIS IS CAUSING ALL SORTS OF ISSUES
+            if(toString(userInput) === toString(element.letter)){
+                console.log(element.letter + " = " + userInput)
+                element.guess = true
+            }
+
+        })
+        this.displayString()
+    }
+    
 
 }
 

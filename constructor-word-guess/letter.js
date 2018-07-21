@@ -12,7 +12,7 @@
 
 
 var Letter = function (letter) {
-        this.placeholder = " _ ",
+        this.placeholder = "_",
         //string value to store the underlying character of the letter
         this.letter = letter,
         //boolean value that stores whether or not the letter has been guessed yet
