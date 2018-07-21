@@ -49,7 +49,8 @@ var Word = function (currentWord) {
             console.log(element.letter)
             console.log(userInput)
             //THIS IS CAUSING ALL SORTS OF ISSUES
-            if(toString(userInput) === toString(element.letter)){
+            //this use to be toString(userInput) === toString(element.letter) and was always being true. Removed dthe toString and works as expected
+            if(userInput === element.letter){
                 console.log(element.letter + " = " + userInput)
                 element.guess = true
             }
