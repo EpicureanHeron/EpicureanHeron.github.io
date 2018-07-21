@@ -15,50 +15,97 @@ var letterConst = require("./letter.js")
 
 
 var Word = function (currentWord) {
- 
-    
 
-//function with for loop ? that calls the letter.check then letter.guessed methods then console.logs them 
-//could be we split the word initially, then run through the letter.guessed (since everthing should default false)
-//
+
+
+    //function with for loop ? that calls the letter.check then letter.guessed methods then console.logs them 
+    //could be we split the word initially, then run through the letter.guessed (since everthing should default false)
+    //
 
     this.currentWord = currentWord,
-    this.currentWordArray = currentWord.split(""),
-    this.letterObjArray = [],
-    
-    
-    this.getLetters = function(){
-        this.currentWordArray.forEach(element => {
-            var letterImport = new letterConst(element)
-            this.letterObjArray.push(letterImport)
-        });
-    }
+        this.currentWordArray = currentWord.split(""),
+        this.letterObjArray = [],
 
-    this.displayString = function(){
-        var arrayToShow = []
 
-        this.letterObjArray.forEach(element => {
-            arrayToShow.push(element.guessed())
-        })
+        this.getLetters = function () {
+            this.currentWordArray.forEach(element => {
+                
+                  
+                    var letterImport = new letterConst(element)
+                    this.letterObjArray.push(letterImport)
+                
 
-        console.log(arrayToShow.join(" "))
-    }
+            });
+        },
 
-    this.checkGuess = function(userInput) {
-        this.letterObjArray.forEach(element => {
-            console.log(element.letter)
-            console.log(userInput)
-            //THIS IS CAUSING ALL SORTS OF ISSUES
-            //this use to be toString(userInput) === toString(element.letter) and was always being true. Removed dthe toString and works as expected
-            if(userInput === element.letter){
-                console.log(element.letter + " = " + userInput)
-                element.guess = true
+        this.displayString = function () {
+            var arrayToShow = []
+
+            this.letterObjArray.forEach(element => {
+                
+                if(element.letter === " "){
+                    arrayToShow.push(" ")
+                    element.guess = true
+                }
+                else {
+                    arrayToShow.push(element.guessed())
+                    
+                }
+
+                
+            })
+
+            console.log(arrayToShow.join(" "))
+        },
+
+        this.checkGuess = function (userInput) {
+            //variable which is scoped to this method to communicate back to index.js whether or not a correct guess was made    
+            var correctGuess = false
+
+            this.letterObjArray.forEach(element => {
+
+                if (userInput === element.letter) {
+                    correctGuess = true
+                    element.guess = true
+
+                }
+
+
+
+            })
+
+            if (correctGuess) {
+                this.displayString()
+                return true
+            }
+            else {
+                this.displayString()
+                return false
             }
 
-        })
-        this.displayString()
-    }
-    
+            
+
+        },
+        //updated this in class, haven't test
+        this.winGame = function () {
+            var countOfTrue = 0
+            var lengthOfWord = this.letterObjArray.length
+            this.letterObjArray.forEach(element => {
+                if (element.guess) {
+                    countOfTrue++
+                }
+            })
+            if (countOfTrue === lengthOfWord) {
+                return true
+            }
+            else {
+                return false
+            }
+
+
+        }
+
+
 
 }
 

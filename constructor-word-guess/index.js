@@ -17,8 +17,8 @@ var inquirer = require("inquirer")
 var wordConst = require("./word.js")
 
 
-
-var wordArray = ["monster", "dark", "spooky"]
+//selection of DND monsters
+var wordArray = ["beholder", "gelatinous cube", "lich", "owlbear", "displacer beast", "mind flayer", "rust monster", "drow", "kobold", "dragon", "orc"]
 
 var wordChosen = false;
 
@@ -26,13 +26,18 @@ var activeWord;
 
 var count = 0;
 
+var lettersGuessed = []
 
+//kicks off the game
 playGame()
 
 function playGame() {
       //randomly choses a word if a word has not been chosen 
     if(!wordChosen){ 
         //sets the wordChosen  
+        if(wordArray.length === 0){
+            return console.log("YOU GUESSED ALL THE WORDS!!!")
+        }
         wordChosen = true  
         var rand = Math.floor(Math.random() * wordArray.length);
 
@@ -42,8 +47,11 @@ function playGame() {
         activeWord = wordImport
         //pass word to word constructor
         wordImport.getLetters(wordArray[rand])
-        console.log(activeWord.currentWord)
-        console.log(JSON.stringify(activeWord.letterObjArray))
+        //should remove the item that is selected from the index
+
+        wordArray.splice(rand, 1)
+        // console.log(activeWord.currentWord)
+        // console.log(JSON.stringify(activeWord.letterObjArray))
     }
   
 
@@ -51,43 +59,68 @@ function playGame() {
     
     //guesses remaining ?
     if (count < 5) {
+
+        var guessesRemaining = 5-count
+        console.log("Guesses remaining: " + guessesRemaining )
+
         inquirer.prompt([
             {
                 name: "guess",
                 message: "Guess a letter: ",
                 validate: function (value) {
                     //logic below will need to be updated to check if the letter has already been guessed
-                    if (isNaN(value) === true) {
+                    if (isNaN(value) === true && value.length === 1 && value.match(/[a-z]/i) && lettersGuessed.includes(value) === false) {
+                        lettersGuessed.push(value)
                         return true;
                     }
                     return false;
                 }
             }
         ]).then(function (answers) {
-            activeWord.checkGuess(answers.guess)
-            count ++ 
-            console.log(answers.guess)
-            playGame()
+
+            var guessValidation = activeWord.checkGuess(answers.guess)
+            if(guessValidation){
+                console.log("You guessed correctly! ")
+                var gameWon = activeWord.winGame()
+                if(gameWon){
+                    
+                    playAgain()
+                }
+                else if(!gameWon){
+                    playGame()
+                }
+            }
+            else if (!guessValidation){
+                console.log("You guessed incorrectly!")
+                count++
+                playGame()
+            }
+            
+           
         });
-        //wordImport.wordValue()
+      
 
     }
     else{
-        console.log("you lost!")
-        inquirer.prompt([
-            
-                {
-                    type:"confirm",
-                    name: "playAgain",
-                    message:"Play again?"
-                }
-        ]).then(function (answers) {
-            if(answers.playAgain === true){
-                count = 0
-               
-                playGame()
-            }
-        });
-        //wordImport.wordValue()
+        console.log("You lost")
+        playAgain()
     }
+}
+function playAgain() {
+    // activeWord.displayString()
+    inquirer.prompt([
+
+        {
+            type: "confirm",
+            name: "playAgain",
+            message: "Play again?"
+        }
+    ]).then(function (answers) {
+        if (answers.playAgain === true) {
+            count = 0
+            wordChosen = false
+            lettersGuessed = []
+            playGame()
+        }
+    });
 }

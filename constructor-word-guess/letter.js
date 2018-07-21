@@ -8,9 +8,6 @@
 
 // * A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
-
-
-
 var Letter = function (letter) {
         this.placeholder = "_",
         //string value to store the underlying character of the letter
