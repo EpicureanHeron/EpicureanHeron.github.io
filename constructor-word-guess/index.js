@@ -25,7 +25,7 @@ var wordChosen = false;
 var activeWord;
 
 var count = 0;
-
+//saving each letter guessed so that the user cannot guess it again 
 var lettersGuessed = []
 
 //kicks off the game
@@ -41,7 +41,7 @@ function playGame() {
         wordChosen = true  
         var rand = Math.floor(Math.random() * wordArray.length);
 
-
+        //this could be done better with the below line
         var wordImport = new wordConst(wordArray[rand])
         //was getting a async issue, so  assigned the word to a globabl
         activeWord = wordImport
@@ -50,11 +50,10 @@ function playGame() {
         //should remove the item that is selected from the index
 
         wordArray.splice(rand, 1)
-        // console.log(activeWord.currentWord)
-        // console.log(JSON.stringify(activeWord.letterObjArray))
+      
     }
   
-
+    //uses the word objects display string function to show the current state of the string
     activeWord.displayString()
     
     //guesses remaining ?
@@ -68,8 +67,9 @@ function playGame() {
                 name: "guess",
                 message: "Guess a letter: ",
                 validate: function (value) {
-                    //logic below will need to be updated to check if the letter has already been guessed
+                    //logic to limit the user to a single letter guess which has not been guess before
                     if (isNaN(value) === true && value.length === 1 && value.match(/[a-z]/i) && lettersGuessed.includes(value) === false) {
+                        //adds the letter to the lettersGuessed array
                         lettersGuessed.push(value)
                         return true;
                     }
@@ -77,21 +77,26 @@ function playGame() {
                 }
             }
         ]).then(function (answers) {
-
-            var guessValidation = activeWord.checkGuess(answers.guess)
+            //leverages the word objects check guess method (which in turns uses letter objects method) to determine if the letter has been guessed 
+            var guessValidation = activeWord.checkGuess(answers.guess.toLowerCase())
             if(guessValidation){
                 console.log("You guessed correctly! ")
+                //if guess was correct, check to see if game is won 
                 var gameWon = activeWord.winGame()
                 if(gameWon){
-                    
+                    //if game won, prompts user to play again
+                    console.log("You succesfully guessed that the word was "+ activeWord.currentWord + "! Well done!")
                     playAgain()
                 }
                 else if(!gameWon){
+                    //continues game
                     playGame()
                 }
             }
             else if (!guessValidation){
+
                 console.log("You guessed incorrectly!")
+                //iterates the count which is tied to guesses remaining
                 count++
                 playGame()
             }
@@ -102,7 +107,10 @@ function playGame() {
 
     }
     else{
+
         console.log("You lost")
+        console.log("The word was "+ activeWord.currentWord)
+        //if out of guesses, prompt user to play again
         playAgain()
     }
 }
@@ -116,6 +124,7 @@ function playAgain() {
             message: "Play again?"
         }
     ]).then(function (answers) {
+        //if playing again, some global variables are rest 
         if (answers.playAgain === true) {
             count = 0
             wordChosen = false

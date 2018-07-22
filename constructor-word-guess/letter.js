@@ -28,9 +28,10 @@ var Letter = function (letter) {
         // * A function that takes a character as an argument and checks it against the underlying character, 
         //updating the stored boolean value to true if it was guessed correctly
         this.check = function (someLetter) {
-            if (toString(someLetter) === toString(this.letter)) {
+            if (someLetter === this.letter) {
                 this.guess = true
-                //does this need to call something or will it need to be called? 
+                return true
+           
             }
         }
 

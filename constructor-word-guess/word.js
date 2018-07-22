@@ -22,90 +22,100 @@ var Word = function (currentWord) {
     //could be we split the word initially, then run through the letter.guessed (since everthing should default false)
     //
 
+     //stores current word
     this.currentWord = currentWord,
-        this.currentWordArray = currentWord.split(""),
-        this.letterObjArray = [],
 
+    //an array of the word split into an array
+    this.currentWordArray = currentWord.split(""),
 
-        this.getLetters = function () {
-            this.currentWordArray.forEach(element => {
-                
-                  
-                    var letterImport = new letterConst(element)
-                    this.letterObjArray.push(letterImport)
-                
+    //empty array for all the letter objects which will be populated by the getLetters() method
+    this.letterObjArray = [],
 
-            });
-        },
+    //populates the letterObjArray using the letter constructor 
+    this.getLetters = function () {
 
-        this.displayString = function () {
-            var arrayToShow = []
+        //goes through each element in the split word 
+        this.currentWordArray.forEach(element => {
+            //creates a new letter object from the constructor for each element passed
+            var letterImport = new letterConst(element)
+            //populates the letterObjArray with the new object
+            this.letterObjArray.push(letterImport)
+        });
+    },
 
-            this.letterObjArray.forEach(element => {
-                
-                if(element.letter === " "){
-                    arrayToShow.push(" ")
-                    element.guess = true
-                }
-                else {
-                    arrayToShow.push(element.guessed())
-                    
-                }
+    //displays the current state of the word based on user guesses
+    this.displayString = function () {
+        //values of whether or not a letter constructed object is guessed (and that returned value) is pushed to 
+        var arrayToShow = []
 
-                
-            })
-
-            console.log(arrayToShow.join(" "))
-        },
-
-        this.checkGuess = function (userInput) {
-            //variable which is scoped to this method to communicate back to index.js whether or not a correct guess was made    
-            var correctGuess = false
-
-            this.letterObjArray.forEach(element => {
-
-                if (userInput === element.letter) {
-                    correctGuess = true
-                    element.guess = true
-
-                }
-
-
-
-            })
-
-            if (correctGuess) {
-                this.displayString()
-                return true
+        //cycling through the letterObjArray
+        this.letterObjArray.forEach(element => {
+            //if the element is a space, pass it to the array as such and set that element to true 
+            //I do this manually here because spaces are weird, never should the user have to guess there is a space
+            if (element.letter === " ") {
+                arrayToShow.push(" ")
+                element.guess = true
             }
             else {
-                this.displayString()
-                return false
+                //leveraging the letter method guessed which checks if the value is true or false and displaces either the letter or a "_" and populate the array with the return
+                arrayToShow.push(element.guessed())
+
             }
+        })
+        //after creating that array, join all the elements with a " " and display to the user
+        console.log(arrayToShow.join(" "))
+    },
 
-            
+    //checks the users guess against the letter objs
+    this.checkGuess = function (userInput) {
+        //variable which is scoped to this method to communicate back to index.js whether or not a correct guess was made    
+        //this is probably not optimal, but it is functional
+        var correctGuess = false
 
-        },
-        //updated this in class, haven't test
-        this.winGame = function () {
-            var countOfTrue = 0
-            var lengthOfWord = this.letterObjArray.length
-            this.letterObjArray.forEach(element => {
-                if (element.guess) {
-                    countOfTrue++
-                }
-            })
-            if (countOfTrue === lengthOfWord) {
-                return true
+        //cycling through the letter obj array
+        this.letterObjArray.forEach(element => {
+            //leveraging the letter object's check function which returns true or false and passing it the user's input 
+            if(element.check(userInput)) {
+                correctGuess = true
             }
-            else {
-                return false
-            }
+            // if (userInput === element.letter) {
+            //     correctGuess = true
+            //     element.guess = true
 
+            // }
+        })
 
+        //this logic governs whether or not to increment the guesses remaining down or not 
+        if (correctGuess) {
+            this.displayString()
+            return true
         }
+        else {
+            this.displayString()
+            return false
+        }
+    },
 
+    //determine if the word has been completely guessed, this function could possibliy be moved somewhere else, such as the checkGuess method
+    this.winGame = function () {
+        //local variable which is keeping track of how many true returns are happening 
+        var countOfTrue = 0
+        //gets the length of the word/phrase
+        var lengthOfWord = this.letterObjArray.length
 
+        this.letterObjArray.forEach(element => {
+            if (element.guess) {
+                countOfTrue++
+            }
+        })
+        //if the count of true is the same as the length of the word, then the game has been won, returns either true or false
+        if (countOfTrue === lengthOfWord) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
 
 }
 
