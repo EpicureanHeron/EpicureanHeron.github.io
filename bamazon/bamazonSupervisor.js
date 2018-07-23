@@ -2,6 +2,10 @@
 
 var inquirer = require("inquirer")
 var mysql = require("mysql")
+const Tablefy = require("tablefy")
+
+let table = new Tablefy()
+
 
 var itemList = []
 
@@ -61,7 +65,15 @@ function viewDept(){
 //`total_profit` should not be stored in any database. You should use a custom alias.
 
 //You may need to look into aliases in MySQL. Hint: You may need to look into GROUP BYs.  Hint: You may need to look into JOINS.
-    console.log("work in progress")
+
+    var queryToUse = "SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.product_sales) as product_sales, SUM(p.product_sales) - d.over_head_costs as total_profit FROM departments d, products p WHERE d.department_name = p.department_name GROUP BY d.department_name, d.over_head_costs, d.department_id ORDER BY d.department_id;"
+  
+    var query = connection.query(queryToUse, function (err, res) {
+        if(err) throw err;
+        table.draw(res);
+        
+        
+    })
 }
 
 function addDept(){
