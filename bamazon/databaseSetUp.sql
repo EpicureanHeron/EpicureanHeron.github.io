@@ -10,9 +10,16 @@ CREATE TABLE products(
 	 department_name VARCHAR(50) NOT NULL,
 	 price FLOAT(50) NOT NULL,
 	 stock_quantity INTEGER(50) NOT NULL,
+	 product_sales INTEGER(50) DEFAULT 0,
 	 PRIMARY KEY (item_id)
 	);
 
+CREATE TABLE departments(
+	department_id INTEGER NOT NULL AUTO_INCREMENT,
+	department_name VARCHAR(50) NOT NULL,
+	over_head_costs INTEGER(50) NOT NULL,
+	PRIMARY KEY (department_id)
+);
     
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("hat",  "clothing", 20, 100)

@@ -63,13 +63,20 @@ function choseItem() {
                 if (err) throw err;
                 
                 if (parseInt(answers.quantity) < parseInt(res[0].stock_quantity)) {
+                    //gets the updated amount to pass back to SQL
                     var updatedQuantity = parseInt(res[0].stock_quantity) - parseInt(answers.quantity)
+                    //gets the price from the query
                     var priceOfItem = res[0].price
-                    
-                    //updates the row 
-                    var query = connection.query("UPDATE products SET stock_quantity=? WHERE item_id=?", [updatedQuantity, answers.item], function (err, res) {
+                    //gets the total price of the sale
+                    var totalOrderAmount = parseFloat(priceOfItem) * parseFloat(answers.quantity)
+                    //gets the products total sales 
+                    var currentSales = res[0].product_sales
+                    //updates the total sales 
+                    var newSalesTotal = parseFloat(totalOrderAmount) + parseFloat(currentSales)
+
+                    var query = connection.query("UPDATE products SET stock_quantity=?, product_sales=? WHERE item_id=?", [updatedQuantity, newSalesTotal, answers.item], function (err, res) {
                         if (err) throw err;
-                        var totalOrderAmount = parseFloat(priceOfItem) * parseFloat(answers.quantity)
+                        console.log(res)
                         console.log("Your order has been placed! Your order will cost $" + totalOrderAmount)
                     })
                 }
