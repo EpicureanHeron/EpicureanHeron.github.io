@@ -57,8 +57,7 @@ function choseItem() {
         }
     ]).then(function (answers) {
         if (answers) {
-            console.log(answers.item)
-            console.log(answers.quantity)
+           
 
             var query = connection.query("SELECT * FROM products WHERE item_id=?", [answers.item], function (err, res) {
                 if (err) throw err;

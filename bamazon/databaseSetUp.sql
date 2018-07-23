@@ -24,7 +24,9 @@ VALUES("hat",  "clothing", 20, 100)
     , ("beef jerky", "food and grocery", 8, 100)
     , ("bread", "food and grocery", 5, 50)
     , ("mustard", "food and grocery", 2.50, 100)
-    , ("1 tb solid state harddrive", "electronics", 200, 50);
+    , ("1 tb solid state harddrive", "electronics", 200, 50)
+    , ("Nvidia 1080 TI GPU", "electronics", 750, 4)
+	, ("adult sized romper", "clothing", 2, 1);
 
 
 
