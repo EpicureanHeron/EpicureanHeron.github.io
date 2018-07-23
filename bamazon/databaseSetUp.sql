@@ -26,6 +26,7 @@ VALUES("hat",  "clothing", 20, 100)
     , ("mustard", "food and grocery", 2.50, 100)
     , ("1 tb solid state harddrive", "electronics", 200, 50)
     , ("Nvidia 1080 TI GPU", "electronics", 750, 4)
+    , ("star trek box set", "electronics", 100, 2)
 	, ("adult sized romper", "clothing", 2, 1);
 
 

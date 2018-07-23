@@ -2,7 +2,7 @@ var inquirer = require("inquirer")
 var mysql = require("mysql")
 
 var managerChoices = ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
-
+var depts = ["clothing", "electronics", "pets", "food and grocery", "home improvement", "auto", "pharamacy" , "outdoors", "other"]
 var connection = mysql.createConnection({
     host: "192.168.99.100",
 
@@ -123,22 +123,34 @@ function insertProduct() {
         },
         {
             name: "department_name",
-            type: "input",
+            type: "list",
             message: "Which department?",
-            //might make this a list to chose a valid department to make sure the proper thing gets selected for step 3 
+            choices: depts,
         },
         {
             name: "price",
             message: "How much does it cost? ",
             type: "input",
-            //add some interger validation
+            validate: function (value) {
+
+                if (isNaN(value) === false &&  value > 0) {
+                    return true
+                }
+                return false
+            }
 
         },
         {
             name: "stock_quantity",
             message: "How many are being added? ",
             type: "input",
-            //add some interger validation
+            validate: function (value) {
+
+                if (isNaN(value) === false &&  value > 0) {
+                    return true
+                }
+                return false
+            }
 
         }
 
