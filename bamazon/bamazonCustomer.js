@@ -76,7 +76,7 @@ function choseItem() {
 
                     var query = connection.query("UPDATE products SET stock_quantity=?, product_sales=? WHERE item_id=?", [updatedQuantity, newSalesTotal, answers.item], function (err, res) {
                         if (err) throw err;
-                        console.log(res)
+                        
                         console.log("Your order has been placed! Your order will cost $" + totalOrderAmount)
                     })
                 }

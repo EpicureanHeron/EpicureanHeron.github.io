@@ -66,8 +66,14 @@ function viewDept(){
 
 //You may need to look into aliases in MySQL. Hint: You may need to look into GROUP BYs.  Hint: You may need to look into JOINS.
 
-    var queryToUse = "SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.product_sales) as product_sales, SUM(p.product_sales) - d.over_head_costs as total_profit FROM departments d, products p WHERE d.department_name = p.department_name GROUP BY d.department_name, d.over_head_costs, d.department_id ORDER BY d.department_id;"
-  
+   
+var select = "SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.product_sales) as product_sales, SUM(p.product_sales) - d.over_head_costs as total_profit "
+var from = "FROM departments d "
+var join =  "LEFT JOIN products p ON d.department_name = p.department_name "
+var groupBy =  "GROUP BY d.department_name, d.department_id, d.over_head_costs "
+var orderBy = "ORDER BY d.department_id;"
+   
+var queryToUse = select + from + join + groupBy + orderBy
     var query = connection.query(queryToUse, function (err, res) {
         if(err) throw err;
         table.draw(res);
@@ -76,6 +82,47 @@ function viewDept(){
     })
 }
 
-function addDept(){
-    console.log("also a work in progress")
+function addDept() {
+
+
+    // CREATE TABLE departments(
+    //     department_id INTEGER NOT NULL AUTO_INCREMENT,
+    //     department_name VARCHAR(50) NOT NULL,
+    //     over_head_costs INTEGER(50) NOT NULL,
+    //     PRIMARY KEY (department_id)
+    // );
+        
+    inquirer.prompt([
+        {
+            name: "department_name",
+            message: "What is the department called? ",
+            type: "input",
+            //add some validation probably to conform with database limitations
+
+        },
+        {
+            name: "over_head_costs",
+            message: "How much is the over head cost? ",
+            type: "input",
+            validate: function (value) {
+
+                if (isNaN(value) === false &&  value > 0) {
+                    return true
+                }
+                return false
+            }
+
+        }
+        
+
+    ]).then(function (answers) {
+
+
+
+        var posts = { department_name: answers.department_name, over_head_costs: answers.over_head_costs }
+        var query = connection.query('INSERT INTO departments SET ?', posts, function (err, res) {
+            if (err) throw err;
+        })
+        // connection.end();
+    })
 }

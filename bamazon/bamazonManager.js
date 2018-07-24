@@ -2,7 +2,7 @@ var inquirer = require("inquirer")
 var mysql = require("mysql")
 
 var managerChoices = ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
-var depts = ["clothing", "electronics", "pets", "food and grocery", "home improvement", "auto", "pharamacy" , "outdoors", "other"]
+var depts = []
 var connection = mysql.createConnection({
     host: "192.168.99.100",
 
@@ -39,7 +39,7 @@ function choseOption() {
                 readDB("add")
                 break;
             case ("Add New Product"):
-                insertProduct()
+                getDepts()
                 break;
         }
 
@@ -109,6 +109,16 @@ function addInv(dbItems) {
                 })
             })
         }
+    })
+}
+
+function getDepts() {
+    var query = connection.query("SELECT department_name FROM departments", function (err, res) {
+        res.forEach(element => {
+
+            depts.push(element.department_name)
+        })
+        insertProduct() 
     })
 }
 
