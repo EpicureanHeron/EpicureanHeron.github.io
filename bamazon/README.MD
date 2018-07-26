@@ -1,16 +1,37 @@
 # BAMAZON STOREFRONT
 
+## TABLE OF CONTENTS
+
+-------
+* [Docker Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#docker-set-up)
+* [Customer View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#customer-view)
+	1. [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up)
+	2. [Bamazon Customer Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-customer-nodejs)
+* [Manager View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#manager-view)
+	1. [Bamazon Manager Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-manager-nodejs)
+* [Supervisor View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#supervisor-view)
+	1. [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up-1)
+	2. [Bamazon Supervisor Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-supervisor-nodejs)
+	
+
 ## Docker Set Up
 
-For this project, I created a docker container for MySQL and configured node.js and the mysql node package to interact with docker.
+For this project, a [Docker](https://www.docker.com/) container for MySQL is configured with [node.js](https://nodejs.org/en/about/) and the [mysql node package](https://www.npmjs.com/package/mysql).
+
 
 ![Docker Set Up](https://EpicureanHeron.github.io/bamazon/images/dockerMySQL.png)
+
+To set up this container, run the following command once Docker is installed:
+
+```
+docker run -ti -p 33063306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql5
+```
 
 
 # Customer View
 
-## Database set up 
-Created the database bamazon and table products 
+## Database Set Up 
+Create the database "bamazon" and the table "products"
 
 ```
 CREATE DATABASE bamazon;
@@ -27,7 +48,7 @@ CREATE TABLE products(
 	);
 ```
 
-and populated the database with the following items
+and populate the database with the following items
 
 ```
 INSERT INTO products(product_name, department_name, price, stock_quantity)
@@ -48,24 +69,24 @@ VALUES("hat",  "clothing", 20, 100)
 
 ![Customer Database](https://EpicureanHeron.github.io/bamazon/images/00%2000%20bamazonCustomerDBInit.png)
 
-Here are the results of a 
+Above are the results from MySQL Workbench when the following command is executed
  ```
 SELECT * FROM products
 ```
-run in MySQL Workbench
 
-## bamazon customer node.js
+
+## Bamazon Customer Node.js
 
 After running
 
 ```
 node bamazonCustomer.js 
 ```
-the customer is prompted to chose one of the items from the products DB and the quantity of the order via the inquirier node package.
+the customer is prompted to chose one of the items from the products DB and the quantity of the order via the [inquirer node package](https://www.npmjs.com/package/inquirer).
 
 ![Customer Place Order Cannot Fill](https://EpicureanHeron.github.io/bamazon/images/00%2001%20bamazonCustomerPlaceOrderCannotFill.png)
 
-If the customer selected s an amount that is greater than the current stock, the order fails and the customer is alerted.
+If the customer selects an amount that is greater than the current stock, the order fails and the customer is alerted.
 
 ![Customer Place Order Success](https://EpicureanHeron.github.io/bamazon/images/00%2002bamazonCustomerPlaceOrderSuccess.png)
 
@@ -77,11 +98,11 @@ And the associated stock_quantity value is decreased by that amount. The intial 
 
 # Manager View
 
-## bamazon manager node.js
+## Bamazon Manager Node.js
 
 After running
 ```
-node bamazonCustomer.js 
+node bamazonManager.js 
 ```
 
 ![Manager Options](https://EpicureanHeron.github.io/bamazon/images/01%2001%20bamazonManagerOptions.png)
@@ -103,7 +124,7 @@ Selecting "View Low Inventory" shows any item that has less than 5 in stock. Ite
 
 ![Manager Add To Stock](https://EpicureanHeron.github.io/bamazon/images/01%2004%20bamazonManagerAddToStock.png)
 
-Selecting  "Add to Inventory" offers the manager the option to select and ID and add a quantity. In this case, the manager selects #11 Nvidia 1080 and adds 10 units to it. Now when "View Low Inventory" is selected, number 11 now longer shows. 
+Selecting  "Add to Inventory" offers the manager the option to select an ID and add a quantity. In this case, the manager selects #11 Nvidia 1080 and adds 10 units to it. Now when "View Low Inventory" is selected, number 11 now longer shows. 
 
 ![Manager Add Item](https://EpicureanHeron.github.io/bamazon/images/01%2005%20bamazonManagerAddItem.png)
 
@@ -115,13 +136,13 @@ The database is updated with the new product
 
 ![Manager Add Item Dept](https://EpicureanHeron.github.io/bamazon/images/01%2007%20bamazonManagerAddItemDept.png)
 
-Leveraging the validate function within inquirer insures that the data being inserted into the table is valid. I also use a list of departments rather than letting the manager to enter any department. 
+Leveraging the validate function within inquirer insures that the data being inserted into the table is valid. A list of departments displayed rather than letting the manager enter any department. 
 
 # Supervisor View
 
-## Database set up 
+## Database Set Up 
 
-A new database must be created for this step, I created one use the following SQL
+A new database "departments" is created with the following SQL
 
 ```
 CREATE TABLE departments(
@@ -151,7 +172,7 @@ Running the below command returns the above image
 SELECT * FROM departments
 ```
 
-And for this step of the project, a new column is required, so we rewrite the products database in the following way and populate it with the below data 
+The "products" table used in the bamazonCustomer.js and bamazonManager.js needs to be updated with a new column. This is done by dropping the "products" table then running the following commands to create a new schema and seed it with data. 
 ```
 CREATE TABLE products(
 	 item_id INTEGER NOT NULL AUTO_INCREMENT,
@@ -184,20 +205,20 @@ VALUES("hat",  "clothing", 20, 100)
 
 The result of the SQL on the products table.
 
-## bamazon supervisor node.js
-To begin with, I run bamazonCustomer.js to buy some products in order to populate the product_sales column in products
+## Bamazon Supervisor Node.js
+The supervisor view shows an overview of data that is affected by both the customer and manager views. To exemplify this interactivty, first run bamazonCustomer.js and purchase some items. 
 
 ![Customer Buys](https://EpicureanHeron.github.io/bamazon/images/02%2002%20bamazonSupervisorCustomerBuys.png)
 
-Customer is buying 3 laptops.
+In this case, the customer is buying 3 laptops.
 
 ![Product DB Post Purchase](https://EpicureanHeron.github.io/bamazon/images/02%2003%20bamazonSupervisorProductsDBPostPurchase.png)
 
-The products database updates with the sales.
+The products database updates with the new "product_sales" column.
 
 ![Supervisor View Product](https://EpicureanHeron.github.io/bamazon/images/02%2004%20bamazonSupervisorViewProduct.png)
 
-Running
+Now, running
 ```
 node bamazonSupervisor.js
 ```
@@ -206,9 +227,9 @@ offers two options
 - View Product Sales by Department
 - Create New Department
 
-Selecting "View Product Sales by Deparment" generates the above table in the command line. 
+Selecting "View Product Sales by Deparment" generates the above table in the command line. This table is generated using the [tableify node package](https://www.npmjs.com/package/tableify). 
 
-The SQL to generate the above table is as follows. It utilizes alias, join, and group bys. 
+The SQL to generate the above table is as follows. It uses alias, join, and group bys commands. 
 
 ```
 SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.product_sales) as product_sales, SUM(p.product_sales) - d.over_head_costs as total_profit
@@ -223,10 +244,10 @@ ORDER BY d.department_id;
 
 Running "Create New Deparment" asks the supervisor for the name of the department and the overhead costs. 
 
-In this case, we added the deparment, "auto" and estimated the over head costs to be $6000.
+In this case,  the deparment, "auto" is added and estimated the over head costs to be $6000.
 
 
-By electing "View Product Sales by Department" shows the above table with the new department. 
+By selecting "View Product Sales by Department" again, it shows the above table with the new department. 
 
 However, because the columns product_sales and total_profit rely on data from the products table, which has no items with the department "auto" within it, we receive NULL values for these columns.
 
@@ -234,7 +255,7 @@ However, because the columns product_sales and total_profit rely on data from th
 
 ![Manager Add Item Dept](https://EpicureanHeron.github.io/bamazon/images/02%2006%20bamazonSupervisorManagerAddProduct.png)
 
-Updated the bamazonManager.js to read the departments which are unique on the departments table. This is done by using the following SQL
+Instead of just a list of departments being the options for bamazonManager.js, it was updated s to read the "department_name" which are unique on the "departments" table. This is done by using the following SQL
 
 ```
 SELECT department_name FROM departments
@@ -243,13 +264,13 @@ SELECT department_name FROM departments
 
 ![Post Supervisor Manager Add Item Dept](https://EpicureanHeron.github.io/bamazon/images/02%2007%20bamazonSupervisorManagerAddViewProducts.png)
 
-In order to get a proper calculation in the overhead cost, we add an item which will be featured in the department "auto", in this case it is windshield wipers. 
+In order to get a proper calculation in the overhead cost, the manager adds an item which will be featured in the department "auto", in this case it is windshield wipers. 
 
 
 ![Customer Buys New Product New Department](https://EpicureanHeron.github.io/bamazon/images/02%2008%20bamazonSupervisorCustomerBuyNewDeptNewProduct.png)
 
-We again see in the customer view that the new item windshield wipers are available for the customer. We have them buy 10 of these. 
+The customer view is able to see the new item windshield wipers. In this example, the customer buys 10 of these. 
 
 ![New Deparment Supervisor View](https://EpicureanHeron.github.io/bamazon/images/02%2009%20bamazonSupervisorViewDeptPostNewDeptCustomerBuy.png)
 
-Running the supervisor view and selecting "view product sales by department" now shows the not null values associated with the manager creating an item and a customer buying that item in the new department. 
+Running the supervisor view and selecting "view product sales by department" now shows the not null values associated with the manager creating an item and a customer buying that item in the new department. The "total_profit" column, which is dymanically created and displayed via the SQL join displays, shows the proper calculation. 
