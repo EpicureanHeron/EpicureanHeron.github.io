@@ -21,7 +21,7 @@ CREATE TABLE products(
 	 item_id INTEGER NOT NULL AUTO_INCREMENT,
 	 product_name VARCHAR(50) NOT NULL,
 	 department_name VARCHAR(50) NOT NULL,
-	 price FLOAT(50) NOT NULL,
+	 price DECIMAL(10,4) NOT NULL,
 	 stock_quantity INTEGER(50) NOT NULL,
 	 PRIMARY KEY (item_id)
 	);
@@ -157,7 +157,7 @@ CREATE TABLE products(
 	 item_id INTEGER NOT NULL AUTO_INCREMENT,
 	 product_name VARCHAR(50) NOT NULL,
 	 department_name VARCHAR(50) NOT NULL,
-	 price FLOAT(50) NOT NULL,
+	 price DECIMAL(10,4) NOT NULL,
 	 stock_quantity INTEGER(50) NOT NULL,
 	 product_sales INTEGER(50) DEFAULT 0,
 	 PRIMARY KEY (item_id)
@@ -206,11 +206,9 @@ offers two options
 - View Product Sales by Department
 - Create New Department
 
-![Supervisor Add Department](https://EpicureanHeron.github.io/bamazon/images/02%2005%20bamazonSupervisorAddDepartment.png)
+Selecting "View Product Sales by Deparment" generates the above table in the command line. 
 
-Selecting "View Product Sales by Department" shows the above table
-
-The SQL to generate the above table is below, it utilizes alias, join, and group bys. 
+The SQL to generate the above table is as follows. It utilizes alias, join, and group bys. 
 
 ```
 SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.product_sales) as product_sales, SUM(p.product_sales) - d.over_head_costs as total_profit
@@ -220,12 +218,38 @@ GROUP BY d.department_name, d.department_id, d.over_head_costs
 ORDER BY d.department_id;
 ```
 
+
+![Supervisor Add Department](https://EpicureanHeron.github.io/bamazon/images/02%2005%20bamazonSupervisorAddDepartment.png)
+
+Running "Create New Deparment" asks the supervisor for the name of the department and the overhead costs. 
+
+In this case, we added the deparment, "auto" and estimated the over head costs to be $6000.
+
+
+By electing "View Product Sales by Department" shows the above table with the new department. 
+
+However, because the columns product_sales and total_profit rely on data from the products table, which has no items with the department "auto" within it, we receive NULL values for these columns.
+
+
+
 ![Manager Add Item Dept](https://EpicureanHeron.github.io/bamazon/images/02%2006%20bamazonSupervisorManagerAddProduct.png)
 
-Updated the bamazonManager.js to read the departments from 
+Updated the bamazonManager.js to read the departments which are unique on the departments table. This is done by using the following SQL
+
+```
+SELECT department_name FROM departments
+
+```
 
 ![Post Supervisor Manager Add Item Dept](https://EpicureanHeron.github.io/bamazon/images/02%2007%20bamazonSupervisorManagerAddViewProducts.png)
 
+In order to get a proper calculation in the overhead cost, we add an item which will be featured in the department "auto", in this case it is windshield wipers. 
+
+
 ![Customer Buys New Product New Department](https://EpicureanHeron.github.io/bamazon/images/02%2008%20bamazonSupervisorCustomerBuyNewDeptNewProduct.png)
 
+We again see in the customer view that the new item windshield wipers are available for the customer. We have them buy 10 of these. 
+
 ![New Deparment Supervisor View](https://EpicureanHeron.github.io/bamazon/images/02%2009%20bamazonSupervisorViewDeptPostNewDeptCustomerBuy.png)
+
+Running the supervisor view and selecting "view product sales by department" now shows the not null values associated with the manager creating an item and a customer buying that item in the new department. 
