@@ -1,20 +1,24 @@
 # BAMAZON STOREFRONT
 
+## Don't want to read? 
+
+## [Click here for the video demo](https://youtu.be/Eihr9f7bxhA)
+
 ## TABLE OF CONTENTS
 
 -------
-* [Docker Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#docker-set-up)
-* [Customer View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#customer-view)
-	1. [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up)
-	2. [Bamazon Customer Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-customer-nodejs)
-* [Manager View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#manager-view)
-	1. [Bamazon Manager Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-manager-nodejs)
-* [Supervisor View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#supervisor-view)
-	1. [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up-1)
-	2. [Bamazon Supervisor Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-supervisor-nodejs)
+1. [Docker Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#docker-set-up)
+2.  [Customer View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#customer-view)
+	* [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up)
+	* [Bamazon Customer Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-customer-nodejs)
+3. [Manager View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#manager-view)
+	* [Bamazon Manager Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-manager-nodejs)
+4. [Supervisor View](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#supervisor-view)
+	* [Database Set Up](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#database-set-up-1)
+	* [Bamazon Supervisor Node.js](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/bamazon#bamazon-supervisor-nodejs)
 	
 
-## Docker Set Up
+# Docker Set Up
 
 For this project, a [Docker](https://www.docker.com/) container for MySQL is configured with [node.js](https://nodejs.org/en/about/) and the [mysql node package](https://www.npmjs.com/package/mysql).
 

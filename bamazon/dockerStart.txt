@@ -1,2 +1,2 @@
 //this starts the mysql docker
-docker run -ti -p 33063306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql5
+docker run -ti -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql:5
