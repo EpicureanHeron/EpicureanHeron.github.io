@@ -4,6 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 var fs = require("fs")
+var friends = require("./app/data/friends.js")
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -63,14 +64,17 @@ app.get("/survey", function(req, res) {
 app.get("/api/friends", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
-
-  fs.readFile("app/data/friends.js", 'utf8', function(err,data) {
-    if (err) {
-        console.log(err);
-    };
-     var jsonReturn = data
-     res.json(jsonReturn);
-  })
+  // res.sendFile(path.join(__dirname, "app/data/friends.js"));
+  //req.body = JSON.parse(data)
+  res.json(friends)
+  // fs.readFileSync("app/data/friends.js", 'utf8', function(err,data) {
+  //   if (err) {
+  //       console.log(err);
+  //   };
+    
+  //    var jsonReturn = data
+  //    res.json(jsonReturn);
+  // })
   
 
   // var newcharacter = req.body;

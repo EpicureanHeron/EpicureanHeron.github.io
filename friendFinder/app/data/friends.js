@@ -1,4 +1,4 @@
-var listOfFriends ={ friend1: {
+var listOfFriends = { friend1: {
     name:"Ahmed",
     photo:"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
     scores:[
@@ -31,3 +31,5 @@ var listOfFriends ={ friend1: {
       ]
   }
 }
+
+module.exports = listOfFriends;
