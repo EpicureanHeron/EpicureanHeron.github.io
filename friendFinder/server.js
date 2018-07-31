@@ -3,6 +3,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var fs = require("fs");
 
 // Sets up the Express App
 // =============================================================
@@ -54,22 +55,14 @@ app.get("/survey", function(req, res) {
 });
 
 // Displays a single character, or returns false
-app.get("/api/characters/:character", function(req, res) {
-  var chosen = req.params.character;
-
-  console.log(chosen);
-
-  for (var i = 0; i < characters.length; i++) {
-    if (chosen === characters[i].routeName) {
-      return res.json(characters[i]);
-    }
-  }
-
-  return res.json(false);
+app.get("/api/friends", function(req, res) {
+  res.json()
 });
 
+app.post("/api/friends")
+
 // Create New Characters - takes in JSON input
-app.post("/api/characters", function(req, res) {
+app.post("/api/friends", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
   var newcharacter = req.body;
@@ -81,6 +74,9 @@ app.post("/api/characters", function(req, res) {
 
   // We then display the JSON to the users
   res.json(newcharacter);
+
+  //THIS NEEDS TO READ THE `app/data/friends.js' AND THEN PUSH THE NEW OBJECT TO 
+  //THE ARRAY
 });
 
 // Starts the server to begin listening
