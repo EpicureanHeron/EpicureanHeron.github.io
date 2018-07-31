@@ -28,7 +28,7 @@ For this project, a [Docker](https://www.docker.com/) container for MySQL is con
 To set up this container, run the following command once Docker is installed:
 
 ```
-docker run -ti -p 33063306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql5
+docker run -ti -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql:5
 ```
 
 
