@@ -1,3 +1,6 @@
+//Your `server.js` file should require the basic npm packages we've used in class: `express`, `body-parser` and `path`.
+
+
 // Dependencies
 // =============================================================
 var express = require("express");
@@ -6,28 +9,24 @@ var path = require("path");
 var fs = require("fs")
 var friends = require("./app/data/friends.js")
 
-// Sets up the Express App
-// =============================================================
 var app = express();
 var PORT = 3000;
+
+//following example here: 
+//https://stackoverflow.com/questions/6059246/how-to-include-route-handlers-in-multiple-files-in-express
+//which has the route required then the app (which is the express server)
+//passed to it
+var htmlRoutes = require("./app/routing/htmlRoutes.js")(app)
+
+// Sets up the Express App
+// =============================================================
+
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Routes
-// =============================================================
 
-// Basic route that sends the user first to the AJAX Page
-
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "app/public/home.html"));
-});
-
-// Displays survey
-app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "app/public/survey.html"));
-});
 
 // Display all friends
 app.get("/api/friends", function(req, res) {
