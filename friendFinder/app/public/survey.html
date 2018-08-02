@@ -16,11 +16,12 @@
         crossorigin="anonymous"></script>
 
     <script>
-
+//I don't think this has to be in the file itself, I probably will make it a standalone file, this is ugly
         $(document).ready(function () {
             $('body').on('click', '#submitBtn', function () {
                 event.preventDefault()
                 var scores = []
+                var scoresIntArr = []
                 var friendName = $("#name").val()
                 var image = $("#picture").val()
                 var q1 = $("input[name=q1]:checked").val()
@@ -43,29 +44,37 @@
                 scores.push(q9)
                 var q10 = $("input[name=q10]:checked").val()
                 scores.push(q10)
+
+                //all the scores values are coming across as strings rather than INTs. 
+                scores.forEach(element => {
+                    var convertedNumber = parseInt(element)
+                    scoresIntArr.push(convertedNumber)
+                });
                 var newFriend = {
                     "name": friendName,
                     "photo": image,
-                    "scores": scores
+                    "scores": scoresIntArr
                 }
                 
                 $.post("http://localhost:3000/api/friends", newFriend,
                     function (data) {
 
-                        // If a table is available... tell user they are booked.
-                        if (data) {
-                            alert("success!");
-                        }
+                        // data being sent back IS the updated friends array 
+                        console.log(data)
+                        //friend matcher
+                        data.forEach(element => {
 
-                        // If a table is available... tell user they on the waiting list.
-                        else {
-                            alert("Sorry you are on the wait list");
-                        }
+                           element.scores.forEach(secondElement => {
+                               var scoreInt = parseInt(secondElement)
+                               console.log(scoreInt)
+                           })
+                        });
 
 
                     });
             });
         })
+
 
 
     </script>
