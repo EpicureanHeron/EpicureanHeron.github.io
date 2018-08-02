@@ -1,1 +1,298 @@
-<h1>Survey</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Survey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('body').on('click', '#submitBtn', function () {
+                event.preventDefault()
+                var scores = []
+                var friendName = $("#name").val()
+                var image = $("#picture").val()
+                var q1 = $("input[name=q1]:checked").val()
+                scores.push(q1)
+                var q2 = $("input[name=q2]:checked").val()
+                scores.push(q2)
+                var q3 = $("input[name=q3]:checked").val()
+                scores.push(q3)
+                var q4 = $("input[name=q4]:checked").val()
+                scores.push(q4)
+                var q5 = $("input[name=q5]:checked").val()
+                scores.push(q5)
+                var q6 = $("input[name=q6]:checked").val()
+                scores.push(q6)
+                var q7 = $("input[name=q7]:checked").val()
+                scores.push(q7)
+                var q8 = $("input[name=q8]:checked").val()
+                scores.push(q8)
+                var q9 = $("input[name=q9]:checked").val()
+                scores.push(q9)
+                var q10 = $("input[name=q10]:checked").val()
+                scores.push(q10)
+                var newFriend = {
+                    "name": friendName,
+                    "photo": image,
+                    "scores": scores
+                }
+                
+                $.post("http://localhost:3000/api/friends", newFriend,
+                    function (data) {
+
+                        // If a table is available... tell user they are booked.
+                        if (data) {
+                            alert("success!");
+                        }
+
+                        // If a table is available... tell user they on the waiting list.
+                        else {
+                            alert("Sorry you are on the wait list");
+                        }
+
+
+                    });
+            });
+        })
+
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1> Friend Finder Survey</h1>
+            <hr>
+            <h3>Fill out the questions below to be matched with a new friend</h3>
+
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+                    <form action="/action_page.php">
+                        First name: <input type="text" name="name" id ="name"><br>
+                        Image <input type="text" name="picture" id="picture"><br>
+                      </form>
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q1">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q1" id="q1option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q1" id="q1option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q1" id="q1option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q1" id="q1option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q1" id="q1option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q2">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q2" id="q2option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q2" id="q2option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q2" id="q2option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q2" id="q2option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q2" id="q2option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q3">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q3" id="q3option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q3" id="q3option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q3" id="q3option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q3" id="q3option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q3" id="q3option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q4">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q4" id="q4option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q4" id="q4option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q4" id="q4option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q4" id="q4option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q4" id="q4option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q5">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q5" id="q5option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q5" id="q5option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q5" id="q5option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q5" id="q5option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q1" id="q5option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q6">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="q6" id="q6option1" value=1 autocomplete="off" checked> 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q6" id="q6option2" value=2 autocomplete="off"> 2
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q6" id="q6option3" value=3 autocomplete="off"> 3
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q6" id="q6option4" value=4 autocomplete="off"> 4
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="q6" id="q6option5" value=5 autocomplete="off"> 5
+                        </label>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q7">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="q7" id="q7option1" value=1 autocomplete="off" checked> 1
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q7" id="q7option2" value=2 autocomplete="off"> 2
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q7" id="q7option3" value=3 autocomplete="off"> 3
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q7" id="q7option4" value=4 autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q7" id="q7option5" value=5 autocomplete="off"> 5
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q8">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="q8" id="q8option1" value=1 autocomplete="off" checked> 1
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q8" id="q8option2" value=2 autocomplete="off"> 2
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q8" id="q8option3" value=3 autocomplete="off"> 3
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q8" id="q8option4" value=4 autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q8" id="q8option5" value=5 autocomplete="off"> 5
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q9">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="q9" id="q9option1" value=1 autocomplete="off" checked> 1
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q9" id="q9option2" value=2 autocomplete="off"> 2
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q9" id="q9option3" value=3 autocomplete="off"> 3
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q9" id="q9option4" value=4 autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q9" id="q9option5" value=5 autocomplete="off"> 5
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q10">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="q10" id="q10option1" value=1 autocomplete="off" checked> 1
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q10" id="q10option2" value=2 autocomplete="off"> 2
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q10" id="q10option3" value=3 autocomplete="off"> 3
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q10" id="q10option4" value=4 autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="q10" id="q10option5" value=5 autocomplete="off"> 5
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="submitBtn" class="btn btn-primary">Primary</button>
+            </div>
+            <div class="col-md-2"></div>
+
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>
