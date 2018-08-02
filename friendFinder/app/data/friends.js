@@ -1,7 +1,7 @@
 var listOfFriends = [
     { 
-    "name":"Ahmed",
-    "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+    "name":"St Francis",
+    "photo":"https://www.monasteryicons.com/images/large/st-francis-icon-411.jpg",
     "scores":[
         5,
         1,
@@ -17,7 +17,7 @@ var listOfFriends = [
   },
  {
     "name":"Joe",
-    "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+    "photo":"https://epicureanheron.github.io/assets/images/IMAG1782.jpg",
     "scores":[
         5,
         1,

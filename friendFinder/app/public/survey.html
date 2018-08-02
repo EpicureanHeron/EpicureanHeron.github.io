@@ -16,14 +16,21 @@
         crossorigin="anonymous"></script>
 
     <script>
-//I don't think this has to be in the file itself, I probably will make it a standalone file, this is ugly
         $(document).ready(function () {
             $('body').on('click', '#submitBtn', function () {
+                console.log("Yup")
                 event.preventDefault()
+
                 var scores = []
                 var scoresIntArr = []
+
                 var friendName = $("#name").val()
                 var image = $("#picture").val()
+                if (!friendName || !image) {
+                    alert("please include a name or image")
+                    return
+                }
+
                 var q1 = $("input[name=q1]:checked").val()
                 scores.push(q1)
                 var q2 = $("input[name=q2]:checked").val()
@@ -49,32 +56,58 @@
                 scores.forEach(element => {
                     var convertedNumber = parseInt(element)
                     scoresIntArr.push(convertedNumber)
+
                 });
                 var newFriend = {
                     "name": friendName,
                     "photo": image,
                     "scores": scoresIntArr
                 }
-                
+
+
                 $.post("http://localhost:3000/api/friends", newFriend,
                     function (data) {
 
                         // data being sent back IS the updated friends array 
                         console.log(data)
+
                         //friend matcher
-                        data.forEach(element => {
+                        //set this to a 100 so that ANY of the values that are subsquently compared to it, are overwritten
+                        var matchedTotal = 100;
+                        var matchedFriendName;
+                        var matchedFriendImage;
 
-                           element.scores.forEach(secondElement => {
-                               var scoreInt = parseInt(secondElement)
-                               console.log(scoreInt)
-                           })
-                        });
+                        //For loop cycles through every friend in the data array, but excludes the final array item because that will be the most recently posted friend
+                        for (j = 0; j < data.length - 1; j++) {
+
+                            //variable where the difference between scores is kept
+                            var questionDifference = 0;
+
+                            //cycles through the potential friend's scores
+                            for (i = 0; i < data[j].scores.length; i++) {
+                                //adds the absolute value of the the difference beween the poster's score and the potential friends
+                                questionDifference += Math.abs(scoresIntArr[i] - data[j].scores[i])
+
+                            }
+
+                            //checks to see if the new value is less than the current value 
+                            if (questionDifference < matchedTotal) {
+                                matchedTotal = questionDifference
+                                matchedFriendName = data[j].name
+                                matchedFriendImage = data[j].photo
+                            }
 
 
+                        }
+                        $("#friendName").html("Your new friends is " + matchedFriendName)
+                        var newImg = $("<img>")
+                        newImg.attr("src", matchedFriendImage)
+                        $("#friendPic").empty()
+                        $("#friendPic").append(newImg)
+                        $('#myModal').modal('show')
                     });
             });
         })
-
 
 
     </script>
@@ -89,14 +122,40 @@
             <h3>Fill out the questions below to be matched with a new friend</h3>
 
         </div>
+
+        
+           <!-- Modal -->
+           <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="friendName"></h5>
+                     
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div id="friendPic" ></div>
+                    <div class="modal-footer">
+  
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
         <div class="row">
             <div class="col-md-2"></div>
 
             <div class="col-md-8">
-                    <form action="/action_page.php">
-                        First name: <input type="text" name="name" id ="name"><br>
-                        Image <input type="text" name="picture" id="picture"><br>
-                      </form>
+                <form action="/action_page.php">
+                    First name:
+                    <input type="text" name="name" id="name">
+                    <br> Image
+                    <input type="text" name="picture" id="picture">
+                    <br>
+                </form>
                 <div>
                     <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q1">
                         <label class="btn btn-secondary active">
