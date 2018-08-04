@@ -11,7 +11,7 @@ var friends = require("./app/data/friends.js")
 
 //sets up express server 
 var app = express();
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 //enables the parsing of json in posts
 app.use(bodyParser.urlencoded({ extended: true }));

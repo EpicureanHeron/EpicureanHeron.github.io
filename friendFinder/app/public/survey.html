@@ -15,9 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <style>
-    .question{
-        padding-top: 10px;
-    }
+        .question {
+            padding-top: 10px;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -31,7 +31,7 @@
                 var friendName = $("#name").val()
                 var image = $("#picture").val()
                 if (!friendName || !image) {
-                    alert("please include a name or image")
+                    alert("please include a name and/or image")
                     return
                 }
 
@@ -69,7 +69,7 @@
                 }
 
 
-                $.post("http://localhost:3000/api/friends", newFriend,
+                $.post("/api/friends", newFriend,
                     function (data) {
 
                         // data being sent back IS the updated friends array 
@@ -111,8 +111,14 @@
                         $("#friendPic").append(newImg)
                         $('#myModal').modal('show')
                     });
-            });
-        })
+
+            })
+            $('body').on('click', '#modalClose', function () {
+                window.location.href = "/";
+            })
+        });
+
+
 
 
     </script>
@@ -143,7 +149,7 @@
                     <div style="text-align: center" id="friendPic"></div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
                     </div>
                 </div>
             </div>
@@ -155,17 +161,26 @@
 
             <div class="col-md-8">
                 <form>
-                   <strong>First name:</strong> 
+                    <strong>First name:</strong> *required
                     <input type="text" name="name" id="name" style="width:100%">
                     <br>
-                    <br> <strong>Image:</strong>
-                    <input type="text" name="picture" id="picture"  style="width:100%">
+                    <br>
+                    <strong>Image:</strong> *required
+                    <input type="text" name="picture" id="picture" style="width:100%">
                     <br>
                     <br>
                 </form>
+                <p>Fill out the next 10 questions using the following scale:</p>
+                <ol>
+                    <li>Strongly disagree</li>
+                    <li>Disagree</li>
+                    <li>Neutral</li>
+                    <li>Agree</li>
+                    <li>Strongly agree</li>
+                </ol>
                 <div class="question">
                     <h4>1. Your mind is always buzzing with unexplored ideas and plans.</h4>
-                    <p>1, strongly disagree - 5, strongly agree</p>
+
                     <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q1">
                         <label class="btn btn-secondary ">
                             <input type="radio" name="q1" id="q1option1" value=1 autocomplete="off"> 1
@@ -380,7 +395,7 @@
                 </div>
                 <br>
                 <br>
-                
+
                 <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
             </div>
             <div class="col-md-2"></div>
