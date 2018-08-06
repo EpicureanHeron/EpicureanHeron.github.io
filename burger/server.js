@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var connection = require('./config/connection');
+var orm = require("./config/orm")
 
 var app = express();
 
@@ -17,14 +17,11 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-connection.connect(function (err) {
-    if (err) {
-        console.error("error connecting: " + err.stack);
-        return;
-    }
-
-    console.log("connected as id " + connection.threadId);
-});
+app.get("/", function(req, res) {
+    var burgers = orm.selectAll()
+    console.log(burgers)
+    res.render("index", { burgers: burgers});
+})
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function () {
