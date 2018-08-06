@@ -73,39 +73,11 @@
                     function (data) {
 
                         // data being sent back IS the updated friends array 
-                        console.log(data)
-
-                        //friend matcher
-                        //set this to a 100 so that ANY of the values that are subsquently compared to it, are overwritten
-                        var matchedTotal = 100;
-                        var matchedFriendName;
-                        var matchedFriendImage;
-
-                        //For loop cycles through every friend in the data array, but excludes the final array item because that will be the most recently posted friend
-                        for (j = 0; j < data.length - 1; j++) {
-
-                            //variable where the difference between scores is kept
-                            var questionDifference = 0;
-
-                            //cycles through the potential friend's scores
-                            for (i = 0; i < data[j].scores.length; i++) {
-                                //adds the absolute value of the the difference beween the poster's score and the potential friends
-                                questionDifference += Math.abs(scoresIntArr[i] - data[j].scores[i])
-
-                            }
-
-                            //checks to see if the new value is less than the current value 
-                            if (questionDifference < matchedTotal) {
-                                matchedTotal = questionDifference
-                                matchedFriendName = data[j].name
-                                matchedFriendImage = data[j].photo
-                            }
-
-
-                        }
-                        $("#friendName").html("Your new friends is " + matchedFriendName)
+               
+                     
+                        $("#friendName").html("Your new friends is " + data.name)
                         var newImg = $("<img>")
-                        newImg.attr("src", matchedFriendImage)
+                        newImg.attr("src", data.photo)
                         newImg.attr("width", "90%")
                         $("#friendPic").empty()
                         $("#friendPic").append(newImg)
@@ -113,6 +85,7 @@
                     });
 
             })
+        
             $('body').on('click', '#modalClose', function () {
                 window.location.href = "/";
             })
