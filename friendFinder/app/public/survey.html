@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Survey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Finder || Survey</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
@@ -28,32 +29,32 @@
                 var scores = []
                 var scoresIntArr = []
 
-                var friendName = $("#name").val()
-                var image = $("#picture").val()
+                var friendName = $("#name").val().trim()
+                var image = $("#picture").val().trim()
                 if (!friendName || !image) {
                     alert("please include a name and/or image")
                     return
                 }
 
-                var q1 = $("input[name=q1]:checked").val()
+                var q1 = $("input[name=q1]:checked").val().trim()
                 scores.push(q1)
-                var q2 = $("input[name=q2]:checked").val()
+                var q2 = $("input[name=q2]:checked").val().trim()
                 scores.push(q2)
-                var q3 = $("input[name=q3]:checked").val()
+                var q3 = $("input[name=q3]:checked").val().trim()
                 scores.push(q3)
-                var q4 = $("input[name=q4]:checked").val()
+                var q4 = $("input[name=q4]:checked").val().trim()
                 scores.push(q4)
-                var q5 = $("input[name=q5]:checked").val()
+                var q5 = $("input[name=q5]:checked").val().trim()
                 scores.push(q5)
-                var q6 = $("input[name=q6]:checked").val()
+                var q6 = $("input[name=q6]:checked").val().trim()
                 scores.push(q6)
-                var q7 = $("input[name=q7]:checked").val()
+                var q7 = $("input[name=q7]:checked").val().trim()
                 scores.push(q7)
-                var q8 = $("input[name=q8]:checked").val()
+                var q8 = $("input[name=q8]:checked").val().trim()
                 scores.push(q8)
-                var q9 = $("input[name=q9]:checked").val()
+                var q9 = $("input[name=q9]:checked").val().trim()
                 scores.push(q9)
-                var q10 = $("input[name=q10]:checked").val()
+                var q10 = $("input[name=q10]:checked").val().trim()
                 scores.push(q10)
 
                 //all the scores values are coming across as strings rather than INTs. 
@@ -74,8 +75,8 @@
 
                         // data being sent back IS the updated friends array 
                
-                     
-                        $("#friendName").html("Your new friends is " + data.name)
+                        
+                        $("#friendName").html("Your new friend is " + data.name)
                         var newImg = $("<img>")
                         newImg.attr("src", data.photo)
                         newImg.attr("width", "90%")
@@ -86,9 +87,10 @@
 
             })
         
-            $('body').on('click', '#modalClose', function () {
-                window.location.href = "/";
+            $('body').on('click', '.modalClose', function () {
+                window.location.href = "/survey";
             })
+
         });
 
 
@@ -115,14 +117,14 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="friendName"></h5>
 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close modalClose" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div style="text-align: center" id="friendPic"></div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
+                        <button type="button" class="btn btn-secondary modalClose" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
