@@ -18,6 +18,12 @@ var burger = {
         orm.insertOne("burgers", "burger_name", "devoured", burgerName, devouredState, function(res){
             cb(res)
         })
+    },
+   // updateOne: function (table_name, col1, val1, condition, cb){
+    update: function(id, cb){
+        orm.updateOne("burgers", "devoured", true, "id", id, function(res){
+            cb(res)
+        } )
     }
 }
 

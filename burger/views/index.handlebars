@@ -1,14 +1,41 @@
+<h2>Burgers to be eaten!</h2>
+
 <ul>
   {{#each burgers}}
-  <li>
+    {{#unless devoured}}
+     <li>
+    <p>
+      {{this.id}}. {{this.burger_name}}
+
+      <button data-id="{{this.id}}" class="devourBurger">Devour!</button>
+    </p>
+  </li>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>Burgers that have been eaten</h2>
+<ul>
+  {{#each burgers}}
+    {{#if devoured}}
+     <li>
     <p>
       {{this.id}}. {{this.burger_name}}
 
       {{!-- <button data-movieid="{{this.id}}" class="delmovie">Delete Movie!</button> --}}
     </p>
   </li>
+    {{/if}}
   {{/each}}
 </ul>
+
+{{!-- <ul>
+  {{#each cats}}
+    {{#if sleepy}}
+      {{> cats/cat-block sleep=false}}
+    {{/if}}
+  {{/each}}
+</ul> --}}
 <form class="create-form">
 
   <div class="form-group">

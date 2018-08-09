@@ -29,6 +29,23 @@ $(function () {
             }
         );
     });
+//use this function to send to the PUT function in the burger_controller
+$(".devourBurger").on("click", function(event) {
+    var id = $(this).attr("data-id");
+    var newDevoured = true;
+
+    // Send the PUT request.
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: newDevoured
+    }).then(
+      function() {
+        console.log("changed devour state to ", newDevoured);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
 })
     </script>
 </head>

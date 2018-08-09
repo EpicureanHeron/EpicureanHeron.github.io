@@ -47,9 +47,25 @@ var orm = {
     // INSERT INTO table_name (column1, column2, column3, ...)
     // VALUES (value1, value2, value3, ...);
     },
-    updateOne() {
-        return
+    // orm.updateOne("burgers", "devoured", true, id, function(res){
+        //cb(res)
+    updateOne: function (table_name, col1, val1, col2, condition, cb){
+        var queryString = "UPDATE " + table_name
+        queryString += " SET " + col1 + " = " + val1
+        queryString += " WHERE " + col2 + "="+ condition +";"
+        console.log(queryString)
+        connection.query(queryString, function(err, result){
+            if (err) throw err
+
+            cb(result)
+        })
+
     }
+   
+        // UPDATE table_name
+        // SET column1 = value1, column2 = value2, ...
+        // WHERE condition;
+    
 
 
 }
