@@ -9,3 +9,18 @@
   </li>
   {{/each}}
 </ul>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="burgerName">Burger Name:</label>
+    <input type="text" id="burgerName" name="burgerName">
+  </div>
+
+  <div class="form-group">
+    <label for="devoured">Devoured?</label><br>
+    <input type="radio" name="devoured" value="true" checked> Yes!<br>
+    <input type="radio" name="devoured" value="false"> No!
+  </div>
+
+  <button type="submit">Add a burger!</button>
+</form>

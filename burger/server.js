@@ -1,8 +1,24 @@
+// Create a server.js file.
+
+// 5. Install the Handlebars npm package: `npm install express-handlebars`.
+
+// 6. Install the body-parser npm package: `npm install body-parser`.
+
+// 7. Install MySQL npm package: `npm install mysql`.
+
+// 8. Require the following npm packages inside of the server.js file:
+//    * express
+//    * body-parser
+
+
+
+
 var express = require("express");
 var bodyParser = require("body-parser");
-var orm = require("./config/orm")
 
 var app = express();
+
+app.use(express.static("public"));
 
 // Set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -17,11 +33,9 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.get("/", function(req, res) {
-    var burgers = orm.selectAll()
-    console.log(burgers)
-    res.render("index", { burgers: burgers});
-})
+var routes = require("./controllers/burgers_controller.js");
+
+app.use(routes)
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function () {

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Burgers!</title>
-  <script src="https://code.jquery.com/jquery.js"></script>
-  	{{!-- <script src="../../public/assets/js/burger.js"></script> --}}
-    <script>
-      //this burger.js handles JQUERY functions on the handlebars page 
+//this burger.js handles JQUERY functions on the handlebars page 
 $(function () {
     $(".create-form").on("submit", function (event) {
         // Make sure to preventDefault on a submit event.
@@ -30,9 +22,3 @@ $(function () {
         );
     });
 })
-    </script>
-</head>
-<body>
-  {{{ body }}}
-</body>
-</html>

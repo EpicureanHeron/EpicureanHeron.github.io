@@ -9,3 +9,4 @@ CREATE TABLE burgers(
 	 PRIMARY KEY (id)
 	);
     
+select * from burgers
