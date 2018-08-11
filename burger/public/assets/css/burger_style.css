@@ -1,0 +1,34 @@
+img {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.burgerDiv{
+    border: 1px black solid;
+    text-align: center;
+    margin-top: 10px;
+    background-color: white;
+}
+   
+
+
+.eaten{
+    text-decoration: line-through;
+}
+.burger{
+    margin: 20px;
+    
+}
+
+body{
+    background-color: #ffdb58;
+}
+
+.burgerbutton {
+    margin-bottom: 5px;
+}
+
+.devourBurger {
+    float: right;
+}

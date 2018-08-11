@@ -1,53 +1,63 @@
-<h2>Burgers to be eaten!</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 burgerDiv">
+      <form class="create-form">
+        <img src="assets/img/burger.jpg">
+    <div class="form-group">
+      <label for="burgerName">Burger Name:</label>
+      <br>
+      <input type="text" id="burgerName" name="burgerName">
+    </div>
 
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-     <li>
-    <p>
-      {{this.id}}. {{this.burger_name}}
+    {{!-- <div class="form-group">
+      <label for="devoured">Devoured?</label>
+      <br>
+      <input type="radio" name="devoured" value="true" checked> Yes!
+      <br>
+      <input type="radio" name="devoured" value="false"> No!
+    </div> --}}
 
-      <button data-id="{{this.id}}" class="devourBurger">Devour!</button>
-    </p>
-  </li>
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Burgers that have been eaten</h2>
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-     <li>
-    <p>
-      {{this.id}}. {{this.burger_name}}
-
-      {{!-- <button data-movieid="{{this.id}}" class="delmovie">Delete Movie!</button> --}}
-    </p>
-  </li>
-    {{/if}}
-  {{/each}}
-</ul>
-
-{{!-- <ul>
-  {{#each cats}}
-    {{#if sleepy}}
-      {{> cats/cat-block sleep=false}}
-    {{/if}}
-  {{/each}}
-</ul> --}}
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="burgerName">Burger Name:</label>
-    <input type="text" id="burgerName" name="burgerName">
+    <button class="btn btn-primary burgerbutton" type="submit">Add a burger!</button>
+  </form>
+    </div>
+     <div class="col-md-4"></div>
   </div>
+<div class="row">
+  <div class="col-md-5 burgerDiv">
+  <h2 class="header">Burgers Ready to Eat!</h2>
 
-  <div class="form-group">
-    <label for="devoured">Devoured?</label><br>
-    <input type="radio" name="devoured" value="true" checked> Yes!<br>
-    <input type="radio" name="devoured" value="false"> No!
+  
+    {{#each burgers}} {{#unless devoured}}
+   
+      <p class="burger">
+        {{this.id}}. {{this.burger_name}}
+
+        <button data-id="{{this.id}}" class="devourBurger btn btn-danger">Devour!</button>
+      </p>
+      <hr>
+    
+    {{/unless}} {{/each}}
+  
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-5 burgerDiv">
+  <h2>Devoured Burgers</h2>
+ 
+    {{#each burgers}} {{#if devoured}}
+  
+      <p class="burger eaten">
+        {{this.id}}. {{this.burger_name}} {{!--
+        <button data-movieid="{{this.id}}" class="delmovie">Delete Movie!</button> --}}
+      </p>
+      <hr>
+    {{/if}} {{/each}}
+ 
+</div>
+
+  {{!--
+  <ul>
+    {{#each cats}} {{#if sleepy}} {{> cats/cat-block sleep=false}} {{/if}} {{/each}}
+  </ul> --}}
   </div>
-
-  <button type="submit">Add a burger!</button>
-</form>
+</div>
