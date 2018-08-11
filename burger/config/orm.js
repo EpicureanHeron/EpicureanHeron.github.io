@@ -38,7 +38,7 @@ var orm = {
         var queryString = "INSERT INTO " + table_name
         queryString += "(" + col1 + ", " + col2 + ") "
         queryString += " VALUES('" + value1 + "', " + value2 + ");"
-        console.log(queryString)
+       // console.log(queryString)
         connection.query(queryString, function(err, result){
             if (err) throw err
 
@@ -53,7 +53,7 @@ var orm = {
         var queryString = "UPDATE " + table_name
         queryString += " SET " + col1 + " = " + val1
         queryString += " WHERE " + col2 + "="+ condition +";"
-        console.log(queryString)
+       // console.log(queryString)
         connection.query(queryString, function(err, result){
             if (err) throw err
 
@@ -62,23 +62,9 @@ var orm = {
 
     }
    
-        // UPDATE table_name
-        // SET column1 = value1, column2 = value2, ...
-        // WHERE condition;
-    
-
-
 }
 
 
-// all: function(tableInput, cb) {
-//     var queryString = "SELECT * FROM " + tableInput + ";";
-//     connection.query(queryString, function(err, result) {
-//       if (err) {
-//         throw err;
-//       }
-//       cb(result);
-//     });
-//   },
+
 
 module.exports = orm;
