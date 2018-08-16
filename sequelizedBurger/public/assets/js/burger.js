@@ -1,5 +1,5 @@
-  //this burger.js handles JQUERY functions on the handlebars page 
-  $(function () {
+//this burger.js handles JQUERY functions on the handlebars page 
+$(function () {
     $(".create-form").on("submit", function (event) {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
@@ -27,19 +27,32 @@
     });
     //use this function to send to the PUT function in the burger_controller
     $(".devourBurger").on("click", function (event) {
+        event.preventDefault();
         var id = $(this).attr("data-id");
         var newDevoured = true;
 
+        var customerData = {
+            
+            newCustomer: $("#customerName").val().trim()
+
+        }
+        $.ajax("/api/customers", {
+            type: "POST",
+            data: customerData
+        
         // Send the PUT request.
-        $.ajax("/api/burgers/" + id, {
-            type: "PUT",
-            data: newDevoured
-        }).then(
-            function () {
-                console.log("changed devour state to ", newDevoured);
-                // Reload the page to get the updated list
-                location.reload();
-            }
-        );
+        
+        }).then(function () {
+            $.ajax("/api/burgers/" + id, {
+                type: "PUT",
+                data: newDevoured
+            }).then(
+                function () {
+                    console.log("changed devour state to ", newDevoured);
+                    // Reload the page to get the updated list
+                    location.reload();
+                }
+            )
+        })
     });
 })

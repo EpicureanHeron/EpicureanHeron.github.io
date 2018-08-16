@@ -31,6 +31,16 @@ app.post("/api/burgers", function (req, res) {
  
     });
 
+app.post("/api/customers", function (req, res) {
+    db.Customer.create(
+        {customer_name: req.body.newCustomer})
+        
+        .then(function(customers){
+            res.json(customers)
+        })
+    })
+
+
 //rework this so it works for burger
 app.put("/api/burgers/:id", function(req, res) {
     db.Burger.update(
