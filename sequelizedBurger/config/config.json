@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "seq_burger_db",
+    "database": "seq_burgers_db",
     "host": "192.168.99.100",
     "port": 3306,
     "dialect": "mysql"
