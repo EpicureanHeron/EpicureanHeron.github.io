@@ -31,9 +31,16 @@
     {{#each burgers}} {{#unless devoured}}
    
       <p class="burger">
-        {{this.id}}. {{this.burger_name}}
+        {{this.id}}. {{this.burger_name}} 
+        <form>
+          
+      <label for="customerName">Customer Name</label>
+    
+      <input type="text" id="customerName" name="customerName">
+   <button data-id="{{this.id}}" class="devourBurger btn btn-danger">Devour!</button>
+        </form>
 
-        <button data-id="{{this.id}}" class="devourBurger btn btn-danger">Devour!</button>
+      
       </p>
       <hr>
     
