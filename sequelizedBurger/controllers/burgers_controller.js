@@ -7,7 +7,14 @@ module.exports = function(app) {
 
 
 app.get("/", function (req, res) {
-    db.Burger.findAll({}).then(function(data) {
+    db.Burger.findAll(
+        {
+            include: [{
+        model: db.Customer
+    }],
+        order: [ ['burger_name', 'ASC']],
+},
+).then(function(data) {
 
 
         var hbsObject = {

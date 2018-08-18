@@ -31,7 +31,7 @@
     {{#each burgers}} {{#unless devoured}}
    
       <p class="burger">
-        {{this.id}}. {{this.burger_name}} 
+        {{this.burger_name}} 
         <form>
           
       <label for="customerName{{this.id}}">Customer Name</label>
@@ -54,9 +54,10 @@
     {{#each burgers}} {{#if devoured}}
   
       <p class="burger eaten">
-        {{this.id}}. {{this.burger_name}} {{!--
+        {{this.burger_name}}  {{!--
         <button data-movieid="{{this.id}}" class="delmovie">Delete Movie!</button> --}}
       </p>
+      <p>Eaten by  {{this.Customer.customer_name}}</p>
       <hr>
     {{/if}} {{/each}}
  

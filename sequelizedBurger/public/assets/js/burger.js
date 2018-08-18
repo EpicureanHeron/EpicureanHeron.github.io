@@ -34,29 +34,33 @@ $(function () {
             newDevoured: true,
         };
         var customerNameID = "#customerName" + id
-        var customerData = {          
+        var customerData = {
             newCustomer: $(customerNameID).val().trim()
         };
+        if (!customerData.newCustomer) {
+            alert("Hello! I am an alert box!!");
+        }
+        else {
+            $.ajax("/api/customers", {
+                type: "POST",
+                data: customerData
 
-        $.ajax("/api/customers", {
-            type: "POST",
-            data: customerData
-        
-        }).then(function (customerResData) {
+            }).then(function (customerResData) {
 
-            burgerUpdateObj.customerID = customerResData.id
+                burgerUpdateObj.customerID = customerResData.id
 
-            console.log(JSON.stringify(burgerUpdateObj))
-            $.ajax("/api/burgers/" + id, {
-                type: "PUT",
-                data: burgerUpdateObj
-            }).then(
-                function () {
-                   // console.log("changed devour state to ", newDevoured);
-                    // Reload the page to get the updated list
-                   location.reload();
-                }
-            )
-        })
+                console.log(JSON.stringify(burgerUpdateObj))
+                $.ajax("/api/burgers/" + id, {
+                    type: "PUT",
+                    data: burgerUpdateObj
+                }).then(
+                    function () {
+                        // console.log("changed devour state to ", newDevoured);
+                        // Reload the page to get the updated list
+                        location.reload();
+                    }
+                )
+            })
+        }
     });
 })
