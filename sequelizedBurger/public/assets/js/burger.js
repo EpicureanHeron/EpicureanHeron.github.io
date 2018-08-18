@@ -9,7 +9,7 @@ $(function () {
             devoured: false
         };
         if (!newBurger.burgerName) {
-            alert("Hello! I am an alert box!!");
+            alert("Please include a burger name!");
         }
         else {
             // Send the POST request.
@@ -38,7 +38,7 @@ $(function () {
             newCustomer: $(customerNameID).val().trim()
         };
         if (!customerData.newCustomer) {
-            alert("Hello! I am an alert box!!");
+            alert("Please include a customer name before devouring!");
         }
         else {
             $.ajax("/api/customers", {
