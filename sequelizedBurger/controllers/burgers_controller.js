@@ -36,6 +36,7 @@ app.post("/api/customers", function (req, res) {
         {customer_name: req.body.newCustomer})
         
         .then(function(customers){
+            //console.log(customers)
             res.json(customers)
         })
     })
@@ -44,7 +45,7 @@ app.post("/api/customers", function (req, res) {
 //rework this so it works for burger
 app.put("/api/burgers/:id", function(req, res) {
     db.Burger.update(
-        {devoured: true},
+        {devoured: true, CustomerId: req.body.customerID},
         {where: { id: req.params.id }}
       )
       .then(function(rowsUpdated) {

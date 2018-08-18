@@ -34,9 +34,9 @@
         {{this.id}}. {{this.burger_name}} 
         <form>
           
-      <label for="customerName">Customer Name</label>
+      <label for="customerName{{this.id}}">Customer Name</label>
     
-      <input type="text" id="customerName" name="customerName">
+      <input type="text" id="customerName{{this.id}}" name="customerName{{this.id}}">
    <button data-id="{{this.id}}" class="devourBurger btn btn-danger">Devour!</button>
         </form>
 

@@ -29,28 +29,32 @@ $(function () {
     $(".devourBurger").on("click", function (event) {
         event.preventDefault();
         var id = $(this).attr("data-id");
-        var newDevoured = true;
+        console.log(id)
+        var burgerUpdateObj = {
+            newDevoured: true,
+        };
+        var customerNameID = "#customerName" + id
+        var customerData = {          
+            newCustomer: $(customerNameID).val().trim()
+        };
 
-        var customerData = {
-            
-            newCustomer: $("#customerName").val().trim()
-
-        }
         $.ajax("/api/customers", {
             type: "POST",
             data: customerData
         
-        // Send the PUT request.
-        
-        }).then(function () {
+        }).then(function (customerResData) {
+
+            burgerUpdateObj.customerID = customerResData.id
+
+            console.log(JSON.stringify(burgerUpdateObj))
             $.ajax("/api/burgers/" + id, {
                 type: "PUT",
-                data: newDevoured
+                data: burgerUpdateObj
             }).then(
                 function () {
-                    console.log("changed devour state to ", newDevoured);
+                   // console.log("changed devour state to ", newDevoured);
                     // Reload the page to get the updated list
-                    location.reload();
+                   location.reload();
                 }
             )
         })
