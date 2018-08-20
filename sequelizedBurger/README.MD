@@ -1,13 +1,30 @@
-# Todos 
+# Burger 2: The Sequel
 
-* foreign key required for creating burger??? 
-* posting a new customer to the customer table through the public/burger.js
-* displaying the customer name in the devoured category
+# [Deployed on Heroku](https://burger-jft-the-sequel.herokuapp.com/)
 
-#8/17/218
-* How to do a POST where I create a customer then...do a PUT where I reference the new customer in the update to the burger status...
+# Overview
 
-* NOTE: I removed the 1 to many reference in customer. Customers will each eat one burger. 
+Updated the 'Eat-Da-Burger!' ([found here](https://github.com/EpicureanHeron/EpicureanHeron.github.io/tree/master/burger)) with a number of features.
 
-* really spun my wheels, very frustrating. How do you update a record's foreign key AND use express...
-    * currenlty chaining a post and put...so should I do the POST and use the response to do send back the new data's unique ID as it relates to the database...so the PUT can reference it? Or os there something baked into SEQUELIZE which will allow me to do this without so many hoops. Read documentation for 2 hours...and I don't think I made much headway. Other than how the naming conventions MIGHT work. 
+## Refactored ORM to use Sequelize
+
+* ORM files have been removed and refactored to use the [Sequelize](http://docs.sequelizejs.com/) library instead.
+
+## Customer Associations
+
+* Added a Customer model. 
+
+* Added an association between Burgers and Customer.
+
+* Updated Handlebars, public JS, and CSS to handle sending and parsing Sequelize data.
+
+## Validations and Ordering
+
+* Validations added to  models where:
+
+  * A burger's name cannot be null
+  * A burger's devoured status is false by default
+  * A Customer's name cannot be null
+
+* Order the Burgers in alphabetical order using the Sequelize "order" option.
+
