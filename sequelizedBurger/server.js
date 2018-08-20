@@ -43,7 +43,11 @@ require("./controllers/burgers_controller.js")(app)
 
 
 // Start our server so that it can begin listening to client requests.
-db.sequelize.sync({ force: true }).then(function() {
+// it seems that the .sync is force dropping the table on start according to this SO: https://stackoverflow.com/questions/48077854/how-to-stop-sequelize-to-drop-existing-table
+
+// db.sequelize.sync({ force: true }).then(function() {
+  
+db.sequelize.sync({ }).then(function() {
     app.listen(PORT, function() {
       console.log("App listening on PORT " + PORT);
     });
