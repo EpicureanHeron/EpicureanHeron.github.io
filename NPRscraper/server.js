@@ -16,10 +16,15 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+
+var exphbs = require("express-handlebars");
+
+var app = express();
+
+
 
 // Initialize Express
-var app = express();
+
 
 
 
@@ -34,10 +39,28 @@ app.use(express.static("public"));
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/NPR");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
+var PORT = 3000;
 // Routes
 
 // A GET route for scraping the echoJS website
+
+app.get("/", function (req, res) {
+  db.Article.find({})
+  .then(function (dbArticles) {
+    console.log(dbArticles)
+
+      var hbsObject = {
+          articles: dbArticles
+      }
+
+      res.render("index", hbsObject);
+
+
+  })
+})
 
 
 app.get("/scrape", function(req, res) {
@@ -46,51 +69,41 @@ app.get("/scrape", function(req, res) {
 
     // Load the HTML into cheerio
     var $ = cheerio.load(html);
-  
-    // Make an empty array for saving our scraped info
-    var results = [];
-  
-    
-  
-    // With cheerio, look at each award-winning site, enclosed in "figure" tags with the class name "site"
+
     $(".item-info").each(function(i, element) {
-      
-      /* Cheerio's find method will "find" the first matching child element in a parent.
-       *    We start at the current element, then "find" its first child a-tag.
-       *    Then, we "find" the lone child img-tag in that a-tag.
-       *    Then, .attr grabs the imgs srcset value.
-       *    The srcset value is used instead of src in this case because of how they're displaying the images
-       *    Visit the website and inspect the DOM if there's any confusion
-      */
-      // var imgLink = $(element).attr("src");
-  
-      // var title = $(element).attr("alt")
-      // var link = $(element).attr("title")
+      //article title
       var title = $(element).find("h2").text()
+      //link
       var link = $(element).find("h2").find("a").attr("href")
+      //short summary
       var teaser = $(element).find(".teaser").text()
-  
-      // console.log(link)
-      // // Push the image's URL (saved to the imgLink var) into the results array
+      //object created to be placed in database
       var newArticle = {
         titleInfo: title,
         linkInfo: link,
         teaserInfo: teaser
       }
-
-
-      // Create a new Article using the `result` object built from scraping
-      db.Article.create(newArticle)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
+      //checks if the article's title is already in the database
+      db.Article.findOne({titleInfo: newArticle.titleInfo})
+        .then(function(articleResults){
+          //if no results are found add the article
+          if(!articleResults){
+            
+            db.Article.create(newArticle)
+            .then(function(dbArticle) {
+              // View the added result in the console
+              console.log(dbArticle);
+            })
+            .catch(function(err) {
+              // If an error occurred, send it to the client  
+              return res.json(err)          
+            });
+          }
         })
         .catch(function(err) {
-          // If an error occurred, send it to the client
           return res.json(err);
-        });
+        })
     });
-
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
   });
