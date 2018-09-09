@@ -9,7 +9,8 @@ var mongoose = require("mongoose");
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
-var axios = require("axios");
+//var axios = require("axios");
+var request = require("request")
 var cheerio = require("cheerio");
 
 // Require all models
@@ -32,32 +33,54 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/week18Populater");
+mongoose.connect("mongodb://localhost/NPR");
 
 // Routes
 
 // A GET route for scraping the echoJS website
+
+
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  axios.get("http://www.echojs.com/").then(function(response) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
+  request("https://www.npr.org/sections/news/", function(error, response, html) {
 
-    // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
-      // Save an empty result object
-      var result = {};
+    // Load the HTML into cheerio
+    var $ = cheerio.load(html);
+  
+    // Make an empty array for saving our scraped info
+    var results = [];
+  
+    
+  
+    // With cheerio, look at each award-winning site, enclosed in "figure" tags with the class name "site"
+    $(".item-info").each(function(i, element) {
+      
+      /* Cheerio's find method will "find" the first matching child element in a parent.
+       *    We start at the current element, then "find" its first child a-tag.
+       *    Then, we "find" the lone child img-tag in that a-tag.
+       *    Then, .attr grabs the imgs srcset value.
+       *    The srcset value is used instead of src in this case because of how they're displaying the images
+       *    Visit the website and inspect the DOM if there's any confusion
+      */
+      // var imgLink = $(element).attr("src");
+  
+      // var title = $(element).attr("alt")
+      // var link = $(element).attr("title")
+      var title = $(element).find("h2").text()
+      var link = $(element).find("h2").find("a").attr("href")
+      var teaser = $(element).find(".teaser").text()
+  
+      // console.log(link)
+      // // Push the image's URL (saved to the imgLink var) into the results array
+      var newArticle = {
+        titleInfo: title,
+        linkInfo: link,
+        teaserInfo: teaser
+      }
 
-      // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
 
       // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
+      db.Article.create(newArticle)
         .then(function(dbArticle) {
           // View the added result in the console
           console.log(dbArticle);

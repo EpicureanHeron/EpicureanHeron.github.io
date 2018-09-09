@@ -7,14 +7,18 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var ArticleSchema = new Schema({
   // `title` is required and of type String
-  title: {
+  titleInfo: {
     type: String,
     required: true
   },
   // `link` is required and of type String
-  link: {
+  linkInfo: {
     type: String,
     required: true
+  },
+  teaserInfo: {
+    type: String,
+    required:true
   },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
