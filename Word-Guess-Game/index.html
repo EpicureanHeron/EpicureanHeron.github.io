@@ -1,55 +1,68 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-            <!--imports jQuery-->
-            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-            <!--Logic for word guess game-->
-            <script src="assets/javascript/game.js"></script>
-           
-        </head>
-        <body>
+<html>
 
-             
-            <div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--imports jQuery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <!--Logic for word guess game-->
+    <script src="assets/javascript/game.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133442962-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-                <div class="row">
-                    <div class="col-md-1 side"></div>
-                    <div class="col-md-10">
-                        
-                        <img class="tngLogo" src="assets/images/Star-Trek-The-Next-Generation-1030x520.jpg" alt="Star Trek The Next Generation Logo">
-                        
-                    </div>
-                    <div class="col-md-1 side"></div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-1 side"></div>
-                    <div class="col-md-8">
-                            <!-- <p>Computer's Guess: <span id="computersGuess"></span></p> -->
-                            <p>Welcome to Star Trek Hangman</p>
-                            <p>To start a game, press a letter key. This will be your first guess!</p>
-                            <br>
-                            <h1>Current Game: <span id="currentState"></span></h1>
-                            <br>
-                            <br>
-                            <p>Letters Guessed: <span id="guessedByUser"></span></p>
-                            <p>You have <span id="numberOfGuesses">6</span> guesses remaining</p>
-                            <!-- <h2>Have you have won the game? <span id="gameStatus"></span></h2> -->
-                            <p>You have guessed <span id="wordsGuessed">0</span> words correctly</p>
-                            <p>The words you have guessed correctly are: <span id="correctWords">none!</span></p>
-                            
-                    </div>
-                    <div class="col-md-2">
-                            <img class="img-fluid" id="pictureOfLastGuessed" src="assets/images/placeholder.png">
-                    </div>
-                    <div class="col-md-1 side"></div>
-                </div>
-    
+        gtag('config', 'UA-133442962-1');
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-1 side"></div>
+            <div class="col-md-10">
+
+                <img class="tngLogo" src="assets/images/Star-Trek-The-Next-Generation-1030x520.jpg" alt="Star Trek The Next Generation Logo">
+
             </div>
-           
-        </body>
-    </html>
+            <div class="col-md-1 side"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1 side"></div>
+            <div class="col-md-8">
+                <!-- <p>Computer's Guess: <span id="computersGuess"></span></p> -->
+                <p>Welcome to Star Trek Hangman</p>
+                <p>To start a game, press a letter key. This will be your first guess!</p>
+                <br>
+                <h1>Current Game: <span id="currentState"></span></h1>
+                <br>
+                <br>
+                <p>Letters Guessed: <span id="guessedByUser"></span></p>
+                <p>You have <span id="numberOfGuesses">6</span> guesses remaining</p>
+                <!-- <h2>Have you have won the game? <span id="gameStatus"></span></h2> -->
+                <p>You have guessed <span id="wordsGuessed">0</span> words correctly</p>
+                <p>The words you have guessed correctly are: <span id="correctWords">none!</span></p>
+
+            </div>
+            <div class="col-md-2">
+                <img class="img-fluid" id="pictureOfLastGuessed" src="assets/images/placeholder.png">
+            </div>
+            <div class="col-md-1 side"></div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
