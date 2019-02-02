@@ -2,84 +2,95 @@
 
 <html lang="en-us">
 
-  <head>
+<head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPS Firebase</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPS Firebase</title>
 
-    <!-- Our CSS style sheet -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <!-- Our CSS style sheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
 
-  <link rel="stylesheet"  href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  </head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133442962-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  <body>
+    gtag('config', 'UA-133442962-1');
+  </script>
 
-    <div class="container">
+</head>
 
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h1>Rock Paper Scissors multiplayer!</h1>
-          <input type="text" class="form-control" placeholder="Enter Your Name" class="input-field" class="input-field" id="playerName">
+<body>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h1>Rock Paper Scissors multiplayer!</h1>
+        <input type="text" class="form-control" placeholder="Enter Your Name" class="input-field" class="input-field"
+          id="playerName">
         <button type="submit" class="btn btn-primary" style="margin: 10px;" id="submitPlayer">Submit</button>
-        </div>
-        <div class="col-md-2"></div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-4">
+
+        <h3 id="player1Name">Player 1</h3>
+        <div id="player1" class="display"></div>
+        <p id"player1Record"></p>
       </div>
 
-      <div class="row">
-
-        <div class="col-md-4">
-
-          <h3 id="player1Name">Player 1</h3>
-          <div id="player1" class="display"></div>
-          <p id"player1Record"></p>  
-        </div>
-
-        <div class="col-md-4">
-            <h3>Results</h3>
-            <div id="results" class="display"></div>
-        </div>
-
-        <div class="col-md-4">
-            <h3 id="player2Name">Player 2</h3>
-            <div id="player2" class="display"></div>  
-            <p id"player2Record"></p>  
-
-        </div>
-
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-
-          
-          <input type="text" class="form-control" placeholder="Chat here!" class="input-field" class="input-field" id="chatSubmit">
-          <button type="submit" class="btn btn-primary" style="margin: 10px;" id="chatSubmitBtn">Chat Submit</button>
-
-          <div id="chatDisplay">
-
-          </div>
-
-        </div>
-        <div class="col-md-2"></div>
-          
-
-          
-
-
-        </div>
+      <div class="col-md-4">
+        <h3>Results</h3>
+        <div id="results" class="display"></div>
       </div>
-   </div>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-   <!--MomentJS-->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <!-- Script -->
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
 
-  </body>
+      <div class="col-md-4">
+        <h3 id="player2Name">Player 2</h3>
+        <div id="player2" class="display"></div>
+        <p id"player2Record"></p>
+
+      </div>
+
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+
+
+        <input type="text" class="form-control" placeholder="Chat here!" class="input-field" class="input-field" id="chatSubmit">
+        <button type="submit" class="btn btn-primary" style="margin: 10px;" id="chatSubmitBtn">Chat Submit</button>
+
+        <div id="chatDisplay">
+
+        </div>
+
+      </div>
+      <div class="col-md-2"></div>
+
+
+
+
+
+    </div>
+  </div>
+  </div>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--Firebase-->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+  <!--MomentJS-->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <!-- Script -->
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+</body>
 
 </html>

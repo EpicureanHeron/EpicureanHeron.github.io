@@ -1,42 +1,54 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-            <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-            <!--imports jQuery-->
-            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-            <!--Logic for word guess game-->
-            <script src="assets/javascript/game.js"></script>
-           
-        </head>
-        <body>
-            <div class ="main">
-                <h1>Click the player character to assign initiative</h1>
-               
-                <div id="fighterDisplay">
+<html>
 
-                    <div id="dinty" class="character chooseable" playerArrIndex="0"></div>
-                    <div id="dymby" class="character chooseable" playerArrIndex="1"></div>
-                    <div id="tarkus" class="character chooseable" playerArrIndex="2"></div>
-                    <div id="magthar" class="character chooseable" playerArrIndex="3"></div>
-                    <div id="sheldon" class="character chooseable" playerArrIndex="4"></div>
-                                  
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--imports jQuery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <!--Logic for word guess game-->
+    <script src="assets/javascript/game.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133442962-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-           <div class="group"></div>
+        gtag('config', 'UA-133442962-1');
+    </script>
 
-           <br>
-           <button id="sort">Sort by initiative</button>
-           
-           <button id="newEnemy">Create a new enemy</button>
-           
-           <button id="nextTurn">Next Turn</button>
-           <br>
+</head>
 
-          
-          
-           
-        </body>
-    </html>
+<body>
+    <div class="main">
+        <h1>Click the player character to assign initiative</h1>
+
+        <div id="fighterDisplay">
+
+            <div id="dinty" class="character chooseable" playerArrIndex="0"></div>
+            <div id="dymby" class="character chooseable" playerArrIndex="1"></div>
+            <div id="tarkus" class="character chooseable" playerArrIndex="2"></div>
+            <div id="magthar" class="character chooseable" playerArrIndex="3"></div>
+            <div id="sheldon" class="character chooseable" playerArrIndex="4"></div>
+
+        </div>
+
+        <div class="group"></div>
+
+        <br>
+        <button id="sort">Sort by initiative</button>
+
+        <button id="newEnemy">Create a new enemy</button>
+
+        <button id="nextTurn">Next Turn</button>
+        <br>
+
+
+
+
+</body>
+
+</html>

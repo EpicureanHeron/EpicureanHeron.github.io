@@ -1,69 +1,81 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>NYT Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133442962-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-133442962-1');
+    </script>
+
 </head>
+
 <body>
 
-	<div class="jumbotron jumbotron-fluid">
-		<div class="container">
-    	<h1 class="display-4">
-      	NYT Article Search
-      </h1>
-      
-      <p class="lead">
-      	API article search that will return results based on keywords.
-      
-      </p>
-    </div>
-              
-  </div>
-              
-  <div class="box1">
-  	<form>
-    	<div class="form-group">
-      	<label for="formGroupExampleInput">
-        	Search Term:
-        </label>
-        
-      <input type="text" class="form-control" id="search1" placeholder="" width: 50%;>
-    </div>
-    
-    <div class="form-group">
-    	<label for="formGroupExampleInput2">
-      	Number of Records to Retrieve:
-      </label>
-      
-    	<input type="text" class="form-control" id="search2" placeholder="">
-    </div>
-    
-    <div class="form-group">
-            <label for="formGroupExampleInput2">Start Year (Optional):</label>
-                        <input type="text" class="form-control" id="search3" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">End Year (Optional):</label>
-                        <input type="text" class="form-control" id="search4" placeholder="">
-                    </div>
-                  </form>
-                <button type="button" class="btn btn-primary btn-sm" id="search">Search</button>
-                <button type="button" class="btn btn-primary btn-sm" id="clear">Clear Results</button>
-                </div> 
-                
-                <br><br>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">
+                NYT Article Search
+            </h1>
 
-                <form>
-                    <div class="form-group box2">
-                        <label for="exampleFormControlTextarea1">Article Results</label>
-                        <div id="results" ></div>
-                    </div>
-                </form>
+            <p class="lead">
+                API article search that will return results based on keywords.
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
-<script src="assets/js/app.js"></script>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="box1">
+        <form>
+            <div class="form-group">
+                <label for="formGroupExampleInput">
+                    Search Term:
+                </label>
+
+                <input type="text" class="form-control" id="search1" placeholder="" width: 50%;>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput2">
+                    Number of Records to Retrieve:
+                </label>
+
+                <input type="text" class="form-control" id="search2" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Start Year (Optional):</label>
+                <input type="text" class="form-control" id="search3" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">End Year (Optional):</label>
+                <input type="text" class="form-control" id="search4" placeholder="">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary btn-sm" id="search">Search</button>
+        <button type="button" class="btn btn-primary btn-sm" id="clear">Clear Results</button>
+    </div>
+
+    <br><br>
+
+    <form>
+        <div class="form-group box2">
+            <label for="exampleFormControlTextarea1">Article Results</label>
+            <div id="results"></div>
+        </div>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
+
 </html>
