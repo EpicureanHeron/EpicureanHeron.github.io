@@ -20,6 +20,16 @@
             padding-top: 10px;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133442962-10"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-133442962-10');
+    </script>
+
     <script>
         $(document).ready(function () {
             $('body').on('click', '#submitBtn', function () {
@@ -74,8 +84,8 @@
                     function (data) {
 
                         // data being sent back IS the updated friends array 
-               
-                        
+
+
                         $("#friendName").html("Your new friend is " + data.name)
                         var newImg = $("<img>")
                         newImg.attr("src", data.photo)
@@ -86,7 +96,7 @@
                     });
 
             })
-        
+
             $('body').on('click', '.modalClose', function () {
                 window.location.href = "/survey";
             })
@@ -325,7 +335,8 @@
                         </div>
                     </div>
                     <div class="question">
-                        <h4>9. You think that everyone’s views should be respected regardless of whether they are supported by
+                        <h4>9. You think that everyone’s views should be respected regardless of whether they are
+                            supported by
                             facts or not.
                         </h4>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="q9">
